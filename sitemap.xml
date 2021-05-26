@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.bearchild.top/about/index.html</loc>
+    
+    <lastmod>2021-05-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.bearchild.top/2021/05/21/Github+Hexo%E5%BB%BA%E7%AB%99%E8%AE%B0%E5%BD%95/</loc>
+    
+    <lastmod>2021-05-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.bearchild.top/2021/05/21/hello-world/</loc>
+    
+    <lastmod>2021-05-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.bearchild.top/2021/05/21/blogname/</loc>
+    
+    <lastmod>2021-05-26</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.bearchild.top/link/index.html</loc>
     
     <lastmod>2021-05-24</lastmod>
@@ -23,21 +51,7 @@
   </url>
   
   <url>
-    <loc>https://www.bearchild.top/2021/05/21/blogname/</loc>
-    
-    <lastmod>2021-05-21</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.bearchild.top/2021/05/22/test/</loc>
-    
-    <lastmod>2021-05-20</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.bearchild.top/2021/05/22/hello-world/</loc>
     
     <lastmod>2021-05-20</lastmod>
     
@@ -52,6 +66,41 @@
   </url>
 
   
+  <url>
+    <loc>https://www.bearchild.top/tags/%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2021-05-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.bearchild.top/tags/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2021-05-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.bearchild.top/tags/hello/</loc>
+    <lastmod>2021-05-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
+  
+  <url>
+    <loc>https://www.bearchild.top/categories/%E5%85%B6%E5%AE%83%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2021-05-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.bearchild.top/categories/%E5%85%B6%E5%AE%83%E6%8A%80%E6%9C%AF/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2021-05-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
   
 </urlset>
