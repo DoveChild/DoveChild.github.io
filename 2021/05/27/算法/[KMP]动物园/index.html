@@ -1,0 +1,248 @@
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>[KMP]动物园 | BearChild's Blog</title><meta name="keywords" content="KMP"><meta name="author" content="BearChild"><meta name="copyright" content="BearChild"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="动物园 Time Limit: 10 Sec Memory Limit: 512 MB Description 近日，园长发现动物园中好吃懒做的动物越来越多了。例如企鹅，只会卖萌向游客要吃的。为了整治动物园的不良风气，让动物们凭自己的真才实学向游客要吃的，园长决定开设算法班，让动物们学习算法。 　　某天，园长给动物们讲解KMP算法。 　　园长：“对于一个字符串S，它的长度为L。我们可以在O(L)的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[KMP]动物园">
+<meta property="og:url" content="https://www.bearchild.top/2021/05/27/%E7%AE%97%E6%B3%95/[KMP]%E5%8A%A8%E7%89%A9%E5%9B%AD/index.html">
+<meta property="og:site_name" content="BearChild&#39;s Blog">
+<meta property="og:description" content="动物园 Time Limit: 10 Sec Memory Limit: 512 MB Description 近日，园长发现动物园中好吃懒做的动物越来越多了。例如企鹅，只会卖萌向游客要吃的。为了整治动物园的不良风气，让动物们凭自己的真才实学向游客要吃的，园长决定开设算法班，让动物们学习算法。 　　某天，园长给动物们讲解KMP算法。 　　园长：“对于一个字符串S，它的长度为L。我们可以在O(L)的">
+<meta property="og:locale">
+<meta property="og:image" content="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/algorithm.jpg">
+<meta property="article:published_time" content="2021-05-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-05-27T11:26:36.513Z">
+<meta property="article:author" content="BearChild">
+<meta property="article:tag" content="KMP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/algorithm.jpg"><link rel="shortcut icon" href="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/%E6%BB%91%E7%A8%BD.jpg"><link rel="canonical" href="https://www.bearchild.top/2021/05/27/%E7%AE%97%E6%B3%95/[KMP]%E5%8A%A8%E7%89%A9%E5%9B%AD/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '[KMP]动物园',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-05-27 19:26:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/decoration/background.css"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="BearChild's Blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/%E6%BB%91%E7%A8%BD.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">159</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">57</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-gamepad"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/algorithm.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">BearChild's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-gamepad"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">[KMP]动物园</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-05-26T16:00:00.000Z" title="Created 2021-05-27 00:00:00">2021-05-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-05-27T11:26:36.513Z" title="Updated 2021-05-27 19:26:36">2021-05-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="[KMP]动物园"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>动物园</h1>
+<p>Time Limit: 10 Sec Memory Limit: 512 MB</p>
+<h2 id="Description">Description</h2>
+<p>近日，园长发现动物园中好吃懒做的动物越来越多了。例如企鹅，只会卖萌向游客要吃的。为了整治动物园的不良风气，让动物们凭自己的真才实学向游客要吃的，园长决定开设算法班，让动物们学习算法。<br>
+　　某天，园长给动物们讲解KMP算法。<br>
+　　园长：“对于一个字符串S，它的长度为L。我们可以在O(L)的时间内，求出一个名为next的数组。有谁预习了next数组的含义吗？”<br>
+　　熊猫：“对于字符串S的前i个字符构成的子串，既是它的后缀又是它的前缀的字符串中（它本身除外），最长的长度记作next[i]。”<br>
+　　园长：“非常好！那你能举个例子吗？”<br>
+　　熊猫：“例S为abcababc，则next[5]=2。因为S的前5个字符为abcab，ab既是它的后缀又是它的前缀，并且找不到一个更长的字符串满足这个性质。同理，还可得出next[1] = next[2] = next[3] = 0，next[4] = next[6] = 1，next[7] = 2，next[8] = 3。”<br>
+　　园长表扬了认真预习的熊猫同学。随后，他详细讲解了如何在O(L)的时间内求出next数组。<br>
+　　下课前，园长提出了一个问题：“KMP算法只能求出next数组。我现在希望求出一个更强大num数组一一对于字符串S的前i个字符构成的子串，既是它的后缀同时又是它的前缀，并且该后缀与该前缀不重叠，将这种字符串的数量记作num[i]。例如S为aaaaa，则num[4] =  2。这是因为S的前4个字符为aaaa，其中a和aa都满足性质‘既是后缀又是前缀’，同时保证这个后缀与这个前缀不重叠。而aaa虽然满足性质‘既是后缀又是前缀’，但遗憾的是这个后缀与这个前缀重叠了，所以不能计算在内。同理，num[1] = 0,num[2] = num[3] = 1,num[5] = 2。”<br>
+　　最后，园长给出了奖励条件，第一个做对的同学奖励巧克力一盒。听了这句话，睡了一节课的企鹅立刻就醒过来了！但企鹅并不会做这道题，于是向参观动物园的你寻求帮助。你能否帮助企鹅写一个程序求出num数组呢？<br>
+　　特别地，为了避免大量的输出，你不需要输出num[i]分别是多少，你只需要输出<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/20210527192609.png" alt="img">对1,000,000,007取模的结果即可。</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/20210527192611.png" alt="img"></p>
+<h2 id="Input">Input</h2>
+<p>第1行仅包含一个正整数n ，表示测试数据的组数。随后n行，每行描述一组测试数据。每组测试数据仅含有一个字符串S，S的定义详见题目描述。数据保证S 中仅含小写字母。输入文件中不会包含多余的空行，行末不会存在多余的空格。</p>
+<h2 id="Output">Output</h2>
+<p>包含 n 行，每行描述一组测试数据的答案，答案的顺序应与输入数据的顺序保持一致。对于每组测试数据，仅需要输出一个整数，表示这组测试数据的答案对 1,000,000,007 取模的结果。输出文件中不应包含多余的空行。</p>
+<h2 id="Sample-Input">Sample Input</h2>
+<p>3<br>
+　aaaaa<br>
+　ab<br>
+　abcababc</p>
+<h2 id="Sample-Output">Sample Output</h2>
+<p>36<br>
+　1<br>
+　32</p>
+<h2 id="HINT">HINT</h2>
+<p>n≤5 , L≤1,000,000</p>
+<h2 id="Main-idea">Main idea</h2>
+<p>定义一种前缀，这个前缀和后缀一样并且没有交集，num[i]为前i位有多少个这样的前缀，求题目中的式子。</p>
+<h2 id="Solution">Solution</h2>
+<p>看到这道题，我们一眼想到了从KMP的角度开始考虑。</p>
+<p>然后我们想到了怎么暴力，显然就是把 fail[i]-&gt;i ，然后对于每个 i 的 num[i] ，一步步往上跳直到符合条件位置，那个位置的dep也就是num[i]。</p>
+<p>我们想想这个过程优化吗？答案显然是可以的！我们运用倍增。</p>
+<p>怎么倍增呢？直接从小到大枚举，可行就跳不一定最优。那么我们<strong>逆向思维</strong>，这么来想：一个点往上跳，跳到的<strong>最上面的不可行的位置</strong>的<strong>上一个</strong>显然就是<strong>最下面的可行的位置</strong>，那么我们可以从大到小枚举然后不合法的话往上跳，最后再跳一步即可。</p>
+<p>由于这是带log的做法，我们要<strong>卡卡常</strong>，这里有一个<strong>小技巧：把数组最右边的那一维连续的话访问效率更高</strong>。</p>
+<h2 id="Code">Code</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> s64;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ONE=<span class="number">1000005</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MOD=<span class="number">1000000007</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> T;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">char</span> a[ONE];</span><br><span class="line"><span class="keyword">int</span> fail[ONE];</span><br><span class="line"><span class="keyword">int</span> LOG[ONE],f[<span class="number">21</span>][ONE],Dep[ONE];</span><br><span class="line"><span class="keyword">int</span> Ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res=<span class="number">1</span>,Q=<span class="number">1</span>;<span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">while</span>( (c=<span class="built_in">getchar</span>())&lt;<span class="number">48</span> || c&gt;<span class="number">57</span> )</span><br><span class="line">        <span class="keyword">if</span>(c==<span class="string">&#x27;-&#x27;</span>)Q=<span class="number">-1</span>;</span><br><span class="line">    res=c<span class="number">-48</span>;</span><br><span class="line">    <span class="keyword">while</span>( (c=<span class="built_in">getchar</span>())&gt;=<span class="number">48</span> &amp;&amp; c&lt;=<span class="number">57</span> )</span><br><span class="line">        res=res*<span class="number">10</span>+c<span class="number">-48</span>;</span><br><span class="line">    <span class="keyword">return</span> res*Q;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Deal_KMP</span><span class="params">(<span class="keyword">char</span> a[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">    Dep[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(a[j+<span class="number">1</span>] != a[i] &amp;&amp; j) j=fail[j];</span><br><span class="line">        <span class="keyword">if</span>(a[j+<span class="number">1</span>] == a[i]) j++;</span><br><span class="line">        fail[i] = j;</span><br><span class="line">        f[<span class="number">0</span>][i] = j;  Dep[i] = Dep[j]+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> u=<span class="number">1</span>;u&lt;=n;u++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=LOG[Dep[u]];i++)</span><br><span class="line">            f[i+<span class="number">1</span>][u] = f[i][f[i][u]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Deal_Ans</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> Limit)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=LOG[Dep[x]];i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">        <span class="keyword">if</span>(f[i][x] &gt; Limit) x = f[i][x];</span><br><span class="line">    <span class="keyword">return</span> Dep[f[<span class="number">0</span>][x]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    T=<span class="built_in">get</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=ONE<span class="number">-1</span>;i++) LOG[i]=LOG[i&gt;&gt;<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(T--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,a+<span class="number">1</span>);    n=<span class="built_in">strlen</span>(a+<span class="number">1</span>);</span><br><span class="line">        <span class="built_in">Deal_KMP</span>(a);        <span class="built_in">Dfs</span>();</span><br><span class="line"></span><br><span class="line">        Ans=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            Ans = (s64)Ans * ( <span class="built_in">Deal_Ans</span>(i,i&gt;&gt;<span class="number">1</span>)+<span class="number">1</span> ) % MOD;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,Ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">BearChild</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://www.bearchild.top/2021/05/27/%E7%AE%97%E6%B3%95/[KMP]%E5%8A%A8%E7%89%A9%E5%9B%AD/">https://www.bearchild.top/2021/05/27/%E7%AE%97%E6%B3%95/[KMP]%E5%8A%A8%E7%89%A9%E5%9B%AD/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/KMP/">KMP</a></div><div class="post_share"><div class="social-share" data-image="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/algorithm.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/05/27/%E7%AE%97%E6%B3%95/%5BKMP%5DCensoring/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/algorithm.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">[KMP]Censoring</div></div></a></div><div class="next-post pull-right"><a href="/2021/05/27/%E7%AE%97%E6%B3%95/%5BKMP%5D%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/algorithm.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">[KMP]字符串匹配</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/05/27/算法/[KMP]Censoring/" title="[KMP]Censoring"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/algorithm.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-27</div><div class="title">[KMP]Censoring</div></div></a></div><div><a href="/2021/05/27/算法/[KMP]字符串匹配/" title="[KMP]字符串匹配"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/algorithm.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-27</div><div class="title">[KMP]字符串匹配</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/%E6%BB%91%E7%A8%BD.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">BearChild</div><div class="author-info__description">前路浩荡，未来可期！</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">159</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">57</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://qm.qq.com/cgi-bin/qm/qr?k=ULZEQtGq1dv7fjaZmZjv4aKPdTOlaU1u&amp;noverify=0" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://github.com/DoveChild" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://www.zhihu.com/people/bearchild-91" target="_blank" title="知乎"><i class="fab fa-zhihu"></i></a><a class="social-icon" href="mailto:423339833@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Welcome, - v - QQ：423339833</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">动物园</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Input"><span class="toc-number">1.2.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Output"><span class="toc-number">1.3.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample-Input"><span class="toc-number">1.4.</span> <span class="toc-text">Sample Input</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sample-Output"><span class="toc-number">1.5.</span> <span class="toc-text">Sample Output</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HINT"><span class="toc-number">1.6.</span> <span class="toc-text">HINT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Main-idea"><span class="toc-number">1.7.</span> <span class="toc-text">Main idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">1.8.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">1.9.</span> <span class="toc-text">Code</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/05/27/%E7%AE%97%E6%B3%95/%5BAstar%E6%90%9C%E7%B4%A2%5D%E7%89%9B%E8%B7%91%E6%AD%A5/" title="[Astar搜索]牛跑步"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/algorithm.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Astar搜索]牛跑步"/></a><div class="content"><a class="title" href="/2021/05/27/%E7%AE%97%E6%B3%95/%5BAstar%E6%90%9C%E7%B4%A2%5D%E7%89%9B%E8%B7%91%E6%AD%A5/" title="[Astar搜索]牛跑步">[Astar搜索]牛跑步</a><time datetime="2021-05-26T16:00:00.000Z" title="Created 2021-05-27 00:00:00">2021-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/27/%E7%AE%97%E6%B3%95/%5BAstar%E6%90%9C%E7%B4%A2%5D%E9%AD%94%E6%B3%95%E7%8C%AA%E5%AD%A6%E9%99%A2/" title="[Astar搜索]魔法猪学院"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/algorithm.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Astar搜索]魔法猪学院"/></a><div class="content"><a class="title" href="/2021/05/27/%E7%AE%97%E6%B3%95/%5BAstar%E6%90%9C%E7%B4%A2%5D%E9%AD%94%E6%B3%95%E7%8C%AA%E5%AD%A6%E9%99%A2/" title="[Astar搜索]魔法猪学院">[Astar搜索]魔法猪学院</a><time datetime="2021-05-26T16:00:00.000Z" title="Created 2021-05-27 00:00:00">2021-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/05/27/%E7%AE%97%E6%B3%95/%5BAstar%E6%90%9C%E7%B4%A2%5D%E9%AA%91%E5%A3%AB%E7%B2%BE%E7%A5%9E/" title="[Astar搜索]骑士精神"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/algorithm.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Astar搜索]骑士精神"/></a><div class="content"><a class="title" href="/2021/05/27/%E7%AE%97%E6%B3%95/%5BAstar%E6%90%9C%E7%B4%A2%5D%E9%AA%91%E5%A3%AB%E7%B2%BE%E7%A5%9E/" title="[Astar搜索]骑士精神">[Astar搜索]骑士精神</a><time datetime="2021-05-26T16:00:00.000Z" title="Created 2021-05-27 00:00:00">2021-05-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', '', 'katex-wrap')
+  })
+})()</script><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'bearchild-4gzibvou1823d852',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'bearchild-4gzibvou1823d852',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="/decoration/background.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
