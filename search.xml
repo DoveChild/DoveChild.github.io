@@ -15,11 +15,11 @@
 <h2 id="使用-Butterfly-主题无法显示">使用 Butterfly 主题无法显示</h2>
 <p>错误显示：</p>
 <blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">extends includes/layout.pug block content #recent-posts.recent-posts include includes/recent-posts.pug include includes/pagination.pug </span><br></pre></td></tr></table></figure>
+<p>extends includes/layout.pug block content #recent-posts.recent-posts include includes/recent-posts.pug include includes/pagination.pug</p>
 </blockquote>
 <p>需要在hexo目录下输入命令：</p>
 <blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-renderer-jade hexo-generator-feed hexo-generator-sitemap hexo-browsersync hexo-generator-archive</span><br></pre></td></tr></table></figure>
+<p>npm install --save hexo-renderer-jade hexo-generator-feed hexo-generator-sitemap hexo-browsersync hexo-generator-archive</p>
 </blockquote>
 <h1>DEBUG注意事项</h1>
 <p>记得清理缓存，F12 → Network → Disable cache</p>
