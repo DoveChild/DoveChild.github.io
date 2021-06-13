@@ -46,6 +46,31 @@
   </entry>
   
   <entry>
+    <title>Github+Hexo建站记录</title>
+    <link href="https://www.bearchild.top/2021/05/28/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/Github+Hexo%E5%BB%BA%E7%AB%99%E8%AE%B0%E5%BD%95/"/>
+    <id>https://www.bearchild.top/2021/05/28/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/Github+Hexo%E5%BB%BA%E7%AB%99%E8%AE%B0%E5%BD%95/</id>
+    <published>2021-05-27T16:00:00.000Z</published>
+    <updated>2021-06-13T02:35:36.492Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Hexo-建站">Hexo 建站</h2><p><a href="https://blog.csdn.net/qq_42579187/article/details/104760516">https://blog.csdn.net/qq_42579187/article/details/104760516</a></p><p><a href="https://www.jianshu.com/p/189fd945f38f">https://www.jianshu.com/p/189fd945f38f</a></p><h2 id="换电脑重新部署">换电脑重新部署</h2><p><a href="https://www.jianshu.com/p/906294181814">https://www.jianshu.com/p/906294181814</a></p><h2 id="主题">主题</h2><p><a href="https://github.com/jerryc127/hexo-theme-butterfly">https://github.com/jerryc127/hexo-theme-butterfly</a></p><p>文档：<a href="https://butterfly.js.org/">https://butterfly.js.org/</a></p><p><a href="https://www.cnblogs.com/ldu-xingjiahui/p/12594024.html">https://www.cnblogs.com/ldu-xingjiahui/p/12594024.html</a></p><h2 id="使用-Butterfly-主题无法显示">使用 Butterfly 主题无法显示</h2><p>错误显示：</p><blockquote><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extends includes/layout.pug block content #recent-posts.recent-posts include includes/recent-posts.pug include includes/pagination.pug </span><br></pre></td></tr></table></figure></blockquote><p>需要在hexo目录下输入命令：</p><blockquote><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-renderer-jade hexo-generator-feed hexo-generator-sitemap hexo-browsersync hexo-generator-archive</span><br></pre></td></tr></table></figure></blockquote><h1>DEBUG注意事项</h1><p>记得清理缓存，F12 → Network → Disable cache</p><h2 id="修改文字">修改文字</h2><p>在 default.yml 中修改标签文字等</p><h2 id="页面美化">页面美化</h2><p><a href="https://www.antmoe.com/posts/a811d614/">https://www.antmoe.com/posts/a811d614/</a></p><p><a href="https://blog.csdn.net/u012208219/article/details/106883001/">https://blog.csdn.net/u012208219/article/details/106883001/</a></p><h2 id="侧边栏添加访客地图">侧边栏添加访客地图</h2><p><a href="https://blog.csdn.net/cungudafa/article/details/105925710">https://blog.csdn.net/cungudafa/article/details/105925710</a></p><p>使用时候修改主题的  _config.yml</p><blockquote><p>番剧: /bangumis/ || fab fa-youtube</p></blockquote><h2 id="B站追番列表">B站追番列表</h2><p><a href="https://imszz.com/p/8422e92e/">https://imszz.com/p/8422e92e/</a></p><h2 id="评论系统">评论系统</h2><p><a href="https://blog.zhheo.com/p/2e6bbbd0.html">https://blog.zhheo.com/p/2e6bbbd0.html</a></p><h2 id="百度-谷歌-SEO">百度/谷歌 SEO</h2><p><a href="https://blog.csdn.net/qq_32623363/article/details/100532463">https://blog.csdn.net/qq_32623363/article/details/100532463</a></p><h2 id="标签云">标签云</h2><p><a href="https://blog.csdn.net/SmalOSnail/article/details/105258820">https://blog.csdn.net/SmalOSnail/article/details/105258820</a></p><h2 id="Markdown-笔记">Markdown 笔记</h2><p>使用 PicGo+腾讯云COS：<a href="https://www.pianshen.com/article/19421261808/">https://www.pianshen.com/article/19421261808/</a></p><p>Typora上传失败：<a href="https://blog.csdn.net/qq754772661/article/details/111385955">https://blog.csdn.net/qq754772661/article/details/111385955</a></p><p>从网络上上传图片，应该先保存到本地。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Hexo-建站&quot;&gt;Hexo 建站&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_42579187/article/details/104760516&quot;&gt;https://blog.csdn.net/qq_42579187/art</summary>
+      
+    
+    
+    
+    <category term="网站开发" scheme="https://www.bearchild.top/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="网站开发" scheme="https://www.bearchild.top/tags/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>[Astar搜索]牛跑步</title>
     <link href="https://www.bearchild.top/2021/05/27/%E7%AE%97%E6%B3%95%E9%A2%98/[Astar%E6%90%9C%E7%B4%A2]%E7%89%9B%E8%B7%91%E6%AD%A5/"/>
     <id>https://www.bearchild.top/2021/05/27/%E7%AE%97%E6%B3%95%E9%A2%98/[Astar%E6%90%9C%E7%B4%A2]%E7%89%9B%E8%B7%91%E6%AD%A5/</id>
@@ -571,35 +596,6 @@
 &lt;p&gt;Time Limit: 10 Sec Memory Limit: 128 MB&lt;/p&gt;
 &lt;h2 id=&quot;Description&quot;&gt;Description&lt;/h2&gt;
 &lt;p&gt;定义一个（大写字母）字符串集合{S},初始时值包含一个给定的字符串S1，每次</summary>
-      
-    
-    
-    
-    <category term="算法" scheme="https://www.bearchild.top/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="DP" scheme="https://www.bearchild.top/categories/%E7%AE%97%E6%B3%95/DP/"/>
-    
-    
-    <category term="DP" scheme="https://www.bearchild.top/tags/DP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[DP]太空猫</title>
-    <link href="https://www.bearchild.top/2021/05/27/%E7%AE%97%E6%B3%95%E9%A2%98/[DP]%E5%A4%AA%E7%A9%BA%E7%8C%AB/"/>
-    <id>https://www.bearchild.top/2021/05/27/%E7%AE%97%E6%B3%95%E9%A2%98/[DP]%E5%A4%AA%E7%A9%BA%E7%8C%AB/</id>
-    <published>2021-05-26T16:00:00.000Z</published>
-    <updated>2021-05-27T16:37:08.385Z</updated>
-    
-    <content type="html"><![CDATA[<h1>太空猫</h1><p>Time Limit: 1 Sec Memory Limit: 256 MB</p><h2 id="Description">Description</h2><p>太空猫(SpaceCat)是一款画面精致、玩法有趣的休闲游戏，你需要控制一只坐在迷你飞碟上的猫咪在太空里不断探索，让大家看看你能飞得多远。<br>　　游戏地图可以看成一个二维的网格图，上下是两段障碍物。<br>　　在游戏的一开始，太空猫位于地图最左边的下边界之上，且重力方向向下。<br>　　在每个时刻，你可以用手指点击屏幕，翻转重力的方向，或者通过遥感控制太空猫往左或往右移动。<br>　　每次翻转重力方向时，你需要消耗的能量值等于上下底边之间的高度差。<br>　　在左右移动的时候，太空猫可以下降到对应重力方向更低的位置，但不能往上爬。<br>　　当然，太空猫也不能穿墙而过。在重力翻转的过程中，直到碰到地面之前，你都不能操控太空猫左右移动。<br>　　太空猫的终点位于地图的最右端的下底边之上，请计算为了让太空猫到达终点，需要消耗能量的最小值。</p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/20210528003652.png" alt="img"></p><h2 id="Input">Input</h2><p>第一行包含一个正整数n，即地图的宽度。</p><p>第二行包含n个正整数c_1,c_2,…,c_n，分别表示每个横坐标对应的上边界的高度。</p><p>第三行包含n个正整数f_1,f_2,…,f_n，分别表示每个横坐标对应的下边界的高度。</p><h2 id="Output">Output</h2><p>输出一行一个整数，即最少的能量，若无法到达终点，请输出“-1”。</p><h2 id="Sample-Input">Sample Input</h2><p>4<br>　3 4 3 2<br>　1 2 1 1</p><h2 id="Sample-Output">Sample Output</h2><p>4</p><h2 id="HINT">HINT</h2><p>1&lt;=n&lt;=100000, 2&lt;=c_i&lt;=10^9, 1&lt;=f_i&lt;c_i</p><h2 id="Solution">Solution</h2><p>很简单的DP，我们令 <strong>f[i][0/1]表示 到达第 i 个位置，重力方向为 向上/向下 的最小花费</strong>。</p><p>然后转移显然，可以参考程序。</p><h2 id="Code">Code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> s64;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ONE = <span class="number">1000001</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> a[ONE],b[ONE];</span><br><span class="line">s64 f[ONE][<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> s64 <span class="title">get</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    s64 res=<span class="number">1</span>,Q=<span class="number">1</span>;  <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">while</span>( (c=<span class="built_in">getchar</span>())&lt;<span class="number">48</span> || c&gt;<span class="number">57</span>)</span><br><span class="line">        <span class="keyword">if</span>(c==<span class="string">&#x27;-&#x27;</span>)Q=<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span>(Q) res=c<span class="number">-48</span>;</span><br><span class="line">    <span class="keyword">while</span>((c=<span class="built_in">getchar</span>())&gt;=<span class="number">48</span> &amp;&amp; c&lt;=<span class="number">57</span>)</span><br><span class="line">        res=res*<span class="number">10</span>+c<span class="number">-48</span>;</span><br><span class="line">    <span class="keyword">return</span> res*Q;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    n=<span class="built_in">get</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) a[i]=<span class="built_in">get</span>(), f[i][<span class="number">0</span>]=<span class="number">1e18</span>L;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) b[i]=<span class="built_in">get</span>(), f[i][<span class="number">1</span>]=<span class="number">1e18</span>L;</span><br><span class="line"></span><br><span class="line">    f[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">0</span>;    f[<span class="number">1</span>][<span class="number">1</span>] = a[<span class="number">1</span>]-b[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i<span class="number">-1</span>] &lt;= a[i]) f[i][<span class="number">1</span>] = f[i<span class="number">-1</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(b[i<span class="number">-1</span>] &gt;= b[i]) f[i][<span class="number">0</span>] = f[i<span class="number">-1</span>][<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(a[i<span class="number">-1</span>] &lt;= b[i] || b[i<span class="number">-1</span>] &gt;= a[i]) &#123;<span class="built_in">printf</span>(<span class="string">&quot;-1&quot;</span>); <span class="built_in">exit</span>(<span class="number">0</span>);&#125;</span><br><span class="line"></span><br><span class="line">        f[i][<span class="number">0</span>] = <span class="built_in">min</span>(f[i][<span class="number">0</span>], f[i][<span class="number">1</span>] + a[i]-b[i]);</span><br><span class="line">        f[i][<span class="number">1</span>] = <span class="built_in">min</span>(f[i][<span class="number">1</span>], f[i][<span class="number">0</span>] + a[i]-b[i]);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,f[n][<span class="number">0</span>]==<span class="number">1e18</span> ? <span class="number">-1</span>:f[n][<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;太空猫&lt;/h1&gt;
-&lt;p&gt;Time Limit: 1 Sec Memory Limit: 256 MB&lt;/p&gt;
-&lt;h2 id=&quot;Description&quot;&gt;Description&lt;/h2&gt;
-&lt;p&gt;太空猫(SpaceCat)是一款画面精致、玩法有趣的休闲游戏，你需要控制一只坐在</summary>
       
     
     
