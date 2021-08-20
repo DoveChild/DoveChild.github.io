@@ -146,7 +146,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
       </tags>
   </entry>
   <entry>
-    <title>[Astar搜索]牛跑步</title>
+    <title>[A*搜索]牛跑步</title>
     <url>/2021/05/27/%E7%AE%97%E6%B3%95%E9%A2%98/%5BAstar%E6%90%9C%E7%B4%A2%5D%E7%89%9B%E8%B7%91%E6%AD%A5/</url>
     <content><![CDATA[<h1>牛跑步</h1>
 <p>Time Limit: 10 Sec Memory Limit: 162 MB</p>
@@ -197,11 +197,11 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
         <category>其它</category>
       </categories>
       <tags>
-        <tag>Astar搜索</tag>
+        <tag>A*搜索</tag>
       </tags>
   </entry>
   <entry>
-    <title>[Astar搜索]骑士精神</title>
+    <title>[A*搜索]骑士精神</title>
     <url>/2021/05/27/%E7%AE%97%E6%B3%95%E9%A2%98/%5BAstar%E6%90%9C%E7%B4%A2%5D%E9%AA%91%E5%A3%AB%E7%B2%BE%E7%A5%9E/</url>
     <content><![CDATA[<h1>骑士精神</h1>
 <p>Time Limit: 10 Sec Memory Limit: 162 MB</p>
@@ -241,11 +241,11 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
         <category>其它</category>
       </categories>
       <tags>
-        <tag>Astar搜索</tag>
+        <tag>A*搜索</tag>
       </tags>
   </entry>
   <entry>
-    <title>[Astar搜索]魔法猪学院</title>
+    <title>[A*搜索]魔法猪学院</title>
     <url>/2021/05/27/%E7%AE%97%E6%B3%95%E9%A2%98/%5BAstar%E6%90%9C%E7%B4%A2%5D%E9%AD%94%E6%B3%95%E7%8C%AA%E5%AD%A6%E9%99%A2/</url>
     <content><![CDATA[<h1>魔法猪学院</h1>
 <p>Time Limit: 10 Sec Memory Limit: 64 MB</p>
@@ -291,7 +291,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
         <category>其它</category>
       </categories>
       <tags>
-        <tag>Astar搜索</tag>
+        <tag>A*搜索</tag>
       </tags>
   </entry>
   <entry>
@@ -7442,14 +7442,15 @@ A君想知道：最终他能打开所有盒子的概率是多少，请你帮助�
       </tags>
   </entry>
   <entry>
-    <title>[UE4]知识总结</title>
+    <title>知识总结</title>
     <url>/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/UE4/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BUE4%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1>知识总结</h1>
 <h2 id="背景">背景</h2>
 <p>近来开始接触 UE4，其中的知识复杂且零散。</p>
 <p>在学习的过程中，运用到了看到了很多有用的文章，但是网络上的文章有时也过于冗杂，往往看了几篇仍不知所云。</p>
 <p>由于这种问题的存在，笔者便把学习某些模块时，确切用到的文章记录了下来。</p>
-<h2 id="JSON">JSON</h2>
+<h2 id="序列化">序列化</h2>
+<h3 id="JSON">JSON</h3>
 <p>[UE4 C++入门到进阶]10.Json数据读写：<a href="https://www.bilibili.com/read/cv10071665">https://www.bilibili.com/read/cv10071665</a></p>
 <p>虚幻4之JSON学习：<a href="https://sanctorum003.github.io/2019/08/07/CG/UE4/JSON/">https://sanctorum003.github.io/2019/08/07/CG/UE4/JSON/</a></p>
 <p>反序列化方法：<a href="https://zhuanlan.zhihu.com/p/74720067">https://zhuanlan.zhihu.com/p/74720067</a></p>
@@ -7468,11 +7469,27 @@ A君想知道：最终他能打开所有盒子的概率是多少，请你帮助�
 <p>How to construct UMG widget in C++?：<a href="https://answers.unrealengine.com/questions/561607/view.html">https://answers.unrealengine.com/questions/561607/view.html</a></p>
 <p><a href="https://gist.github.com/SalahAdDin/b3814f109d340f1e0f5dcac6e623b8ce">https://gist.github.com/SalahAdDin/b3814f109d340f1e0f5dcac6e623b8ce</a></p>
 <p>参考源码：<code>WidgetBlueprintFactory</code></p>
+<h2 id="网络">网络</h2>
+<p>UE4网络底层概览：<a href="https://blog.ch-wind.com/ue4-network-overview/">https://blog.ch-wind.com/ue4-network-overview/</a></p>
+<p>《Exploring in UE4》网络同步原理深入（上）[原理分析]：<a href="https://zhuanlan.zhihu.com/p/34723199">https://zhuanlan.zhihu.com/p/34723199</a></p>
+<p>参考源码：<code>NetDriver.h</code>、<code>IpNetDriver.h</code>、<code>NetworkDriver.cpp</code>、<code>OnlineSybsystemUtils.h</code></p>
+<h2 id="Gameplay">Gameplay</h2>
+<h3 id="寻路">寻路</h3>
+<p>堪称最好的 A* 算法：<a href="https://blog.csdn.net/b2b160/article/details/4057781">https://blog.csdn.net/b2b160/article/details/4057781</a></p>
+<p>路径规划之 A* 算法：<a href="https://zhuanlan.zhihu.com/p/54510444">https://zhuanlan.zhihu.com/p/54510444</a></p>
+<p>[译]寻路优化：<a href="https://blog.csdn.net/tkokof1/article/details/111297299">https://blog.csdn.net/tkokof1/article/details/111297299</a></p>
+<blockquote>
+<p>A* 的估价：设起点为 S、终点为 T，可以选择 D0 * ManhattanDist(S, T) + D1 * abs( Cross(Se, Te) )</p>
+<p>其中 D0 = 2，D1 = 0.001</p>
+</blockquote>
+<p>UE4 的导航使用 RecastDetour 组件，主要支持 3D 场景的导航网格导出和寻路，也就是 NavMesh：<a href="https://github.com/recastnavigation/recastnavigation">https://github.com/recastnavigation/recastnavigation</a></p>
+<p>UE4 Navmesh寻路：<a href="https://zhuanlan.zhihu.com/p/74537236">https://zhuanlan.zhihu.com/p/74537236</a></p>
 <h2 id="插件开发">插件开发</h2>
 <h3 id="插件基础知识">插件基础知识</h3>
 <p>插件与模块：<a href="https://zhuanlan.zhihu.com/p/121152396">https://zhuanlan.zhihu.com/p/121152396</a></p>
 <p>UE4编辑器如何生成和共享插件：<a href="https://cloud.tencent.com/developer/article/1699614">https://cloud.tencent.com/developer/article/1699614</a></p>
 <p>[UE4]无插件源码编译和打包工程：为多个有依赖关系的plugin生成预编译的链接库：<a href="https://zhuanlan.zhihu.com/p/115292711">https://zhuanlan.zhihu.com/p/115292711</a></p>
+<p>How to Make Tools in UE4：<a href="https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html">https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html</a></p>
 <h3 id="Config-系统">Config 系统</h3>
 <p>UE4 中 Config 的使用：<a href="https://blog.ch-wind.com/ue4-config-usage/">https://blog.ch-wind.com/ue4-config-usage/</a></p>
 <p>UE4 的配置界面写入：<a href="https://blog.ch-wind.com/ue4-config-setting/">https://blog.ch-wind.com/ue4-config-setting/</a></p>
@@ -7483,6 +7500,10 @@ A君想知道：最终他能打开所有盒子的概率是多少，请你帮助�
 <p>UE4插件开发总结：<a href="https://www.lfzxb.top/ue4-plugins-development/">https://www.lfzxb.top/ue4-plugins-development/</a></p>
 <p>UE4给编辑器添加菜单栏(Menu)，工具栏(TooBar)，Tab窗口：<a href="https://blog.csdn.net/qq_29523119/article/details/100088321">https://blog.csdn.net/qq_29523119/article/details/100088321</a></p>
 <p>【UE4编辑器】ContentBrowser 扩展之资源菜单：<a href="https://zhuanlan.zhihu.com/p/302632931">https://zhuanlan.zhihu.com/p/302632931</a></p>
+<p>Custom Context Menu for Actors in Editor：<a href="https://nerivec.github.io/old-ue4-wiki/pages/custom-context-menu-for-actors-in-editor.html">https://nerivec.github.io/old-ue4-wiki/pages/custom-context-menu-for-actors-in-editor.html</a></p>
+<blockquote>
+<p>本质就是 通过 FModuleManager 获得对应模块，在其扩展数组（MenuExtenderArray）里添加新的委托，委托里的内容就是用来添加真正的菜单项。可添加的内容根据 Extender 来确定。</p>
+</blockquote>
 <p>参考源码：<code>AssetManagerEditorModule</code>、<code>ContentBrowserExtensions：InstallHooks</code>、<code>SpriteAssetTypeActions：GetActions</code></p>
 <h3 id="Slate">Slate</h3>
 <p>UE4 Slate 基本框架：<a href="https://zhuanlan.zhihu.com/p/115267691">https://zhuanlan.zhihu.com/p/115267691</a></p>
@@ -7500,6 +7521,7 @@ A君想知道：最终他能打开所有盒子的概率是多少，请你帮助�
 <p>UE4的DragonBones插件的开发：<a href="https://zhuanlan.zhihu.com/p/374152267">https://zhuanlan.zhihu.com/p/374152267</a></p>
 <p>虚幻4渲染编程（工具篇）【第八卷：Asset creation】：<a href="https://zhuanlan.zhihu.com/p/55132638">https://zhuanlan.zhihu.com/p/55132638</a></p>
 <p>虚幻4渲染编程（工具篇V2）【第一卷：UE4 Assets tool DV basic Intro】：<a href="https://zhuanlan.zhihu.com/p/338729328">https://zhuanlan.zhihu.com/p/338729328</a></p>
+<p>参考源码：<code>EditorFactories</code>、<code>SoundFactory</code>、<code>PaperTiledImporterFactory</code></p>
 ]]></content>
       <categories>
         <category>游戏开发</category>
