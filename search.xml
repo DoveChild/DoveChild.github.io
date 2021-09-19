@@ -7474,22 +7474,44 @@ A君想知道：最终他能打开所有盒子的概率是多少，请你帮助�
 <p>《Exploring in UE4》网络同步原理深入（上）[原理分析]：<a href="https://zhuanlan.zhihu.com/p/34723199">https://zhuanlan.zhihu.com/p/34723199</a></p>
 <p>参考源码：<code>NetDriver.h</code>、<code>IpNetDriver.h</code>、<code>NetworkDriver.cpp</code>、<code>OnlineSybsystemUtils.h</code></p>
 <h2 id="Gameplay">Gameplay</h2>
+<h3 id="学习-Demo">学习 Demo</h3>
+<p>EpicSurvivalGameSeries：<a href="https://github.com/tomlooman/EpicSurvivalGameSeries">https://github.com/tomlooman/EpicSurvivalGameSeries</a></p>
+<p>Shooter Game：<a href="https://docs.unrealengine.com/4.27/en-US/Resources/SampleGames/ShooterGame/">https://docs.unrealengine.com/4.27/en-US/Resources/SampleGames/ShooterGame/</a></p>
+<p>ActionRPG：<a href="https://www.unrealengine.com/marketplace/zh-CN/product/action-rpg">https://www.unrealengine.com/marketplace/zh-CN/product/action-rpg</a></p>
 <h3 id="寻路">寻路</h3>
 <p>堪称最好的 A* 算法：<a href="https://blog.csdn.net/b2b160/article/details/4057781">https://blog.csdn.net/b2b160/article/details/4057781</a></p>
 <p>路径规划之 A* 算法：<a href="https://zhuanlan.zhihu.com/p/54510444">https://zhuanlan.zhihu.com/p/54510444</a></p>
 <p>[译]寻路优化：<a href="https://blog.csdn.net/tkokof1/article/details/111297299">https://blog.csdn.net/tkokof1/article/details/111297299</a></p>
+<p>JPS/JPS+ 寻路算法：<a href="https://www.cnblogs.com/KillerAery/p/12242445.html">https://www.cnblogs.com/KillerAery/p/12242445.html</a></p>
+<p>在AI寻路决策中运用势力图（Influence Map）：<a href="http://www.aisharing.com/archives/80">http://www.aisharing.com/archives/80</a></p>
+<p>UE4 Navmesh寻路：<a href="https://zhuanlan.zhihu.com/p/74537236">https://zhuanlan.zhihu.com/p/74537236</a></p>
+<p>UE4 的导航使用 RecastDetour 组件，主要支持 3D 场景的导航网格导出和寻路，也就是 NavMesh：<a href="https://github.com/recastnavigation/recastnavigation">https://github.com/recastnavigation/recastnavigation</a></p>
 <blockquote>
 <p>A* 的估价：设起点为 S、终点为 T，可以选择 D0 * ManhattanDist(S, T) + D1 * abs( Cross(Se, Te) )</p>
 <p>其中 D0 = 2，D1 = 0.001</p>
 </blockquote>
-<p>UE4 的导航使用 RecastDetour 组件，主要支持 3D 场景的导航网格导出和寻路，也就是 NavMesh：<a href="https://github.com/recastnavigation/recastnavigation">https://github.com/recastnavigation/recastnavigation</a></p>
-<p>UE4 Navmesh寻路：<a href="https://zhuanlan.zhihu.com/p/74537236">https://zhuanlan.zhihu.com/p/74537236</a></p>
+<h2 id="渲染">渲染</h2>
+<h3 id="图形学">图形学</h3>
+<p>图形学入门：<a href="https://zhiruili.github.io/posts/transformations/">https://zhiruili.github.io/posts/transformations/</a></p>
+<h3 id="Niagara">Niagara</h3>
+<p>Niagara 教程：<a href="https://www.cyanhall.com/cn/tutorial/">https://www.cyanhall.com/cn/tutorial/</a></p>
+<h2 id="物理">物理</h2>
+<h3 id="碰撞检测">碰撞检测</h3>
+<p>SAT：<a href="https://dyn4j.org/2010/01/sat/">https://dyn4j.org/2010/01/sat/</a></p>
+<p>每个方向的投影都有重叠部分则图形碰撞。实际上不需要检测所有方向，二维使用 <strong>每条边</strong> 的法向量检测；三维使用 <strong>每个面</strong> 的法向量、<strong>两个图形的边两两组成的面</strong> 的法向量进行检测即可。</p>
+<p>GJK：<a href="https://dyn4j.org/2010/04/gjk-gilbert-johnson-keerthi/">https://dyn4j.org/2010/04/gjk-gilbert-johnson-keerthi/</a></p>
+<p><a href="https://www.qiujiawei.com/collision-detection-2/">https://www.qiujiawei.com/collision-detection-2/</a></p>
+<p>两个图形的闵可夫斯基差包含原点则图形碰撞。实际上不需要求出具体的闵可夫斯基图形，只要维护一个逼近原点的单纯形即可，该单纯形至多有三个顶点。三维时需要维护一个四面体。</p>
+<p>EPA：<a href="https://dyn4j.org/2010/05/epa-expanding-polytope-algorithm/">https://dyn4j.org/2010/05/epa-expanding-polytope-algorithm/</a></p>
+<p>基于 GJK 算法进行扩展，确定物体的碰撞点和碰撞深度。需要注意的是，维护的单纯形可能顶点数会多于三个。</p>
 <h2 id="插件开发">插件开发</h2>
 <h3 id="插件基础知识">插件基础知识</h3>
 <p>插件与模块：<a href="https://zhuanlan.zhihu.com/p/121152396">https://zhuanlan.zhihu.com/p/121152396</a></p>
 <p>UE4编辑器如何生成和共享插件：<a href="https://cloud.tencent.com/developer/article/1699614">https://cloud.tencent.com/developer/article/1699614</a></p>
 <p>[UE4]无插件源码编译和打包工程：为多个有依赖关系的plugin生成预编译的链接库：<a href="https://zhuanlan.zhihu.com/p/115292711">https://zhuanlan.zhihu.com/p/115292711</a></p>
 <p>How to Make Tools in UE4：<a href="https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html">https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html</a></p>
+<h3 id="注意事项">注意事项</h3>
+<p>在同一个插件模块里面定义的全局静态变量共享。（在 <code>A.cpp</code> 中定义 <code>static int a</code>，在 <code>B.cpp</code> 可以调用。若在 <code>B.cpp</code> 中也定义 <code>static int a</code> 则会报重定义的错误）</p>
 <h3 id="Config-系统">Config 系统</h3>
 <p>UE4 中 Config 的使用：<a href="https://blog.ch-wind.com/ue4-config-usage/">https://blog.ch-wind.com/ue4-config-usage/</a></p>
 <p>UE4 的配置界面写入：<a href="https://blog.ch-wind.com/ue4-config-setting/">https://blog.ch-wind.com/ue4-config-setting/</a></p>
@@ -7513,6 +7535,9 @@ A君想知道：最终他能打开所有盒子的概率是多少，请你帮助�
 <p>【UE4 Renderer】&lt;02&gt; Slate系统：<a href="https://zhuanlan.zhihu.com/p/28355166">https://zhuanlan.zhihu.com/p/28355166</a></p>
 <p>【UEInside】 Slate合批机制剖析：<a href="https://zhuanlan.zhihu.com/p/346275251">https://zhuanlan.zhihu.com/p/346275251</a></p>
 <p>参考源码：<code>SlateTypes</code></p>
+<h3 id="引入第三方库">引入第三方库</h3>
+<p>c++库文件的理解：<a href="https://wofead.top/2019/10/31/c++%E5%A4%B4%E6%96%87%E4%BB%B6%E5%BA%93%E6%96%87%E4%BB%B6%E5%92%8C%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E6%96%87%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E4%BD%9C%E7%94%A8/">https://wofead.top/2019/10/31/c++头文件库文件和动态链接库文件之间的关系和作用/</a></p>
+<p>UE4引入第三方库：<a href="https://zhuanlan.zhihu.com/p/395423662">https://zhuanlan.zhihu.com/p/395423662</a></p>
 <h3 id="创建-Asset">创建 Asset</h3>
 <p>ue4 通过指定路径加载资源_UE4 C++基础教程 - 资源常见名词解释：<a href="https://blog.csdn.net/weixin_39743369/article/details/112160932">https://blog.csdn.net/weixin_39743369/article/details/112160932</a></p>
 <p>Create a package in a special path：<a href="https://answers.unrealengine.com/questions/500286/view.html">https://answers.unrealengine.com/questions/500286/view.html</a></p>
