@@ -1,0 +1,299 @@
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>[图形学]基础知识 | BearChild's Blog</title><meta name="keywords" content="图形学"><meta name="author" content="BearChild"><meta name="copyright" content="BearChild"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基础知识 基本概念 Graphics Pipeline Graphics Pipeline （图形渲染管线）：管理 将3D坐标，转变为你屏幕上的有色2D像素 的过程。也就是将一些原始图形数据，经过各种变化处理最终在屏幕上显示。 Graphics Pipeline 可以被划分为两个主要部分：  把3D坐标转换为2D坐标； 把2D坐标转变为实际的有颜色的像素。  Shader Shader （着色器）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[图形学]基础知识">
+<meta property="og:url" content="https://www.bearchild.top/2021/09/22/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%9B%BE%E5%BD%A2%E5%AD%A6/[%E5%9B%BE%E5%BD%A2%E5%AD%A6]%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="BearChild&#39;s Blog">
+<meta property="og:description" content="基础知识 基本概念 Graphics Pipeline Graphics Pipeline （图形渲染管线）：管理 将3D坐标，转变为你屏幕上的有色2D像素 的过程。也就是将一些原始图形数据，经过各种变化处理最终在屏幕上显示。 Graphics Pipeline 可以被划分为两个主要部分：  把3D坐标转换为2D坐标； 把2D坐标转变为实际的有颜色的像素。  Shader Shader （着色器）">
+<meta property="og:locale">
+<meta property="og:image" content="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202109231654753.png">
+<meta property="article:published_time" content="2021-09-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-09-23T08:55:21.417Z">
+<meta property="article:author" content="BearChild">
+<meta property="article:tag" content="图形学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202109231654753.png"><link rel="shortcut icon" href="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/%E6%BB%91%E7%A8%BD.jpg"><link rel="canonical" href="https://www.bearchild.top/2021/09/22/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%9B%BE%E5%BD%A2%E5%AD%A6/[%E5%9B%BE%E5%BD%A2%E5%AD%A6]%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '[图形学]基础知识',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-09-23 16:55:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/decoration/background.css"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="BearChild's Blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/%E6%BB%91%E7%A8%BD.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">165</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-gamepad"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202109231654753.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">BearChild's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-gamepad"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">[图形学]基础知识</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-09-21T16:00:00.000Z" title="Created 2021-09-22 00:00:00">2021-09-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-09-23T08:55:21.417Z" title="Updated 2021-09-23 16:55:21">2021-09-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="[图形学]基础知识"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>基础知识</h1>
+<h2 id="基本概念">基本概念</h2>
+<h3 id="Graphics-Pipeline">Graphics Pipeline</h3>
+<p><strong>Graphics Pipeline</strong> （图形渲染管线）：管理 <strong>将3D坐标，转变为你屏幕上的有色2D像素</strong> 的过程。也就是将一些原始图形数据，经过各种变化处理最终在屏幕上显示。</p>
+<p>Graphics Pipeline 可以被划分为两个主要部分：</p>
+<ol>
+<li>把3D坐标转换为2D坐标；</li>
+<li>把2D坐标转变为实际的有颜色的像素。</li>
+</ol>
+<h3 id="Shader">Shader</h3>
+<p><strong>Shader</strong> （着色器）：运行在 GPU 的小程序，自定义显卡渲染画面的算法，使画面达到我们想要的效果。本质就是一段代码（主流的有 基于 OpenGL 的 <strong>GLSL</strong>、基于 DirectX 的 <strong>HLSL</strong> 等），这段代码的作用是阐述如何绘制每一个顶点的颜色以及最终每一个像素点的颜色。</p>
+<h3 id="渲染流程">渲染流程</h3>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202109231654753.png" alt="image-20210922200620397"></p>
+<p><strong>顶点数据 (Vertex Data)</strong>：</p>
+<p>包含 <strong>Vertex Array Object</strong> (顶点数组对象)、<strong>Vertex Buffer Object</strong> (顶点缓冲对象)，也就是 VAO、VBO。是渲染管线的顶点输入。</p>
+<p><strong>顶点着色器 (Vertex Shader)</strong>：</p>
+<p>进行顶点相关的一系列操作。通常用来把顶点从模型空间变换到平面空间。</p>
+<p>可以用于通过 矩阵变换位置、计算照明公式来 生成逐顶点颜色 以及 生成或变换纹理坐标 等基于顶点的操作。</p>
+<p><strong>图元装配 (Primitive Assembly)</strong>：</p>
+<p>顶点被组合成图元，然后进行 <strong>剪裁 (Clipping)</strong> 与 <strong>剔除 (Culling)</strong>。</p>
+<p>图元是一组表示顶点位置的顶点，OpenGL ES 的基本图元有：点、直、三角形。</p>
+<p>剪裁：剪裁掉图元 整个都在视锥体（屏幕上可见的3D区域）的外面 的图元。</p>
+<p>剔除：通过当前正在被绘制的图元是否面向摄像机而决定要不要画它。</p>
+<p><strong>几何着色器 (Geometry Shader)</strong>：</p>
+<p>可选。以完整的图元作为输入数据，可以通过产生新顶点构造出新的（或是其它的）图元来生成其他形状，创建或销毁几何图元。</p>
+<p>经过几何着色器处理后，得到的是一系列位于齐次裁剪空间的顶点所组成的图元，这些顶点会在后面的裁剪、透视除法和光栅化阶段得到进一步处理。</p>
+<p><strong>光栅化 (Rasterization)</strong>：</p>
+<p>基本图元被转换为二维的<strong>片元 (Fragment)</strong>。</p>
+<p>Fragment 表示可以被渲染到屏幕上的像素，包含：位置、颜色、纹理坐标等信息，可以简单的理解为带有深度等信息的像素点。</p>
+<p>屏幕上的一个像素点可能对应多个片元。</p>
+<p><strong>片元着色器 (Fragment Shader)</strong>：</p>
+<p>对片元进行纹理采样、颜色汇总等处理，计算一个像素的最终颜色。</p>
+<p><strong>测试和混合 (Tests and Blending)</strong>：</p>
+<p>进行 Alpha 测试和混合 (Blending)。</p>
+<ol>
+<li>
+<p>检测片元的对应的深度值（用于判断这个像素是其它物体的前面还是后面，决定是否应该丢弃）</p>
+</li>
+<li>
+<p>检查 alpha 值（透明度）并对物体进行混合 (Blend)。</p>
+</li>
+</ol>
+<p>所以，即使在片元着色器中计算出来了一个像素输出的颜色，在渲染多个三角形的时候最后的像素颜色也可能完全不同。</p>
+<h2 id="OpenGL-绘制图形">OpenGL 绘制图形</h2>
+<h3 id="Vertex">Vertex</h3>
+<ol>
+<li><strong>创建输入顶点数据</strong></li>
+</ol>
+<p>输入<strong>Normalized Device Coordinates, NDC)</strong>，也就是 -1.0 到 1.0 的值。</p>
+<ol start="2">
+<li><strong>创建、绑定 VAO</strong></li>
+</ol>
+<p><strong>Vertex Array Object</strong> (顶点数组对象)，顶点属性调用都会储存在 VAO 中。<br>
+当配置顶点属性指针时，只需要将调用执行一次，之后再绘制物体的时候绑定相应的 VAO 即可。不同顶点数据和属性配置之间切换只需要绑定不同的VAO。</p>
+<ol start="3">
+<li><strong>创建、绑定 VBO</strong></li>
+</ol>
+<p><strong>Vertex Buffer Object</strong> (顶点缓冲对象)，通过 VBO 管理顶点数据储存在显卡的内存。<br>
+绑定后缓冲调用都会用来配置当前绑定的缓冲。</p>
+<ol start="4">
+<li><strong>创建、绑定 EBO</strong></li>
+</ol>
+<p><strong>Element Buffer Object</strong> (索引缓冲对象)，专门储存索引，调用这些顶点的索引来决定该绘制哪个顶点。<br>
+为了防止同一个点被多次渲染，我们用索引绘制(Indexed Drawing)来处理，把索引复制到缓冲里，使用当前绑定的索引缓冲对象中的索引进行绘制。</p>
+<img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202109231655927.png" alt="image-20210922211303724" style="zoom:33%;" />
+<ol start="5">
+<li><strong>链接顶点属性</strong></li>
+</ol>
+<p>指定如何解析顶点数据（应用到逐个顶点属性上）。指定输入数据的哪一个部分对应顶点着色器的哪一个顶点属性。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">static <span class="type">float</span> vertices0[] = &#123;</span><br><span class="line">	<span class="number">-0.9</span>f, <span class="number">0.9</span>f, <span class="number">0.0</span>f,</span><br><span class="line">	<span class="number">-0.8</span>f, <span class="number">0.8</span>f, <span class="number">0.0</span>f,</span><br><span class="line">	<span class="number">-0.9</span>f, <span class="number">0.7</span>f, <span class="number">0.0</span>f</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">static <span class="type">float</span> vertices1[] = &#123;</span><br><span class="line">	<span class="number">0.5</span>f, <span class="number">0.5</span>f, <span class="number">0.0</span>f,</span><br><span class="line">	<span class="number">0.5</span>f, <span class="number">-0.5</span>f, <span class="number">0.0</span>f,</span><br><span class="line">	<span class="number">-0.5</span>f, <span class="number">-0.5</span>f, <span class="number">0.0</span>f,</span><br><span class="line">	<span class="number">-0.5</span>f, <span class="number">0.5</span>f, <span class="number">0.0</span>f</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">static unsigned <span class="type">int</span> indices1[] = &#123;</span><br><span class="line">	<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>,</span><br><span class="line">	<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">static unsigned <span class="type">int</span> VAO[<span class="number">2</span>], VBO[<span class="number">2</span>], EBO;</span><br><span class="line"></span><br><span class="line">static <span class="type">void</span> InitializeVertex()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">// Generate</span></span><br><span class="line">	glGenVertexArrays(<span class="number">2</span>, VAO);</span><br><span class="line">	glGenBuffers(<span class="number">2</span>, VBO);</span><br><span class="line">	glGenBuffers(<span class="number">1</span>, &amp;EBO);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Bind 0</span></span><br><span class="line">	glBindVertexArray(VAO[<span class="number">0</span>]);</span><br><span class="line">	glBindBuffer(GL_ARRAY_BUFFER, VBO[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices0), vertices0, GL_STATIC_DRAW);</span><br><span class="line"></span><br><span class="line">	glVertexAttribPointer(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">3</span> * sizeof(<span class="type">float</span>), (<span class="type">void</span>*)<span class="number">0</span>);</span><br><span class="line">	glEnableVertexAttribArray(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Bind 1</span></span><br><span class="line">	glBindVertexArray(VAO[<span class="number">1</span>]);</span><br><span class="line">	glBindBuffer(GL_ARRAY_BUFFER, VBO[<span class="number">1</span>]);</span><br><span class="line">	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);</span><br><span class="line"></span><br><span class="line">	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices1), vertices1, GL_STATIC_DRAW);</span><br><span class="line">	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices1), indices1, GL_STATIC_DRAW);</span><br><span class="line"></span><br><span class="line">	glVertexAttribPointer(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">3</span> * sizeof(<span class="type">float</span>), (<span class="type">void</span>*)<span class="number">0</span>);</span><br><span class="line">	glEnableVertexAttribArray(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Shader-2">Shader</h3>
+<ol>
+<li><strong>创建、编译 Vertex Shader</strong></li>
+</ol>
+<p><strong>Vertex Shader</strong> (顶点着色器)，处理顶点操作。</p>
+<p>用 <strong>GLSL</strong> (OpenGL Shading Language) 编写顶点着色器，然后编译这个着色器，这样我们就可以在程序中使用它。</p>
+<ol start="2">
+<li><strong>创建、编译 Fragment Shader</strong></li>
+</ol>
+<p><strong>Fragment Shader</strong> (片元着色器)，处理片元操作，计算像素最后的颜色输出。</p>
+<ol start="3">
+<li><strong>链接着色器</strong></li>
+</ol>
+<p>Shader Program Object 是多个着色器合并之后并最终链接完成的版本。</p>
+<p>如果要使用刚才编译的着色器我们必须把它们 <strong>链接</strong> 在一个 Shader 上，之后在渲染对象的时候激活这个 Shader。已激活着色器程序的着色器将在我们发送渲染调用的时候被使用。</p>
+<p>之所以将这部放到最后，是因为我们创建、编译完成的一个 <strong>Vertex Shader</strong> 或一个 <strong>Fragment Shader</strong> 可以链接给多个不同的 Shader。</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">static unsigned <span class="type">int</span> shaderProgram;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> char* vertexShaderSource =</span><br><span class="line">	&quot;<span class="meta">#version 330 core\n&quot;</span></span><br><span class="line">	&quot;<span class="keyword">layout</span> (<span class="keyword">location</span> = <span class="number">0</span>) <span class="keyword">in</span> <span class="type">vec3</span> aPos;\n&quot;</span><br><span class="line">	&quot;<span class="type">void</span> main()\n&quot;</span><br><span class="line">	&quot;&#123;\n&quot;</span><br><span class="line">	&quot;   <span class="built_in">gl_Position</span> = <span class="type">vec4</span>(aPos.x, aPos.y, aPos.z, <span class="number">1.0</span>);\n&quot;</span><br><span class="line">	&quot;&#125;\<span class="number">0</span>&quot;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> char* fragmentShaderSource =</span><br><span class="line">	&quot;<span class="meta">#version 330 core\n&quot;</span></span><br><span class="line">	&quot;<span class="keyword">out</span> <span class="type">vec4</span> FragColor;\n&quot;</span><br><span class="line">	&quot;<span class="type">void</span> main()\n&quot;</span><br><span class="line">	&quot;&#123;\n&quot;</span><br><span class="line">	&quot;   FragColor = <span class="type">vec4</span>(<span class="number">1.0</span>f, <span class="number">1.0</span>f, <span class="number">1.0</span>f, <span class="number">1.0</span>f);\n&quot;</span><br><span class="line">	&quot;&#125;\<span class="number">0</span>&quot;;</span><br><span class="line"></span><br><span class="line">static <span class="type">void</span> InitializeShader()</span><br><span class="line">&#123;</span><br><span class="line">	shaderProgram = glCreateProgram();</span><br><span class="line"></span><br><span class="line">	unsigned <span class="type">int</span> vertexShader = glCreateShader(GL_VERTEX_SHADER);</span><br><span class="line">	glShaderSource(vertexShader, <span class="number">1</span>, &amp;vertexShaderSource, NULL);</span><br><span class="line">	glCompileShader(vertexShader);</span><br><span class="line"></span><br><span class="line">	unsigned <span class="type">int</span> fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);</span><br><span class="line">	glShaderSource(fragmentShader, <span class="number">1</span>, &amp;fragmentShaderSource, NULL);</span><br><span class="line">	glCompileShader(fragmentShader);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// link shaders</span></span><br><span class="line">	glAttachShader(shaderProgram, vertexShader);</span><br><span class="line">	glAttachShader(shaderProgram, fragmentShader);</span><br><span class="line">	glLinkProgram(shaderProgram);</span><br><span class="line"></span><br><span class="line">	glDeleteShader(vertexShader);</span><br><span class="line">	glDeleteShader(fragmentShader);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="完整代码">完整代码</h2>
+<p>以输出 一个三角形 和 一个矩形（两个三角形组成）为例</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#define GLEW_STATIC</span></span><br><span class="line"><span class="meta">#include &lt;GL/glew.h&gt;</span></span><br><span class="line"><span class="meta">#include &lt;GL/GL.h&gt;</span></span><br><span class="line"><span class="meta">#include &lt;GLFW/glfw3.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#include &lt;iostream&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma region Setting</span></span><br><span class="line"></span><br><span class="line">static GLFWwindow* window;</span><br><span class="line"><span class="keyword">const</span> unsigned <span class="type">int</span> SCR_WIDTH = <span class="number">800</span>;</span><br><span class="line"><span class="keyword">const</span> unsigned <span class="type">int</span> SCR_HEIGHT = <span class="number">600</span>;</span><br><span class="line"></span><br><span class="line">static <span class="type">void</span> InitializeWindow()</span><br><span class="line">&#123;</span><br><span class="line">	glfwInit();</span><br><span class="line">	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, <span class="number">3</span>);</span><br><span class="line">	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, <span class="number">3</span>);</span><br><span class="line">	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);</span><br><span class="line"></span><br><span class="line">	window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, &quot;Test&quot;, NULL, NULL);</span><br><span class="line">	glfwMakeContextCurrent(window);</span><br><span class="line">	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, <span class="type">int</span> width, <span class="type">int</span> height)&#123; glViewport(<span class="number">0</span>, <span class="number">0</span>, width, height); &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	glewExperimental = GL_TRUE;</span><br><span class="line">	glewInit();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static <span class="type">void</span> ProcessInput(GLFWwindow* window)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)</span><br><span class="line">		glfwSetWindowShouldClose(window, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#pragma endregion</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma region InitializeVertex</span></span><br><span class="line"></span><br><span class="line">static <span class="type">float</span> vertices0[] = &#123;</span><br><span class="line">	<span class="number">-0.9</span>f, <span class="number">0.9</span>f, <span class="number">0.0</span>f,</span><br><span class="line">	<span class="number">-0.8</span>f, <span class="number">0.8</span>f, <span class="number">0.0</span>f,</span><br><span class="line">	<span class="number">-0.9</span>f, <span class="number">0.7</span>f, <span class="number">0.0</span>f</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">static <span class="type">float</span> vertices1[] = &#123;</span><br><span class="line">	<span class="number">0.5</span>f, <span class="number">0.5</span>f, <span class="number">0.0</span>f,</span><br><span class="line">	<span class="number">0.5</span>f, <span class="number">-0.5</span>f, <span class="number">0.0</span>f,</span><br><span class="line">	<span class="number">-0.5</span>f, <span class="number">-0.5</span>f, <span class="number">0.0</span>f,</span><br><span class="line">	<span class="number">-0.5</span>f, <span class="number">0.5</span>f, <span class="number">0.0</span>f</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">static unsigned <span class="type">int</span> indices1[] = &#123;</span><br><span class="line">	<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>,</span><br><span class="line">	<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">static unsigned <span class="type">int</span> VAO[<span class="number">2</span>], VBO[<span class="number">2</span>], EBO;</span><br><span class="line"></span><br><span class="line">static <span class="type">void</span> InitializeVertex()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">// Generate</span></span><br><span class="line">	glGenVertexArrays(<span class="number">2</span>, VAO);</span><br><span class="line">	glGenBuffers(<span class="number">2</span>, VBO);</span><br><span class="line">	glGenBuffers(<span class="number">1</span>, &amp;EBO);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Bind 0</span></span><br><span class="line">	glBindVertexArray(VAO[<span class="number">0</span>]);</span><br><span class="line">	glBindBuffer(GL_ARRAY_BUFFER, VBO[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices0), vertices0, GL_STATIC_DRAW);</span><br><span class="line"></span><br><span class="line">	glVertexAttribPointer(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">3</span> * sizeof(<span class="type">float</span>), (<span class="type">void</span>*)<span class="number">0</span>);</span><br><span class="line">	glEnableVertexAttribArray(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Bind 1</span></span><br><span class="line">	glBindVertexArray(VAO[<span class="number">1</span>]);</span><br><span class="line">	glBindBuffer(GL_ARRAY_BUFFER, VBO[<span class="number">1</span>]);</span><br><span class="line">	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);</span><br><span class="line"></span><br><span class="line">	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices1), vertices1, GL_STATIC_DRAW);</span><br><span class="line">	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices1), indices1, GL_STATIC_DRAW);</span><br><span class="line"></span><br><span class="line">	glVertexAttribPointer(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">3</span> * sizeof(<span class="type">float</span>), (<span class="type">void</span>*)<span class="number">0</span>);</span><br><span class="line">	glEnableVertexAttribArray(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma endregion</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma region InitializeShader</span></span><br><span class="line"></span><br><span class="line">static unsigned <span class="type">int</span> shaderProgram;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> char* vertexShaderSource =</span><br><span class="line">	&quot;<span class="meta">#version 330 core\n&quot;</span></span><br><span class="line">	&quot;<span class="keyword">layout</span> (<span class="keyword">location</span> = <span class="number">0</span>) <span class="keyword">in</span> <span class="type">vec3</span> aPos;\n&quot;</span><br><span class="line">	&quot;<span class="type">void</span> main()\n&quot;</span><br><span class="line">	&quot;&#123;\n&quot;</span><br><span class="line">	&quot;   <span class="built_in">gl_Position</span> = <span class="type">vec4</span>(aPos.x, aPos.y, aPos.z, <span class="number">1.0</span>);\n&quot;</span><br><span class="line">	&quot;&#125;\<span class="number">0</span>&quot;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> char* fragmentShaderSource =</span><br><span class="line">	&quot;<span class="meta">#version 330 core\n&quot;</span></span><br><span class="line">	&quot;<span class="keyword">out</span> <span class="type">vec4</span> FragColor;\n&quot;</span><br><span class="line">	&quot;<span class="type">void</span> main()\n&quot;</span><br><span class="line">	&quot;&#123;\n&quot;</span><br><span class="line">	&quot;   FragColor = <span class="type">vec4</span>(<span class="number">1.0</span>f, <span class="number">1.0</span>f, <span class="number">1.0</span>f, <span class="number">1.0</span>f);\n&quot;</span><br><span class="line">	&quot;&#125;\<span class="number">0</span>&quot;;</span><br><span class="line"></span><br><span class="line">static <span class="type">void</span> InitializeShader()</span><br><span class="line">&#123;</span><br><span class="line">	shaderProgram = glCreateProgram();</span><br><span class="line"></span><br><span class="line">	unsigned <span class="type">int</span> vertexShader = glCreateShader(GL_VERTEX_SHADER);</span><br><span class="line">	glShaderSource(vertexShader, <span class="number">1</span>, &amp;vertexShaderSource, NULL);</span><br><span class="line">	glCompileShader(vertexShader);</span><br><span class="line"></span><br><span class="line">	unsigned <span class="type">int</span> fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);</span><br><span class="line">	glShaderSource(fragmentShader, <span class="number">1</span>, &amp;fragmentShaderSource, NULL);</span><br><span class="line">	glCompileShader(fragmentShader);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// link shaders</span></span><br><span class="line">	glAttachShader(shaderProgram, vertexShader);</span><br><span class="line">	glAttachShader(shaderProgram, fragmentShader);</span><br><span class="line">	glLinkProgram(shaderProgram);</span><br><span class="line"></span><br><span class="line">	glDeleteShader(vertexShader);</span><br><span class="line">	glDeleteShader(fragmentShader);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma endregion</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> Render()</span><br><span class="line">&#123;</span><br><span class="line">	glClearColor(<span class="number">0.2</span>f, <span class="number">0.3</span>f, <span class="number">0.3</span>f, <span class="number">1.0</span>f);</span><br><span class="line">	glClear(GL_COLOR_BUFFER_BIT);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 0</span></span><br><span class="line">	glUseProgram(shaderProgram);</span><br><span class="line">	glBindVertexArray(VAO[<span class="number">0</span>]);</span><br><span class="line">	glDrawArrays(GL_TRIANGLES, <span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 1</span></span><br><span class="line">	glUseProgram(shaderProgram);</span><br><span class="line">	glBindVertexArray(VAO[<span class="number">1</span>]);</span><br><span class="line">	glDrawElements(GL_TRIANGLES, <span class="number">6</span>, GL_UNSIGNED_INT, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> main()</span><br><span class="line">&#123;</span><br><span class="line">	InitializeWindow();</span><br><span class="line">	InitializeVertex();</span><br><span class="line">	InitializeShader();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (!glfwWindowShouldClose(window))</span><br><span class="line">	&#123;</span><br><span class="line">		ProcessInput(window);</span><br><span class="line"></span><br><span class="line">		Render();</span><br><span class="line"></span><br><span class="line">		glfwSwapBuffers(window);</span><br><span class="line">		glfwPollEvents();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	glfwTerminate();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">BearChild</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://www.bearchild.top/2021/09/22/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%9B%BE%E5%BD%A2%E5%AD%A6/[%E5%9B%BE%E5%BD%A2%E5%AD%A6]%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">https://www.bearchild.top/2021/09/22/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%9B%BE%E5%BD%A2%E5%AD%A6/[%E5%9B%BE%E5%BD%A2%E5%AD%A6]%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学</a></div><div class="post_share"><div class="social-share" data-image="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202109231654753.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/UE4/UI/%5BUE4%5DCanvasPanelSlot%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643173.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">[UE4]CanvasPanelSlot布局规则</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/%E6%BB%91%E7%A8%BD.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">BearChild</div><div class="author-info__description">前路浩荡，未来可期！</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">165</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://qm.qq.com/cgi-bin/qm/qr?k=ULZEQtGq1dv7fjaZmZjv4aKPdTOlaU1u&amp;noverify=0" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://github.com/DoveChild" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://www.zhihu.com/people/bearchild-91" target="_blank" title="知乎"><i class="fab fa-zhihu"></i></a><a class="social-icon" href="mailto:423339833@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Welcome, - v - QQ：423339833</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Graphics-Pipeline"><span class="toc-number">1.1.1.</span> <span class="toc-text">Graphics Pipeline</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shader"><span class="toc-number">1.1.2.</span> <span class="toc-text">Shader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.3.</span> <span class="toc-text">渲染流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenGL-%E7%BB%98%E5%88%B6%E5%9B%BE%E5%BD%A2"><span class="toc-number">1.2.</span> <span class="toc-text">OpenGL 绘制图形</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vertex"><span class="toc-number">1.2.1.</span> <span class="toc-text">Vertex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shader-2"><span class="toc-number">1.2.2.</span> <span class="toc-text">Shader</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">1.3.</span> <span class="toc-text">完整代码</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/09/22/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%9B%BE%E5%BD%A2%E5%AD%A6/%5B%E5%9B%BE%E5%BD%A2%E5%AD%A6%5D%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="[图形学]基础知识"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202109231654753.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[图形学]基础知识"/></a><div class="content"><a class="title" href="/2021/09/22/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%9B%BE%E5%BD%A2%E5%AD%A6/%5B%E5%9B%BE%E5%BD%A2%E5%AD%A6%5D%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="[图形学]基础知识">[图形学]基础知识</a><time datetime="2021-09-21T16:00:00.000Z" title="Created 2021-09-22 00:00:00">2021-09-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/UE4/UI/%5BUE4%5DCanvasPanelSlot%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99/" title="[UE4]CanvasPanelSlot布局规则"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643173.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[UE4]CanvasPanelSlot布局规则"/></a><div class="content"><a class="title" href="/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/UE4/UI/%5BUE4%5DCanvasPanelSlot%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99/" title="[UE4]CanvasPanelSlot布局规则">[UE4]CanvasPanelSlot布局规则</a><time datetime="2021-08-11T16:00:03.000Z" title="Created 2021-08-12 00:00:03">2021-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/UE4/%E5%B7%A5%E5%85%B7%E6%B5%81/%5BUE4%5D%E8%AF%BB%E5%8F%96%E6%9C%AC%E5%9C%B0%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6/" title="[UE4]读取本地字体文件"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737983.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[UE4]读取本地字体文件"/></a><div class="content"><a class="title" href="/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/UE4/%E5%B7%A5%E5%85%B7%E6%B5%81/%5BUE4%5D%E8%AF%BB%E5%8F%96%E6%9C%AC%E5%9C%B0%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6/" title="[UE4]读取本地字体文件">[UE4]读取本地字体文件</a><time datetime="2021-08-11T16:00:02.000Z" title="Created 2021-08-12 00:00:02">2021-08-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', '', 'katex-wrap')
+  })
+})()</script><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'bearchild-4gzibvou1823d852',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'bearchild-4gzibvou1823d852',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="/decoration/background.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
