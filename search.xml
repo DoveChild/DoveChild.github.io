@@ -7656,7 +7656,7 @@ A君想知道：最终他能打开所有盒子的概率是多少，请你帮助�
   <entry>
     <title>[前端开发]网页时钟</title>
     <url>/2021/09/23/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%5B%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%5D%E7%BD%91%E9%A1%B5%E6%97%B6%E9%92%9F/</url>
-    <content><![CDATA[<h2 id="网页计算器">网页计算器</h2>
+    <content><![CDATA[<h1>网页计算器</h1>
 <h2 id="效果">效果</h2>
 <p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202109231932698.png" alt="image-20210923193231968"></p>
 <h2 id="代码">代码</h2>
@@ -7674,7 +7674,7 @@ A君想知道：最终他能打开所有盒子的概率是多少，请你帮助�
   <entry>
     <title>[前端开发]网页计算器</title>
     <url>/2021/09/23/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%5B%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%5D%E7%BD%91%E9%A1%B5%E8%AE%A1%E7%AE%97%E5%99%A8/</url>
-    <content><![CDATA[<h2 id="网页计算器">网页计算器</h2>
+    <content><![CDATA[<h1>网页计算器</h1>
 <h2 id="效果">效果</h2>
 <p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202109231931832.png" alt="image-20210923193111081"></p>
 <h2 id="代码">代码</h2>
@@ -7967,7 +7967,7 @@ d=d-2 \times \Delta x \:\:\: \text{if $d \gt 0$}
   <entry>
     <title>[图形学]基础知识-渲染管线</title>
     <url>/2021/09/22/%E5%9B%BE%E5%BD%A2%E5%AD%A6/%5B%E5%9B%BE%E5%BD%A2%E5%AD%A6%5D%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF/</url>
-    <content><![CDATA[<h1>基础知识</h1>
+    <content><![CDATA[<h1>基础知识-渲染管线</h1>
 <h2 id="基本概念">基本概念</h2>
 <h3 id="Graphics-Pipeline">Graphics Pipeline</h3>
 <p><strong>Graphics Pipeline</strong> （图形渲染管线）：管理 <strong>将3D坐标，转变为屏幕上的有色2D像素</strong> 的过程。也就是将一些原始图形数据，经过各种变化处理最终在屏幕上显示。</p>
