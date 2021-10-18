@@ -8335,7 +8335,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p>按照交点 <code>A、B、C、D</code> 的 <code>x</code> 排序后，容易发现可以将其两两配对，画出线段 <code>AB、CD</code>。</p>
 <p>于是，我们需要知道：1. <code>X</code>（与扫描线的交点的 <code>x</code> 值）；2. 有哪些边于扫描线相交。</p>
 <ol>
-<li>考虑 <code>X</code> 如何计算：我们每次 <code>y = y + 1</code>，对于一条直线 <code>ax + by + c = 0</code>，若 <code>y += 1</code> 则 <code>x += -b/a </code>。于是我们需要记录 <code>delX</code>（斜率的倒数），扫描线移动时 <code>x -= delX</code> 即可；</li>
+<li>考虑 <code>X</code> 如何计算：我们每次 <code>y = y + 1</code>，对于一条直线 <code>y = kx + b</code>，若 <code>y += 1</code> 则 <code>x += 1/k </code>。于是我们需要记录 <code>delX = 1/k</code>（斜率的倒数），扫描线移动时 <code>x += delX</code> 即可；</li>
 <li>怎么获得与扫描线相交的边：我们每次 <code>y=y+1</code>，显然当 <code>y = 该边最小的 y 值</code> 时加入，<code>y = 该边最大的 y 值</code> 时删除。那么我们可以开一个 <code>SCR_HEIGHT</code> 级别的 <code>vector</code><strong>E[SCR_HEIGHT]</strong> ，然后 <code>E[该边最小的 y 值].push(该边)</code>，每次 <code>y=y+1</code> 时，<code>E[y]</code> 中存储的边，就是需要新加入的边；同时当 <code>maxY = y</code> 时，将这条边删去。（当然，用链表处理也是可以的，任意选择一种可以处理的数据结构即可）</li>
 </ol>
 <p>我们确定流程：1. 将边加入需要处理的集合；2. 按照 x 排序并两两匹配绘制线段；3. 删去该删的边。</p>
