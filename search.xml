@@ -8399,7 +8399,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <h2 id="蒙皮">蒙皮</h2>
 <h3 id="基础知识-2">基础知识</h3>
 <p>对于两脚兽，一般使用 <strong>T-Pose</strong> 进行蒙皮，因为大部分姿势不会偏离它太大。</p>
-<p><strong>蒙皮</strong> 就是将 <strong>网格（Mesh）</strong> 的 **顶点（Vertex）**给 <strong>绑定</strong> 在骨骼上，骨骼动画的本质就是用 <strong>骨骼</strong> 来操控 <strong>Mesh</strong> 动起来，<strong>Mesh</strong> 动起来的本质是 <strong>顶点</strong> 位置的改变。</p>
+<p><strong>蒙皮</strong> 就是将 <strong>网格（Mesh）</strong> 的 <strong>顶点（Vertex）</strong> 给 <strong>绑定</strong> 在骨骼上，骨骼动画的本质就是用 <strong>骨骼</strong> 来操控 <strong>Mesh</strong> 动起来，<strong>Mesh</strong> 动起来的本质是 <strong>顶点</strong> 位置的改变。</p>
 <p>一个 <strong>顶点</strong> 可能被多个 <strong>骨骼</strong> 影响（大部分情况一个顶点只会被一个骨骼影响，但是比如接近关节的顶点，单纯由一个骨骼影响可能会出现缝隙）。</p>
 <p>确定被影响的就要使用 <strong>线性混合蒙皮（Linear Blend Skinning）</strong> 技术。</p>
 <h3 id="线性混合蒙皮">线性混合蒙皮</h3>
@@ -8408,7 +8408,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p>现在我们有了这个式子，需要的就是知道如何获得 <strong>变换矩阵</strong>，这就需要用到 <strong>正向动力学（Forward Kinematics）</strong> 了。</p>
 <h3 id="正向动力学">正向动力学</h3>
 <p>控制了关节的坐标，也就控制了骨骼、控制了模型。</p>
-<p>关节可以构成一棵树（一般两脚兽以 盆骨 为根节点），每个节点存储了 <strong>相对父节点</strong> 的变换矩阵（我们可以叫它 <strong>小变换矩阵</strong>）。</p>
+<p>关节可以构成一棵树（一般两脚兽以 <strong>盆骨</strong> 为根节点），每个节点存储了 <strong>相对父节点</strong> 的变换矩阵（我们可以叫它 <strong>小变换矩阵</strong>）。</p>
 <p>这样，一个父节点移动的时候，可以带动子节点一起移动。</p>
 <p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202111270536995.png" alt="image-20211127042112070"></p>
 <p>我们有了每个节点 <strong>相对父节点</strong> 的 <strong>小变换矩阵</strong>，从 <strong>关节坐标系</strong> 到 <strong>世界坐标系</strong> 的最终 <strong>变换矩阵</strong> 就由这一个个小变换矩阵累积获得，这个求解最终 <strong>变换矩阵</strong> 过程也就是 <strong>正向动力学</strong> 的本质。</p>
@@ -8445,7 +8445,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <li>在某些情况下，CCD 可能会进行大量迭代，导致末端缓慢的 <strong>锯齿形运动</strong>。</li>
 </ol>
 <p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202111270536675.png" alt="image-20211127051220872"></p>
-<p>**CAA（Circular Alignment Algorithm）**可以克服这些缺点。</p>
+<p><strong>CAA（Circular Alignment Algorithm）</strong> 可以克服这些缺点。</p>
 <h4 id="CAA（圆形对齐算法）">CAA（圆形对齐算法）</h4>
 <p>CCA 给定的关节链沿 <strong>基点</strong> 和 <strong>可到达的目标位置</strong> 之间的若干圆弧。通过这些圆弧，计算可接受范围内的关节角度，实现 逆向动力学。</p>
 <p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202111270536594.png" alt="image-20211127051811031"></p>
