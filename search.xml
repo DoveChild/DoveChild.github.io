@@ -7618,7 +7618,7 @@ d=d-2 \times \Delta x \:\:\: \text{if $d \gt 0$}
 <p>用于 <strong>细分图元</strong> ，将 <strong>Mesh</strong> 更加细分，获得更加高精度的模型。</p>
 <p>比如：我们需要一个模型在远处比较粗糙，近看的时候更加精致（顶点数更多）。其中一种方案是使用 <strong>LOD</strong> ，但从渲染方面处理也可以使用 <strong>曲面细分着色器</strong> 。</p>
 <h5 id="3-几何着色器">3. 几何着色器</h5>
-<p>以 <strong>完整的图元</strong> 作为输入数据，可以执行 **创建更多的图元 **、 <strong>销毁图元</strong> 、 <strong>图元着色</strong> 等操作。</p>
+<p>以 <strong>完整的图元</strong> 作为输入数据，可以执行 <strong>创建更多的图元</strong>、 <strong>销毁图元</strong> 、 <strong>图元着色</strong> 等操作。</p>
 <p>最简单的一个使用例子就是：比如我们可以将 <strong>一个图形</strong> 通过几何着色器扩展成 <strong>多个图形</strong> 。</p>
 <h5 id="4-裁剪">4. 裁剪</h5>
 <ol>
