@@ -7587,37 +7587,79 @@ d=d-2 \times \Delta x \:\:\: \text{if $d \gt 0$}
 <h3 id="Shader">Shader</h3>
 <p><strong>Shader</strong> （着色器）：运行在 GPU 的小程序，自定义显卡渲染画面的算法，使画面达到我们想要的效果。本质就是一段代码（主流的有 基于 OpenGL 的 <strong>GLSL</strong>、基于 DirectX 的 <strong>HLSL</strong> 等），这段代码的作用是阐述如何绘制每一个顶点的颜色以及最终每一个像素点的颜色。</p>
 <h3 id="渲染流程">渲染流程</h3>
-<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202109231654753.png" alt="image-20210922200620397"></p>
-<p><strong>顶点数据 (Vertex Data)</strong>：</p>
-<p>包含 <strong>Vertex Array Object</strong> (顶点数组对象)、<strong>Vertex Buffer Object</strong> (顶点缓冲对象)，也就是 VAO、VBO。是渲染管线的顶点输入。</p>
-<p><strong>顶点着色器 (Vertex Shader)</strong>：</p>
-<p>进行顶点相关的一系列操作。通常用来把顶点从模型空间变换到平面空间。</p>
-<p>可以用于通过 矩阵变换位置、计算照明公式来 生成逐顶点颜色 以及 生成或变换纹理坐标 等基于顶点的操作。</p>
-<p><strong>图元装配 (Primitive Assembly)</strong>：</p>
-<p>顶点被组合成图元，然后进行 <strong>剪裁 (Clipping)</strong> 与 <strong>剔除 (Culling)</strong>。</p>
-<p>图元是一组表示顶点位置的顶点，OpenGL ES 的基本图元有：点、直、三角形。</p>
-<p>剪裁：剪裁掉图元 整个都在视锥体（屏幕上可见的3D区域）的外面 的图元。</p>
-<p>剔除：通过当前正在被绘制的图元是否面向摄像机而决定要不要画它。</p>
-<p><strong>几何着色器 (Geometry Shader)</strong>：</p>
-<p>可选。以完整的图元作为输入数据，可以通过产生新顶点构造出新的（或是其它的）图元来生成其他形状，创建或销毁几何图元。</p>
-<p>经过几何着色器处理后，得到的是一系列位于齐次裁剪空间的顶点所组成的图元，这些顶点会在后面的裁剪、透视除法和光栅化阶段得到进一步处理。</p>
-<p><strong>光栅化 (Rasterization)</strong>：</p>
-<p>基本图元被转换为二维的<strong>片元 (Fragment)</strong>。</p>
-<p>Fragment 表示可以被渲染到屏幕上的像素，包含：位置、颜色、纹理坐标等信息，可以简单的理解为带有深度等信息的像素点。</p>
-<p>屏幕上的一个像素点可能对应多个片元。</p>
-<p><strong>片元着色器 (Fragment Shader)</strong>：</p>
-<p>对片元进行纹理采样、颜色汇总等处理，计算一个像素的最终颜色。</p>
-<p><strong>测试和混合 (Tests and Blending)</strong>：</p>
-<p>进行 Alpha 测试和混合 (Blending)。</p>
+<p>我们可以将其分为三个阶段：应用阶段、几何阶段、光栅化阶段。</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202112012104820.png" alt="image-20211201192800788"></p>
+<h4 id="应用阶段">应用阶段</h4>
+<p>由 <strong>CPU</strong> 负责。</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202112012104432.png" alt="image-20211201200709582"></p>
+<h5 id="1-准备场景数据">1. 准备场景数据</h5>
+<p>准备好 <strong>场景数据</strong> ，包括：摄像机的位置、视锥体、场景中包含哪些模型、使用哪些光源等。</p>
+<h5 id="2-粗粒度剔除">2. 粗粒度剔除</h5>
+<p>处理 <strong>场景数据</strong>， 将 <strong>在摄像机视锥体之外、被其他物品遮挡住</strong> 的物品剔除。</p>
+<h5 id="3-设置渲染状态">3. 设置渲染状态</h5>
+<p>渲染状态定义了场景中的一个个 <strong>Mesh</strong> 是如何处理的，例如：</p>
 <ol>
-<li>
-<p>检测片元的对应的深度值（用于判断这个像素是其它物体的前面还是后面，决定是否应该丢弃）</p>
-</li>
-<li>
-<p>检查 alpha 值（透明度）并对物体进行混合 (Blend)。</p>
-</li>
+<li>设置渲染属性：使用哪个 <strong>Shader、Material、光源属性</strong> 来渲染、 <strong>动态静态合批</strong> 、 <strong>GPU Instance</strong> 等；</li>
+<li>设置渲染顺序：根据物体的 <strong>Render Queue</strong> 、距离相机的深度 等来设置渲染顺序；</li>
+<li>设置渲染目标：将渲染输出到 <strong>屏幕</strong> ，还是 <strong>RenderTexture</strong> 等地方；</li>
+<li>设置渲染模式：使用 <strong>前向渲染</strong> ，或者是 <strong>延迟渲染</strong> 等。</li>
 </ol>
-<p>所以，即使在片元着色器中计算出来了一个像素输出的颜色，在渲染多个三角形的时候最后的像素颜色也可能完全不同。</p>
+<h5 id="4-调用-Draw-Call">4. 调用 Draw Call</h5>
+<p>将前面准备好的所有 <strong>渲染所需要的数据</strong> 从 <strong>硬盘</strong> 加载到 <strong>系统内存</strong> 中，然后再加载到 <strong>显存</strong> 中，接着调用 <strong>Draw Call</strong> 。</p>
+<p><strong>Draw Call</strong> 就是由 <strong>CPU</strong> 发起、由 <strong>GPU</strong> 接收信息的命令。<strong>CPU</strong> 通过调用 <strong>Draw Call</strong> 来告诉 <strong>GPU</strong> 开始进行一个渲染流程，一个 <strong>Draw Call</strong> 会指向本次调用 <strong>需要渲染的图元列表</strong> 。</p>
+<p>（图元是一组表示顶点位置的顶点，基本图元有：点、直线、三角形）</p>
+<h4 id="几何阶段">几何阶段</h4>
+<p>由 <strong>GPU</strong> 负责，以 <strong>顶点数据</strong> 作为输入，顶点数据是由 <strong>应用阶段</strong> 的 <strong>Draw Call</strong> 指定的。</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202112012104415.png" alt="image-20211201200848484"></p>
+<h5 id="1-顶点着色器">1. 顶点着色器</h5>
+<p>进行顶点相关的一系列操作。通常用来实现顶点的 <strong>空间变换</strong> 、 <strong>顶点着色</strong> 等操作。</p>
+<p>它执行 <strong>通过矩阵变换位置（把顶点从 模型空间 变换到 齐次裁剪空间 ）</strong>、<strong>计算照明公式</strong> 来 <strong>生成逐顶点颜色</strong> 、 <strong>生成或变换纹理坐标</strong> 等基于顶点的操作。</p>
+<h5 id="2-曲面细分着色器">2. 曲面细分着色器</h5>
+<p>用于 <strong>细分图元</strong> ，将 <strong>Mesh</strong> 更加细分，获得更加高精度的模型。</p>
+<p>比如：我们需要一个模型在远处比较粗糙，近看的时候更加精致（顶点数更多）。其中一种方案是使用 <strong>LOD</strong> ，但从渲染方面处理也可以使用 <strong>曲面细分着色器</strong> 。</p>
+<h5 id="3-几何着色器">3. 几何着色器</h5>
+<p>以 <strong>完整的图元</strong> 作为输入数据，可以执行 **创建更多的图元 **、 <strong>销毁图元</strong> 、 <strong>图元着色</strong> 等操作。</p>
+<p>最简单的一个使用例子就是：比如我们可以将 <strong>一个图形</strong> 通过几何着色器扩展成 <strong>多个图形</strong> 。</p>
+<h5 id="4-裁剪">4. 裁剪</h5>
+<ol>
+<li>对之前变换到 <strong>齐次裁剪空间</strong> 的图元操作，将不在摄像机视野范围内的部分剪裁掉；</li>
+<li>剔除某些三角图元的面片，比如控制裁剪物体的正面或者背面。</li>
+</ol>
+<h5 id="5-屏幕映射">5. 屏幕映射</h5>
+<p>把每个图元的坐标从 <strong>标准坐标系 (-1 ~ 1)</strong> 映射到 <strong>窗口坐标系</strong> 上。</p>
+<h4 id="光栅化阶段">光栅化阶段</h4>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202112012104815.png" alt="image-20211201204219582"></p>
+<h5 id="1-三角形设置">1. 三角形设置</h5>
+<p>上个阶段输出的图元是 <strong>三角网格的顶点</strong> ，我们要得到整个三角形（不单单是顶点，还包括三角形内部）的覆盖情况，由顶点变为面，我们需要 <strong>三角形边界的表示方式</strong> 。</p>
+<p>计算这样一个 <strong>三角网格的边界</strong> 的过程就是 <strong>三角形设置</strong> 。</p>
+<h5 id="2-三角形遍历">2. 三角形遍历</h5>
+<p>得到 <strong>三角网格的边界</strong> ，我们要计算得到 <strong>三角形内部的像素</strong>，如果被一个像素被这个三角形覆盖则生成 <strong>片元</strong> 。</p>
+<p>每个片元中的信息就是三个顶点信息 <strong>插值</strong> 得到的。</p>
+<p>片元并不是真正意义上的一个像素，它比像素的信息更多，包括了：屏幕坐标、深度信息这些 <strong>顶点着色器传递的数据</strong>。</p>
+<h5 id="3-逐片元操作-①">3. 逐片元操作 ①</h5>
+<p>在 <strong>三角形遍历</strong>  后，片元已经大致分出来了，接下来可以顺便进行 <strong>抗锯齿处理</strong> 与 <strong>提前深度测试</strong> 。</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202112012104175.png" alt="image-20211201204330739"></p>
+<h6 id="3-1-抗锯齿处理">3.1 抗锯齿处理</h6>
+<p>抗锯齿的来源就是 <strong>用有限离散的像素点去逼近连续的三角形</strong> ，出现锯齿走样现象。</p>
+<p>我们可以执行 <strong>SSAA、MSAA</strong> 算法来处理抗锯齿。</p>
+<p><strong>SSAA</strong> ：超采样反走样（Super Sampling AA），把原来的每个像素点进行细分，分成 4 个采样点，用更多的采样点去逼近结果。</p>
+<p><strong>MSAA</strong> ：多采样反走样（Multi-Sampling AA），计算有几个采样点会被三角形覆盖，计算颜色的时候只会利用像素中心坐标计算一次颜色。</p>
+<h6 id="3-2-提前深度测试">3.2 提前深度测试</h6>
+<p><strong>提前深度测试</strong> 也就是 <strong>Early-Z</strong> 。</p>
+<p>要求片元着色器中 <strong>不能对深度进行修改</strong> ，所以我们先判断片元着色器是否开启 <strong>透明度测试 (Alpha Test)</strong> ，如果没有的话进行 <strong>Early-Z</strong> 。</p>
+<p>进行逐片元的深度测试和深度写入，将没通过该深度测试的片元舍弃。</p>
+<h5 id="4-片元着色器">4. 片元着色器</h5>
+<p>对片元进行纹理采样、颜色汇总等处理，计算一个像素的最终颜色。</p>
+<h5 id="5-逐片元操作-②">5. 逐片元操作 ②</h5>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202112012104448.png" alt="image-20211201205510462"></p>
+<h6 id="5-1-透明度测试">5.1 透明度测试</h6>
+<p>将片元的 <strong>透明度</strong> 进行条件筛选，不满足条件的话（比如小于某个阈值），那么就舍弃该片元。</p>
+<h6 id="5-2-模板测试">5.2 模板测试</h6>
+<p>将片元的 <strong>模板值</strong> 与缓冲区的模板值比较，（我们自己定义某个模板值与比较条件），不满足条件的话，舍弃该片元。</p>
+<h6 id="5-3-深度测试">5.3 深度测试</h6>
+<p>将片元的 <strong>深度值</strong> 与深度缓冲区的值进行比较，不满足条件的话（片元深度更大），舍弃该片元。</p>
+<h6 id="5-4-颜色混合">5.4 颜色混合</h6>
+<p>将片元颜色与存在深度缓冲区中的颜色值进行混合。</p>
 <h2 id="OpenGL-绘制图形">OpenGL 绘制图形</h2>
 <h3 id="Vertex">Vertex</h3>
 <ol>
