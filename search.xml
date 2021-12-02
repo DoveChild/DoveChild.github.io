@@ -7601,7 +7601,7 @@ d=d-2 \times \Delta x \:\:\: \text{if $d \gt 0$}
 <ol>
 <li>设置渲染属性：使用哪个 <strong>Shader、Material、光源属性</strong> 来渲染、 <strong>动态静态合批</strong> 、 <strong>GPU Instance</strong> 等；</li>
 <li>设置渲染顺序：根据物体的 <strong>Render Queue</strong> 、距离相机的深度 等来设置渲染顺序；</li>
-<li>设置渲染目标：将渲染输出到 <strong>屏幕</strong> ，还是 <strong>RenderTexture</strong> 等地方；</li>
+<li>设置渲染目标：将渲染输出到 <strong>屏幕</strong> ，或者是 <strong>RenderTexture</strong> 等地方；</li>
 <li>设置渲染模式：使用 <strong>前向渲染</strong> ，或者是 <strong>延迟渲染</strong> 等。</li>
 </ol>
 <h5 id="4-调用-Draw-Call">4. 调用 Draw Call</h5>
@@ -7640,10 +7640,10 @@ d=d-2 \times \Delta x \:\:\: \text{if $d \gt 0$}
 <p>在 <strong>三角形遍历</strong>  后，片元已经大致分出来了，接下来可以顺便进行 <strong>抗锯齿处理</strong> 与 <strong>提前深度测试</strong> 。</p>
 <p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202112012104175.png" alt="image-20211201204330739"></p>
 <h6 id="3-1-抗锯齿处理">3.1 抗锯齿处理</h6>
-<p>抗锯齿的来源就是 <strong>用有限离散的像素点去逼近连续的三角形</strong> ，出现锯齿走样现象。</p>
-<p>我们可以执行 <strong>SSAA、MSAA</strong> 算法来处理抗锯齿。</p>
-<p><strong>SSAA</strong> ：超采样反走样（Super Sampling AA），把原来的每个像素点进行细分，分成 4 个采样点，用更多的采样点去逼近结果。</p>
-<p><strong>MSAA</strong> ：多采样反走样（Multi-Sampling AA），计算有几个采样点会被三角形覆盖，计算颜色的时候只会利用像素中心坐标计算一次颜色。</p>
+<p>抗锯齿就是为了处理 <strong>用有限离散的像素点去逼近连续的三角形出现的锯齿走样</strong> 现象。</p>
+<p>这一步，我们可以执行 <strong>SSAA、MSAA</strong> 等支持 <strong>前向渲染</strong> 的算法来处理抗锯齿。FXAA / TAA 等算法用于后处理。</p>
+<p><strong>SSAA</strong> ：超采样反走样（Super Sampling AA），将一个像素点再细分为多个采样点，计算每个采样点的颜色取均值，作为该像素点的颜色</p>
+<p><strong>MSAA</strong> ：多采样反走样（Multi-Sampling AA），将一个像素点再细分为多个采样点，计算在三角面内的采样点占总采样点的比值，根据该比值计算该像素点的颜色。</p>
 <h6 id="3-2-提前深度测试">3.2 提前深度测试</h6>
 <p><strong>提前深度测试</strong> 也就是 <strong>Early-Z</strong> 。</p>
 <p>要求片元着色器中 <strong>不能对深度进行修改</strong> ，所以我们先判断片元着色器是否开启 <strong>透明度测试 (Alpha Test)</strong> ，如果没有的话进行 <strong>Early-Z</strong> 。</p>
