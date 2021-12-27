@@ -8143,110 +8143,89 @@ d_0 &amp;= F(x+1,y-0.5)\\
   </entry>
   <entry>
     <title>[UE4]知识总结</title>
-    <url>/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BUE4%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</url>
+    <url>/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BUE4%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1>知识总结</h1>
-<h2 id="背景">背景</h2>
-<p>近来开始接触 UE4，其中的知识复杂且零散。</p>
-<p>在学习的过程中，运用到了看到了很多有用的文章，但是网络上的文章有时也过于冗杂，往往看了几篇仍不知所云。</p>
-<p>由于这种问题的存在，笔者便把学习某些模块时，确切用到的文章记录了下来。</p>
-<h2 id="序列化">序列化</h2>
-<h3 id="JSON">JSON</h3>
-<p>[UE4 C++入门到进阶]10.Json数据读写：<a href="https://www.bilibili.com/read/cv10071665">https://www.bilibili.com/read/cv10071665</a></p>
-<p>虚幻4之JSON学习：<a href="https://sanctorum003.github.io/2019/08/07/CG/UE4/JSON/">https://sanctorum003.github.io/2019/08/07/CG/UE4/JSON/</a></p>
-<p>反序列化方法：<a href="https://zhuanlan.zhihu.com/p/74720067">https://zhuanlan.zhihu.com/p/74720067</a></p>
-<p>[UE4]写入Json文件：<a href="https://www.dazhuanlan.com/2020/02/24/5e536ade3f9b8/">https://www.dazhuanlan.com/2020/02/24/5e536ade3f9b8/</a></p>
-<p>参考源码：<code>PaperSpriteSheetImportFactory</code>、<code>PaperTiledImporterFactory</code>、<code>PaperJsonSpriteSheetImporter</code></p>
-<h2 id="内存管理">内存管理</h2>
-<p>[UE4] 对象内存管理几种模式：<a href="https://zhuanlan.zhihu.com/p/49046671">https://zhuanlan.zhihu.com/p/49046671</a></p>
-<p>UE4内存Profiler：<a href="https://zhuanlan.zhihu.com/p/61366273">https://zhuanlan.zhihu.com/p/61366273</a></p>
-<h2 id="UI">UI</h2>
-<h3 id="UI基础知识">UI基础知识</h3>
-<p>UE4入门之路（UI篇）：UMG系统介绍：<a href="https://zhuanlan.zhihu.com/p/117582084">https://zhuanlan.zhihu.com/p/117582084</a></p>
-<p>UE4的UI制作流程：<a href="https://gameinstitute.qq.com/community/detail/121327">https://gameinstitute.qq.com/community/detail/121327</a></p>
-<p>How to get UMG widget absolute position in UE4：<a href="https://gamedevworks.com/blog/ue4-how-to-get-umg-widget-position-in-screen-space/">https://gamedevworks.com/blog/ue4-how-to-get-umg-widget-position-in-screen-space/</a></p>
-<p>[UE4]Slate 和 Native UMG(C++) 笔记：<a href="https://dawnarc.com/2018/12/ue4slate-and-native-umgc-notes/">https://dawnarc.com/2018/12/ue4slate-and-native-umgc-notes/</a></p>
-<h3 id="用代码生成-WidgetBlueprint-与-Widget">用代码生成 WidgetBlueprint 与 Widget</h3>
-<p>How to construct UMG widget in C++?：<a href="https://answers.unrealengine.com/questions/561607/view.html">https://answers.unrealengine.com/questions/561607/view.html</a></p>
-<p><a href="https://gist.github.com/SalahAdDin/b3814f109d340f1e0f5dcac6e623b8ce">https://gist.github.com/SalahAdDin/b3814f109d340f1e0f5dcac6e623b8ce</a></p>
-<p>参考源码：<code>WidgetBlueprintFactory</code></p>
-<h2 id="网络">网络</h2>
-<p>UE4网络底层概览：<a href="https://blog.ch-wind.com/ue4-network-overview/">https://blog.ch-wind.com/ue4-network-overview/</a></p>
-<p>《Exploring in UE4》网络同步原理深入（上）[原理分析]：<a href="https://zhuanlan.zhihu.com/p/34723199">https://zhuanlan.zhihu.com/p/34723199</a></p>
-<p>参考源码：<code>NetDriver.h</code>、<code>IpNetDriver.h</code>、<code>NetworkDriver.cpp</code>、<code>OnlineSybsystemUtils.h</code></p>
-<h2 id="Gameplay">Gameplay</h2>
-<h3 id="学习-Demo">学习 Demo</h3>
-<p>EpicSurvivalGameSeries：<a href="https://github.com/tomlooman/EpicSurvivalGameSeries">https://github.com/tomlooman/EpicSurvivalGameSeries</a></p>
-<p>Shooter Game：<a href="https://docs.unrealengine.com/4.27/en-US/Resources/SampleGames/ShooterGame/">https://docs.unrealengine.com/4.27/en-US/Resources/SampleGames/ShooterGame/</a></p>
-<p>ActionRPG：<a href="https://www.unrealengine.com/marketplace/zh-CN/product/action-rpg">https://www.unrealengine.com/marketplace/zh-CN/product/action-rpg</a></p>
+<h2 id="1-AI">1. AI</h2>
 <h3 id="寻路">寻路</h3>
-<p>堪称最好的 A* 算法：<a href="https://blog.csdn.net/b2b160/article/details/4057781">https://blog.csdn.net/b2b160/article/details/4057781</a></p>
-<p>路径规划之 A* 算法：<a href="https://zhuanlan.zhihu.com/p/54510444">https://zhuanlan.zhihu.com/p/54510444</a></p>
-<p>[译]寻路优化：<a href="https://blog.csdn.net/tkokof1/article/details/111297299">https://blog.csdn.net/tkokof1/article/details/111297299</a></p>
-<p>JPS/JPS+ 寻路算法：<a href="https://www.cnblogs.com/KillerAery/p/12242445.html">https://www.cnblogs.com/KillerAery/p/12242445.html</a></p>
-<p>在AI寻路决策中运用势力图（Influence Map）：<a href="http://www.aisharing.com/archives/80">http://www.aisharing.com/archives/80</a></p>
-<p>UE4 Navmesh寻路：<a href="https://zhuanlan.zhihu.com/p/74537236">https://zhuanlan.zhihu.com/p/74537236</a></p>
-<p>UE4 的导航使用 RecastDetour 组件，主要支持 3D 场景的导航网格导出和寻路，也就是 NavMesh：<a href="https://github.com/recastnavigation/recastnavigation">https://github.com/recastnavigation/recastnavigation</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/74537236">UE4 Navmesh寻路</a></p>
+<p><a href="https://github.com/recastnavigation/recastnavigation">UE4 的 RecastDetour 组件</a></p>
+<p>UE4 主要使用 RecastDetour 组件主要支持 3D 场景的导航网格导出和寻路，也就是 NavMesh</p>
+<h2 id="2-动画">2. 动画</h2>
+<h2 id="3-Gameplay">3. Gameplay</h2>
+<h3 id="Demo">Demo</h3>
+<p><a href="https://github.com/tomlooman/EpicSurvivalGameSeries">EpicSurvivalGameSeries</a></p>
+<p><a href="https://docs.unrealengine.com/4.27/en-US/Resources/SampleGames/ShooterGame/">Shooter Game</a></p>
+<p><a href="https://www.unrealengine.com/marketplace/zh-CN/product/action-rpg">ActionRPG</a></p>
+<h2 id="4-工具流">4. 工具流</h2>
+<h3 id="插件基础">插件基础</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/121152396">插件与模块</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1699614">UE4编辑器如何生成和共享插件</a></p>
+<p><a href="%E4%B8%BA%E5%A4%9A%E4%B8%AA%E6%9C%89%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%E7%9A%84plugin%E7%94%9F%E6%88%90%E9%A2%84%E7%BC%96%E8%AF%91%E7%9A%84%E9%93%BE%E6%8E%A5%E5%BA%93%EF%BC%9Ahttps://zhuanlan.zhihu.com/p/115292711">[UE4]无插件源码编译和打包工程</a></p>
+<p><a href="https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html">How to Make Tools in UE4</a></p>
 <blockquote>
-<p>A* 的估价：设起点为 S、终点为 T，可以选择 D0 * ManhattanDist(S, T) + D1 * abs( Cross(Se, Te) )</p>
-<p>其中 D0 = 2，D1 = 0.001</p>
-</blockquote>
-<h2 id="渲染">渲染</h2>
-<h3 id="图形学">图形学</h3>
-<p>图形学入门：<a href="https://zhiruili.github.io/posts/transformations/">https://zhiruili.github.io/posts/transformations/</a></p>
-<h3 id="Niagara">Niagara</h3>
-<p>Niagara 教程：<a href="https://www.cyanhall.com/cn/tutorial/">https://www.cyanhall.com/cn/tutorial/</a></p>
-<h2 id="物理">物理</h2>
-<h3 id="碰撞检测">碰撞检测</h3>
-<p>SAT：<a href="https://dyn4j.org/2010/01/sat/">https://dyn4j.org/2010/01/sat/</a></p>
-<p>每个方向的投影都有重叠部分则图形碰撞。实际上不需要检测所有方向，二维使用 <strong>每条边</strong> 的法向量检测；三维使用 <strong>每个面</strong> 的法向量、<strong>两个图形的边两两组成的面</strong> 的法向量进行检测即可。</p>
-<p>GJK：<a href="https://dyn4j.org/2010/04/gjk-gilbert-johnson-keerthi/">https://dyn4j.org/2010/04/gjk-gilbert-johnson-keerthi/</a></p>
-<p><a href="https://www.qiujiawei.com/collision-detection-2/">https://www.qiujiawei.com/collision-detection-2/</a></p>
-<p>两个图形的闵可夫斯基差包含原点则图形碰撞。实际上不需要求出具体的闵可夫斯基图形，只要维护一个逼近原点的单纯形即可，该单纯形至多有三个顶点。三维时需要维护一个四面体。</p>
-<p>EPA：<a href="https://dyn4j.org/2010/05/epa-expanding-polytope-algorithm/">https://dyn4j.org/2010/05/epa-expanding-polytope-algorithm/</a></p>
-<p>基于 GJK 算法进行扩展，确定物体的碰撞点和碰撞深度。需要注意的是，维护的单纯形可能顶点数会多于三个。</p>
-<h2 id="插件开发">插件开发</h2>
-<h3 id="插件基础知识">插件基础知识</h3>
-<p>插件与模块：<a href="https://zhuanlan.zhihu.com/p/121152396">https://zhuanlan.zhihu.com/p/121152396</a></p>
-<p>UE4编辑器如何生成和共享插件：<a href="https://cloud.tencent.com/developer/article/1699614">https://cloud.tencent.com/developer/article/1699614</a></p>
-<p>[UE4]无插件源码编译和打包工程：为多个有依赖关系的plugin生成预编译的链接库：<a href="https://zhuanlan.zhihu.com/p/115292711">https://zhuanlan.zhihu.com/p/115292711</a></p>
-<p>How to Make Tools in UE4：<a href="https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html">https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html</a></p>
-<h3 id="注意事项">注意事项</h3>
+<p>注意事项</p>
 <p>在同一个插件模块里面定义的全局静态变量共享。（在 <code>A.cpp</code> 中定义 <code>static int a</code>，在 <code>B.cpp</code> 可以调用。若在 <code>B.cpp</code> 中也定义 <code>static int a</code> 则会报重定义的错误）</p>
+</blockquote>
+<h3 id="序列化">序列化</h3>
+<h4 id="JSON">JSON</h4>
+<p><a href="https://www.bilibili.com/read/cv10071665">[UE4 C++入门到进阶]10.Json数据读写</a>、<a href="https://sanctorum003.github.io/2019/08/07/CG/UE4/JSON/">虚幻4之JSON学习</a>、<a href="https://zhuanlan.zhihu.com/p/74720067">反序列化方法</a>、<a href="https://www.dazhuanlan.com/2020/02/24/5e536ade3f9b8/">[UE4]写入Json文件</a></p>
+<p>参考源码：<code>PaperSpriteSheetImportFactory</code>、<code>PaperTiledImporterFactory</code>、<code>PaperJsonSpriteSheetImporter</code></p>
 <h3 id="Config-系统">Config 系统</h3>
-<p>UE4 中 Config 的使用：<a href="https://blog.ch-wind.com/ue4-config-usage/">https://blog.ch-wind.com/ue4-config-usage/</a></p>
-<p>UE4 的配置界面写入：<a href="https://blog.ch-wind.com/ue4-config-setting/">https://blog.ch-wind.com/ue4-config-setting/</a></p>
-<p>UE4 添加自定义项目设置：<a href="http://supervj.top/2020/08/31/%E6%89%A9%E5%B1%95%E6%B8%B8%E6%88%8F%E8%AE%BE%E7%BD%AE/">http://supervj.top/2020/08/31/扩展游戏设置/</a></p>
+<p><a href="https://blog.ch-wind.com/ue4-config-usage/">UE4 中 Config 的使用</a></p>
+<p><a href="https://blog.ch-wind.com/ue4-config-setting/">UE4 的配置界面写入</a></p>
+<p><a href="http://supervj.top/2020/08/31/%E6%89%A9%E5%B1%95%E6%B8%B8%E6%88%8F%E8%AE%BE%E7%BD%AE/">UE4 添加自定义项目设置</a></p>
 <p>参考源码：<code>Paper2DEditorModule</code></p>
 <h3 id="拓展编辑器">拓展编辑器</h3>
 <p>显示 UI 的可拓展点：Edit -&gt; Editor Preferences -&gt; General -&gt; Miscellaneous -&gt; Developer Tools -&gt; Display UIExtension Points，勾选后即可显示</p>
-<p>UE4插件开发总结：<a href="https://www.lfzxb.top/ue4-plugins-development/">https://www.lfzxb.top/ue4-plugins-development/</a></p>
-<p>UE4给编辑器添加菜单栏(Menu)，工具栏(TooBar)，Tab窗口：<a href="https://blog.csdn.net/qq_29523119/article/details/100088321">https://blog.csdn.net/qq_29523119/article/details/100088321</a></p>
-<p>【UE4编辑器】ContentBrowser 扩展之资源菜单：<a href="https://zhuanlan.zhihu.com/p/302632931">https://zhuanlan.zhihu.com/p/302632931</a></p>
-<p>Custom Context Menu for Actors in Editor：<a href="https://nerivec.github.io/old-ue4-wiki/pages/custom-context-menu-for-actors-in-editor.html">https://nerivec.github.io/old-ue4-wiki/pages/custom-context-menu-for-actors-in-editor.html</a></p>
+<p><a href="https://www.lfzxb.top/ue4-plugins-development/">UE4插件开发总结</a></p>
+<p><a href="https://blog.csdn.net/qq_29523119/article/details/100088321">UE4给编辑器添加菜单栏(Menu)，工具栏(TooBar)，Tab窗口</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/302632931">【UE4编辑器】ContentBrowser 扩展之资源菜单</a></p>
+<p><a href="https://nerivec.github.io/old-ue4-wiki/pages/custom-context-menu-for-actors-in-editor.html">Custom Context Menu for Actors in Editor</a></p>
 <blockquote>
 <p>本质就是 通过 FModuleManager 获得对应模块，在其扩展数组（MenuExtenderArray）里添加新的委托，委托里的内容就是用来添加真正的菜单项。可添加的内容根据 Extender 来确定。</p>
 </blockquote>
 <p>参考源码：<code>AssetManagerEditorModule</code>、<code>ContentBrowserExtensions：InstallHooks</code>、<code>SpriteAssetTypeActions：GetActions</code></p>
-<h3 id="Slate">Slate</h3>
-<p>UE4 Slate 基本框架：<a href="https://zhuanlan.zhihu.com/p/115267691">https://zhuanlan.zhihu.com/p/115267691</a></p>
-<p>虚幻4渲染编程（工具篇）【第九卷：SlateUI布局】：<a href="https://zhuanlan.zhihu.com/p/77681049">https://zhuanlan.zhihu.com/p/77681049</a></p>
-<p>Slate VS UMG（Slate 控件基本框架）：<a href="https://zhuanlan.zhihu.com/p/56127773">https://zhuanlan.zhihu.com/p/56127773</a></p>
-<p>Slate控件中的代理事件如何绑定 UObject 方法：<a href="https://gameinstitute.qq.com/community/detail/121778">https://gameinstitute.qq.com/community/detail/121778</a></p>
-<p>【UE4 Renderer】&lt;02&gt; Slate系统：<a href="https://zhuanlan.zhihu.com/p/28355166">https://zhuanlan.zhihu.com/p/28355166</a></p>
-<p>【UEInside】 Slate合批机制剖析：<a href="https://zhuanlan.zhihu.com/p/346275251">https://zhuanlan.zhihu.com/p/346275251</a></p>
+<h4 id="Slate">Slate</h4>
+<p><a href="https://zhuanlan.zhihu.com/p/115267691">UE4 Slate 基本框架</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/77681049">虚幻4渲染编程（工具篇）【第九卷：SlateUI布局】</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/56127773">Slate VS UMG（Slate 控件基本框架）</a></p>
+<p><a href="https://gameinstitute.qq.com/community/detail/121778">Slate控件中的代理事件如何绑定 UObject 方法</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/28355166">【UE4 Renderer】&lt;02&gt; Slate系统</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/346275251">【UEInside】 Slate合批机制剖析</a></p>
 <p>参考源码：<code>SlateTypes</code></p>
 <h3 id="引入第三方库">引入第三方库</h3>
-<p>c++库文件的理解：<a href="https://wofead.top/2019/10/31/c++%E5%A4%B4%E6%96%87%E4%BB%B6%E5%BA%93%E6%96%87%E4%BB%B6%E5%92%8C%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E6%96%87%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E4%BD%9C%E7%94%A8/">https://wofead.top/2019/10/31/c++头文件库文件和动态链接库文件之间的关系和作用/</a></p>
-<p>UE4引入第三方库：<a href="https://zhuanlan.zhihu.com/p/395423662">https://zhuanlan.zhihu.com/p/395423662</a></p>
+<p><a href="https://wofead.top/2019/10/31/c++%E5%A4%B4%E6%96%87%E4%BB%B6%E5%BA%93%E6%96%87%E4%BB%B6%E5%92%8C%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E6%96%87%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E4%BD%9C%E7%94%A8/">c++库文件的理解</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/395423662">UE4引入第三方库</a></p>
 <h3 id="创建-Asset">创建 Asset</h3>
-<p>ue4 通过指定路径加载资源_UE4 C++基础教程 - 资源常见名词解释：<a href="https://blog.csdn.net/weixin_39743369/article/details/112160932">https://blog.csdn.net/weixin_39743369/article/details/112160932</a></p>
-<p>Create a package in a special path：<a href="https://answers.unrealengine.com/questions/500286/view.html">https://answers.unrealengine.com/questions/500286/view.html</a></p>
-<p>Adding New Asset Types to UE4：<a href="https://gmpreussner.com/reference/adding-new-asset-types-to-ue4">https://gmpreussner.com/reference/adding-new-asset-types-to-ue4</a></p>
-<p>ue4 创建自定义资源，导入与重新导入自定义资源：<a href="https://blog.csdn.net/u010385624/article/details/99729152">https://blog.csdn.net/u010385624/article/details/99729152</a></p>
-<p>UE4的DragonBones插件的开发：<a href="https://zhuanlan.zhihu.com/p/374152267">https://zhuanlan.zhihu.com/p/374152267</a></p>
-<p>虚幻4渲染编程（工具篇）【第八卷：Asset creation】：<a href="https://zhuanlan.zhihu.com/p/55132638">https://zhuanlan.zhihu.com/p/55132638</a></p>
-<p>虚幻4渲染编程（工具篇V2）【第一卷：UE4 Assets tool DV basic Intro】：<a href="https://zhuanlan.zhihu.com/p/338729328">https://zhuanlan.zhihu.com/p/338729328</a></p>
+<p><a href="https://blog.csdn.net/weixin_39743369/article/details/112160932">ue4 通过指定路径加载资源_UE4 C++基础教程 - 资源常见名词解释</a></p>
+<p><a href="https://answers.unrealengine.com/questions/500286/view.html">Create a package in a special path</a></p>
+<p><a href="https://gmpreussner.com/reference/adding-new-asset-types-to-ue4">Adding New Asset Types to UE4</a></p>
+<p><a href="https://blog.csdn.net/u010385624/article/details/99729152">ue4 创建自定义资源，导入与重新导入自定义资源</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/374152267">UE4的DragonBones插件的开发</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/55132638">虚幻4渲染编程（工具篇）【第八卷：Asset creation】</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/338729328">虚幻4渲染编程（工具篇V2）【第一卷：UE4 Assets tool DV basic Intro】</a></p>
 <p>参考源码：<code>EditorFactories</code>、<code>SoundFactory</code>、<code>PaperTiledImporterFactory</code></p>
+<h2 id="5-UI">5. UI</h2>
+<h3 id="UI基础知识">UI基础知识</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/117582084">UE4入门之路（UI篇）：UMG系统介绍</a></p>
+<p><a href="https://gameinstitute.qq.com/community/detail/121327">UE4的UI制作流程</a></p>
+<p><a href="https://gamedevworks.com/blog/ue4-how-to-get-umg-widget-position-in-screen-space/">How to get UMG widget absolute position in UE4</a></p>
+<p><a href="https://dawnarc.com/2018/12/ue4slate-and-native-umgc-notes/">[UE4]Slate 和 Native UMG(C++) 笔记</a></p>
+<h3 id="程序化生成">程序化生成</h3>
+<p><a href="https://answers.unrealengine.com/questions/561607/view.html">How to construct UMG widget in C++?</a></p>
+<p><a href="https://gist.github.com/SalahAdDin/b3814f109d340f1e0f5dcac6e623b8ce">代码生成 Widget 与 WidgetBlueprint</a></p>
+<p>参考源码：<code>WidgetBlueprintFactory</code></p>
+<h2 id="6-网络">6. 网络</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/34723199">《Exploring in UE4》网络同步原理深入（上）[原理分析]</a></p>
+<p>参考源码：<code>NetDriver.h</code>、<code>IpNetDriver.h</code>、<code>NetworkDriver.cpp</code>、<code>OnlineSybsystemUtils.h</code></p>
+<h2 id="7-物理">7. 物理</h2>
+<h2 id="8-渲染">8. 渲染</h2>
+<h3 id="Niagara">Niagara</h3>
+<p><a href="https://www.cyanhall.com/cn/tutorial/">Niagara 教程</a></p>
+<h2 id="9-性能优化">9. 性能优化</h2>
+<h3 id="内存管理">内存管理</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/49046671">[UE4] 对象内存管理几种模式</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/61366273">UE4内存Profiler</a></p>
 ]]></content>
       <categories>
         <category>游戏开发</category>
@@ -8555,6 +8534,88 @@ d_0 &amp;= F(x+1,y-0.5)\\
       </categories>
       <tags>
         <tag>动画</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[GENERIC]知识总结</title>
+    <url>/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BGENERIC%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1>知识总结</h1>
+<h2 id="1-AI">1. AI</h2>
+<h3 id="寻路">寻路</h3>
+<p><a href="https://blog.csdn.net/b2b160/article/details/4057781">堪称最好的 A* 算法</a>、<a href="https://zhuanlan.zhihu.com/p/54510444">路径规划之 A* 算法</a></p>
+<p><a href="https://blog.csdn.net/tkokof1/article/details/111297299">[译]寻路优化</a></p>
+<p><a href="https://www.cnblogs.com/KillerAery/p/12242445.html">JPS/JPS+ 寻路算法</a></p>
+<p><a href="http://www.aisharing.com/archives/80">在AI寻路决策中运用势力图（Influence Map）</a></p>
+<blockquote>
+<p>A* 的估价：设起点为 S、终点为 T，可以选择 D0 * ManhattanDist(S, T) + D1 * abs( Cross(Se, Te) )</p>
+<p>其中 D0 = 2，D1 = 0.001</p>
+</blockquote>
+<h2 id="2-动画">2. 动画</h2>
+<h3 id="骨骼动画">骨骼动画</h3>
+<p><a href="https://www.bearchild.top/2021/11/27/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%8A%A8%E7%94%BB/%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">骨骼动画原理</a></p>
+<h2 id="3-Gameplay">3. Gameplay</h2>
+<h2 id="4-工具流">4. 工具流</h2>
+<h2 id="5-UI">5. UI</h2>
+<h2 id="6-网络">6. 网络</h2>
+<h2 id="7-物理">7. 物理</h2>
+<h3 id="碰撞检测">碰撞检测</h3>
+<p><a href="https://dyn4j.org/2010/01/sat/">SAT</a>：每个方向的投影都有重叠部分则图形碰撞。实际上不需要检测所有方向，二维使用 <strong>每条边</strong> 的法向量检测；三维使用 <strong>每个面</strong> 的法向量、<strong>两个图形的边两两组成的面</strong> 的法向量进行检测即可。</p>
+<p><a href="https://dyn4j.org/2010/04/gjk-gilbert-johnson-keerthi/">GJK</a>、<a href="https://www.qiujiawei.com/collision-detection-2/">GJK</a></p>
+<p>两个图形的闵可夫斯基差包含原点则图形碰撞。实际上不需要求出具体的闵可夫斯基图形，只要维护一个逼近原点的单纯形即可，该单纯形至多有三个顶点。三维时需要维护一个四面体。</p>
+<p><a href="https://dyn4j.org/2010/05/epa-expanding-polytope-algorithm/">EPA</a></p>
+<p>基于 GJK 算法进行扩展，确定物体的碰撞点和碰撞深度。需要注意的是，维护的单纯形可能顶点数会多于三个。</p>
+<h2 id="8-渲染">8. 渲染</h2>
+<h3 id="图形学">图形学</h3>
+<p><a href="https://zhiruili.github.io/posts/transformations/">图形学入门</a></p>
+<h3 id="PBR">PBR</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/416112744">重新认识PBR</a></p>
+<h2 id="9-性能优化">9. 性能优化</h2>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>知识总结</category>
+      </categories>
+      <tags>
+        <tag>知识总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Unity]知识总结</title>
+    <url>/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BUNITY%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1>知识总结</h1>
+<h1>知识总结</h1>
+<h2 id="1-AI">1. AI</h2>
+<h2 id="2-动画">2. 动画</h2>
+<h3 id="动画基础">动画基础</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/105029905">学习笔记 — Unity动画系统</a></p>
+<h3 id="Procedural-Animation">Procedural Animation</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/135877690">Unity里的Procedural Animation</a></p>
+<h2 id="3-Gameplay">3. Gameplay</h2>
+<h3 id="协程">协程</h3>
+<p><a href="https://www.bearchild.top/2021/09/24/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Gameplay/%5BUnity%5DUnity%E4%B8%AD%E7%9A%84%E5%8D%8F%E7%A8%8B/">Unity 中的协程</a></p>
+<h3 id="地形">地形</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/388844386">大世界GPU Driven地形入门</a></p>
+<h2 id="4-工具流">4. 工具流</h2>
+<h2 id="5-UI">5. UI</h2>
+<h2 id="6-网络">6. 网络</h2>
+<h2 id="7-物理">7. 物理</h2>
+<h2 id="8-渲染">8. 渲染</h2>
+<h3 id="渲染基础">渲染基础</h3>
+<p><a href="https://www.zhihu.com/pub/book/119585555">Unity Shader 入门精要</a></p>
+<h3 id="卡通渲染">卡通渲染</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/109101851">从零开始的卡通渲染</a></p>
+<h2 id="9-性能优化">9. 性能优化</h2>
+<h3 id="内存">内存</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/381859536">【笔记】Unity内存分配和回收的底层原理</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/370467923">Unity游戏内存分布概览</a></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>知识总结</category>
+      </categories>
+      <tags>
+        <tag>知识总结</tag>
+        <tag>Unity</tag>
       </tags>
   </entry>
 </search>

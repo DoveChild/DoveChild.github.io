@@ -1,0 +1,292 @@
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>[UE4]知识总结 | BearChild's Blog</title><meta name="keywords" content="UE4,知识总结"><meta name="author" content="BearChild"><meta name="copyright" content="BearChild"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="知识总结 1. AI 寻路 UE4 Navmesh寻路 UE4 的 RecastDetour 组件 UE4 主要使用 RecastDetour 组件主要支持 3D 场景的导航网格导出和寻路，也就是 NavMesh 2. 动画 3. Gameplay Demo EpicSurvivalGameSeries Shooter Game ActionRPG 4. 工具流 插件基础 插件与模块 UE4编辑器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[UE4]知识总结">
+<meta property="og:url" content="https://www.bearchild.top/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/[UE4]%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="BearChild&#39;s Blog">
+<meta property="og:description" content="知识总结 1. AI 寻路 UE4 Navmesh寻路 UE4 的 RecastDetour 组件 UE4 主要使用 RecastDetour 组件主要支持 3D 场景的导航网格导出和寻路，也就是 NavMesh 2. 动画 3. Gameplay Demo EpicSurvivalGameSeries Shooter Game ActionRPG 4. 工具流 插件基础 插件与模块 UE4编辑器">
+<meta property="og:locale">
+<meta property="og:image" content="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/ue4logo.webp">
+<meta property="article:published_time" content="2098-12-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-27T08:14:26.729Z">
+<meta property="article:author" content="BearChild">
+<meta property="article:tag" content="UE4">
+<meta property="article:tag" content="知识总结">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/ue4logo.webp"><link rel="shortcut icon" href="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/%E6%BB%91%E7%A8%BD.jpg"><link rel="canonical" href="https://www.bearchild.top/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/[UE4]%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '[UE4]知识总结',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-27 16:14:26'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/decoration/background.css"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="BearChild's Blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/%E6%BB%91%E7%A8%BD.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">180</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">69</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-gamepad"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/ue4logo.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">BearChild's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-gamepad"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">[UE4]知识总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2098-12-31T16:00:00.000Z" title="Created 2099-01-01 00:00:00">2099-01-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-12-27T08:14:26.729Z" title="Updated 2021-12-27 16:14:26">2021-12-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">知识总结</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="[UE4]知识总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>知识总结</h1>
+<h2 id="1-AI">1. AI</h2>
+<h3 id="寻路">寻路</h3>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/74537236">UE4 Navmesh寻路</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/recastnavigation/recastnavigation">UE4 的 RecastDetour 组件</a></p>
+<p>UE4 主要使用 RecastDetour 组件主要支持 3D 场景的导航网格导出和寻路，也就是 NavMesh</p>
+<h2 id="2-动画">2. 动画</h2>
+<h2 id="3-Gameplay">3. Gameplay</h2>
+<h3 id="Demo">Demo</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/tomlooman/EpicSurvivalGameSeries">EpicSurvivalGameSeries</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.unrealengine.com/4.27/en-US/Resources/SampleGames/ShooterGame/">Shooter Game</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.unrealengine.com/marketplace/zh-CN/product/action-rpg">ActionRPG</a></p>
+<h2 id="4-工具流">4. 工具流</h2>
+<h3 id="插件基础">插件基础</h3>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/121152396">插件与模块</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1699614">UE4编辑器如何生成和共享插件</a></p>
+<p><a href="%E4%B8%BA%E5%A4%9A%E4%B8%AA%E6%9C%89%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%E7%9A%84plugin%E7%94%9F%E6%88%90%E9%A2%84%E7%BC%96%E8%AF%91%E7%9A%84%E9%93%BE%E6%8E%A5%E5%BA%93%EF%BC%9Ahttps://zhuanlan.zhihu.com/p/115292711">[UE4]无插件源码编译和打包工程</a></p>
+<p><a target="_blank" rel="noopener" href="https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html">How to Make Tools in UE4</a></p>
+<blockquote>
+<p>注意事项</p>
+<p>在同一个插件模块里面定义的全局静态变量共享。（在 <code>A.cpp</code> 中定义 <code>static int a</code>，在 <code>B.cpp</code> 可以调用。若在 <code>B.cpp</code> 中也定义 <code>static int a</code> 则会报重定义的错误）</p>
+</blockquote>
+<h3 id="序列化">序列化</h3>
+<h4 id="JSON">JSON</h4>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv10071665">[UE4 C++入门到进阶]10.Json数据读写</a>、<a target="_blank" rel="noopener" href="https://sanctorum003.github.io/2019/08/07/CG/UE4/JSON/">虚幻4之JSON学习</a>、<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/74720067">反序列化方法</a>、<a target="_blank" rel="noopener" href="https://www.dazhuanlan.com/2020/02/24/5e536ade3f9b8/">[UE4]写入Json文件</a></p>
+<p>参考源码：<code>PaperSpriteSheetImportFactory</code>、<code>PaperTiledImporterFactory</code>、<code>PaperJsonSpriteSheetImporter</code></p>
+<h3 id="Config-系统">Config 系统</h3>
+<p><a target="_blank" rel="noopener" href="https://blog.ch-wind.com/ue4-config-usage/">UE4 中 Config 的使用</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.ch-wind.com/ue4-config-setting/">UE4 的配置界面写入</a></p>
+<p><a target="_blank" rel="noopener" href="http://supervj.top/2020/08/31/%E6%89%A9%E5%B1%95%E6%B8%B8%E6%88%8F%E8%AE%BE%E7%BD%AE/">UE4 添加自定义项目设置</a></p>
+<p>参考源码：<code>Paper2DEditorModule</code></p>
+<h3 id="拓展编辑器">拓展编辑器</h3>
+<p>显示 UI 的可拓展点：Edit -&gt; Editor Preferences -&gt; General -&gt; Miscellaneous -&gt; Developer Tools -&gt; Display UIExtension Points，勾选后即可显示</p>
+<p><a target="_blank" rel="noopener" href="https://www.lfzxb.top/ue4-plugins-development/">UE4插件开发总结</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29523119/article/details/100088321">UE4给编辑器添加菜单栏(Menu)，工具栏(TooBar)，Tab窗口</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/302632931">【UE4编辑器】ContentBrowser 扩展之资源菜单</a></p>
+<p><a target="_blank" rel="noopener" href="https://nerivec.github.io/old-ue4-wiki/pages/custom-context-menu-for-actors-in-editor.html">Custom Context Menu for Actors in Editor</a></p>
+<blockquote>
+<p>本质就是 通过 FModuleManager 获得对应模块，在其扩展数组（MenuExtenderArray）里添加新的委托，委托里的内容就是用来添加真正的菜单项。可添加的内容根据 Extender 来确定。</p>
+</blockquote>
+<p>参考源码：<code>AssetManagerEditorModule</code>、<code>ContentBrowserExtensions：InstallHooks</code>、<code>SpriteAssetTypeActions：GetActions</code></p>
+<h4 id="Slate">Slate</h4>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/115267691">UE4 Slate 基本框架</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/77681049">虚幻4渲染编程（工具篇）【第九卷：SlateUI布局】</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56127773">Slate VS UMG（Slate 控件基本框架）</a></p>
+<p><a target="_blank" rel="noopener" href="https://gameinstitute.qq.com/community/detail/121778">Slate控件中的代理事件如何绑定 UObject 方法</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28355166">【UE4 Renderer】&lt;02&gt; Slate系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/346275251">【UEInside】 Slate合批机制剖析</a></p>
+<p>参考源码：<code>SlateTypes</code></p>
+<h3 id="引入第三方库">引入第三方库</h3>
+<p><a target="_blank" rel="noopener" href="https://wofead.top/2019/10/31/c++%E5%A4%B4%E6%96%87%E4%BB%B6%E5%BA%93%E6%96%87%E4%BB%B6%E5%92%8C%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E6%96%87%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E4%BD%9C%E7%94%A8/">c++库文件的理解</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/395423662">UE4引入第三方库</a></p>
+<h3 id="创建-Asset">创建 Asset</h3>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39743369/article/details/112160932">ue4 通过指定路径加载资源_UE4 C++基础教程 - 资源常见名词解释</a></p>
+<p><a target="_blank" rel="noopener" href="https://answers.unrealengine.com/questions/500286/view.html">Create a package in a special path</a></p>
+<p><a target="_blank" rel="noopener" href="https://gmpreussner.com/reference/adding-new-asset-types-to-ue4">Adding New Asset Types to UE4</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010385624/article/details/99729152">ue4 创建自定义资源，导入与重新导入自定义资源</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/374152267">UE4的DragonBones插件的开发</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/55132638">虚幻4渲染编程（工具篇）【第八卷：Asset creation】</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/338729328">虚幻4渲染编程（工具篇V2）【第一卷：UE4 Assets tool DV basic Intro】</a></p>
+<p>参考源码：<code>EditorFactories</code>、<code>SoundFactory</code>、<code>PaperTiledImporterFactory</code></p>
+<h2 id="5-UI">5. UI</h2>
+<h3 id="UI基础知识">UI基础知识</h3>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/117582084">UE4入门之路（UI篇）：UMG系统介绍</a></p>
+<p><a target="_blank" rel="noopener" href="https://gameinstitute.qq.com/community/detail/121327">UE4的UI制作流程</a></p>
+<p><a target="_blank" rel="noopener" href="https://gamedevworks.com/blog/ue4-how-to-get-umg-widget-position-in-screen-space/">How to get UMG widget absolute position in UE4</a></p>
+<p><a target="_blank" rel="noopener" href="https://dawnarc.com/2018/12/ue4slate-and-native-umgc-notes/">[UE4]Slate 和 Native UMG(C++) 笔记</a></p>
+<h3 id="程序化生成">程序化生成</h3>
+<p><a target="_blank" rel="noopener" href="https://answers.unrealengine.com/questions/561607/view.html">How to construct UMG widget in C++?</a></p>
+<p><a target="_blank" rel="noopener" href="https://gist.github.com/SalahAdDin/b3814f109d340f1e0f5dcac6e623b8ce">代码生成 Widget 与 WidgetBlueprint</a></p>
+<p>参考源码：<code>WidgetBlueprintFactory</code></p>
+<h2 id="6-网络">6. 网络</h2>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34723199">《Exploring in UE4》网络同步原理深入（上）[原理分析]</a></p>
+<p>参考源码：<code>NetDriver.h</code>、<code>IpNetDriver.h</code>、<code>NetworkDriver.cpp</code>、<code>OnlineSybsystemUtils.h</code></p>
+<h2 id="7-物理">7. 物理</h2>
+<h2 id="8-渲染">8. 渲染</h2>
+<h3 id="Niagara">Niagara</h3>
+<p><a target="_blank" rel="noopener" href="https://www.cyanhall.com/cn/tutorial/">Niagara 教程</a></p>
+<h2 id="9-性能优化">9. 性能优化</h2>
+<h3 id="内存管理">内存管理</h3>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/49046671">[UE4] 对象内存管理几种模式</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/61366273">UE4内存Profiler</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">BearChild</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://www.bearchild.top/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/[UE4]%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">https://www.bearchild.top/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/[UE4]%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/UE4/">UE4</a><a class="post-meta__tags" href="/tags/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">知识总结</a></div><div class="post_share"><div class="social-share" data-image="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/ue4logo.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BUNITY%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/unitylogo.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">[Unity]知识总结</div></div></a></div><div class="next-post pull-right"><a href="/2021/11/29/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%8A%A8%E7%94%BB/Live2D%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%B6%E4%BD%9C/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202111291804212.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Live2D模型的简单制作</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/08/12/游戏开发/UI/[UE4]CanvasPanelSlot布局规则/" title="[UE4]CanvasPanelSlot布局规则"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643173.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-12</div><div class="title">[UE4]CanvasPanelSlot布局规则</div></div></a></div><div><a href="/2021/08/12/游戏开发/工具流/[UE4]读取本地字体文件/" title="[UE4]读取本地字体文件"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737983.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-12</div><div class="title">[UE4]读取本地字体文件</div></div></a></div><div><a href="/2021/08/12/游戏开发/工具流/[UE4]读取与导出本地图片/" title="[UE4]读取与导出本地图片"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121506053.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-12</div><div class="title">[UE4]读取与导出本地图片</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/%E6%BB%91%E7%A8%BD.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">BearChild</div><div class="author-info__description">前路浩荡，未来可期！</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">180</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">69</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://qm.qq.com/cgi-bin/qm/qr?k=ULZEQtGq1dv7fjaZmZjv4aKPdTOlaU1u&amp;noverify=0" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://github.com/DoveChild" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://www.zhihu.com/people/bearchild-91" target="_blank" title="知乎"><i class="fab fa-zhihu"></i></a><a class="social-icon" href="mailto:423339833@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Welcome, - v - QQ：423339833</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">知识总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-AI"><span class="toc-number">1.1.</span> <span class="toc-text">1. AI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BB%E8%B7%AF"><span class="toc-number">1.1.1.</span> <span class="toc-text">寻路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8A%A8%E7%94%BB"><span class="toc-number">1.2.</span> <span class="toc-text">2. 动画</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Gameplay"><span class="toc-number">1.3.</span> <span class="toc-text">3. Gameplay</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Demo"><span class="toc-number">1.3.1.</span> <span class="toc-text">Demo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%B7%A5%E5%85%B7%E6%B5%81"><span class="toc-number">1.4.</span> <span class="toc-text">4. 工具流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E5%9F%BA%E7%A1%80"><span class="toc-number">1.4.1.</span> <span class="toc-text">插件基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">1.4.2.</span> <span class="toc-text">序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSON"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">JSON</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Config-%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.4.3.</span> <span class="toc-text">Config 系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-number">1.4.4.</span> <span class="toc-text">拓展编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Slate"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">Slate</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93"><span class="toc-number">1.4.5.</span> <span class="toc-text">引入第三方库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Asset"><span class="toc-number">1.4.6.</span> <span class="toc-text">创建 Asset</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-UI"><span class="toc-number">1.5.</span> <span class="toc-text">5. UI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UI%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.5.1.</span> <span class="toc-text">UI基础知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E5%8C%96%E7%94%9F%E6%88%90"><span class="toc-number">1.5.2.</span> <span class="toc-text">程序化生成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E7%BD%91%E7%BB%9C"><span class="toc-number">1.6.</span> <span class="toc-text">6. 网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E7%89%A9%E7%90%86"><span class="toc-number">1.7.</span> <span class="toc-text">7. 物理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E6%B8%B2%E6%9F%93"><span class="toc-number">1.8.</span> <span class="toc-text">8. 渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Niagara"><span class="toc-number">1.8.1.</span> <span class="toc-text">Niagara</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">1.9.</span> <span class="toc-text">9. 性能优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">1.9.1.</span> <span class="toc-text">内存管理</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BGENERIC%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="[GENERIC]知识总结"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/gameboy.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[GENERIC]知识总结"/></a><div class="content"><a class="title" href="/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BGENERIC%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="[GENERIC]知识总结">[GENERIC]知识总结</a><time datetime="2098-12-31T16:00:02.000Z" title="Created 2099-01-01 00:00:02">2099-01-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BUNITY%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="[Unity]知识总结"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/unitylogo.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[Unity]知识总结"/></a><div class="content"><a class="title" href="/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BUNITY%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="[Unity]知识总结">[Unity]知识总结</a><time datetime="2098-12-31T16:00:01.000Z" title="Created 2099-01-01 00:00:01">2099-01-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BUE4%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="[UE4]知识总结"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/ue4logo.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="[UE4]知识总结"/></a><div class="content"><a class="title" href="/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BUE4%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="[UE4]知识总结">[UE4]知识总结</a><time datetime="2098-12-31T16:00:00.000Z" title="Created 2099-01-01 00:00:00">2099-01-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', '', 'katex-wrap')
+  })
+})()</script><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'bearchild-4gzibvou1823d852',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'bearchild-4gzibvou1823d852',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="/decoration/background.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
