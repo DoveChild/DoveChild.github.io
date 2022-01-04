@@ -8206,7 +8206,6 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://zhuanlan.zhihu.com/p/346275251">【UEInside】 Slate合批机制剖析</a></p>
 <p>参考源码：<code>SlateTypes</code></p>
 <h3 id="引入第三方库">引入第三方库</h3>
-<p><a href="https://wofead.top/2019/10/31/c++%E5%A4%B4%E6%96%87%E4%BB%B6%E5%BA%93%E6%96%87%E4%BB%B6%E5%92%8C%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E6%96%87%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E4%BD%9C%E7%94%A8/">c++库文件的理解</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/395423662">UE4引入第三方库</a></p>
 <h3 id="创建-Asset">创建 Asset</h3>
 <p><a href="https://blog.csdn.net/weixin_39743369/article/details/112160932">ue4 通过指定路径加载资源_UE4 C++基础教程 - 资源常见名词解释</a></p>
@@ -8571,11 +8570,14 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://www.bearchild.top/2021/11/27/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%8A%A8%E7%94%BB/%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">骨骼动画原理</a></p>
 <h2 id="3-Gameplay">3. Gameplay</h2>
 <h2 id="4-工具流">4. 工具流</h2>
+<h3 id="引入第三方库">引入第三方库</h3>
+<p><a href="https://wofead.top/2019/10/31/c++%E5%A4%B4%E6%96%87%E4%BB%B6%E5%BA%93%E6%96%87%E4%BB%B6%E5%92%8C%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E6%96%87%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E4%BD%9C%E7%94%A8/">c++库文件的理解</a></p>
 <h2 id="5-UI">5. UI</h2>
 <h2 id="6-网络">6. 网络</h2>
 <p><a href="https://zhuanlan.zhihu.com/p/445398809">预测、和解、插值</a></p>
 <h2 id="7-物理">7. 物理</h2>
 <h3 id="碰撞">碰撞</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/86981378?utm_source=qq&amp;utm_medium=social&amp;utm_oi=792136550879227904">多边形碰撞检测</a></p>
 <p><a href="https://dyn4j.org/2010/01/sat/">SAT</a>：每个方向的投影都有重叠部分则图形碰撞。实际上不需要检测所有方向，二维使用 <strong>每条边</strong> 的法向量检测；三维使用 <strong>每个面</strong> 的法向量、<strong>两个图形的边两两组成的面</strong> 的法向量进行检测即可。</p>
 <p><a href="https://dyn4j.org/2010/04/gjk-gilbert-johnson-keerthi/">GJK</a>、<a href="https://www.qiujiawei.com/collision-detection-2/">GJK</a></p>
 <p>两个图形的闵可夫斯基差包含原点则图形碰撞。实际上不需要求出具体的闵可夫斯基图形，只要维护一个逼近原点的单纯形即可，该单纯形至多有三个顶点。三维时需要维护一个四面体。</p>
@@ -8635,6 +8637,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://zhuanlan.zhihu.com/p/158430393">技能编辑器的设计实现</a></p>
 <h2 id="5-UI">5. UI</h2>
 <h2 id="6-网络">6. 网络</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/83010584?utm_source=qq&amp;utm_medium=social&amp;utm_oi=792136550879227904">多人网络游戏同步探究</a></p>
 <h2 id="7-物理">7. 物理</h2>
 <h2 id="8-渲染">8. 渲染</h2>
 <h3 id="渲染基础">渲染基础</h3>
