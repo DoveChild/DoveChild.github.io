@@ -8600,6 +8600,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <h3 id="大世界">大世界</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/258985044">大世界技术浅析——超远视距处理</a></p>
 <h2 id="9-性能优化">9. 性能优化</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/259760974">IMR, TBR, TBDR 还有GPU架构方面的一些理解</a></p>
 ]]></content>
       <categories>
         <category>游戏开发</category>
@@ -8675,7 +8676,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p>写简历，投递简历，等着简历被捞，面试。</p>
 <p>……</p>
 <p>幸运的是， 付出了的有了收获，甚至收获比你想象的更大 。居然通过了所有的面试，一次都没有挂过。</p>
-<p>尘埃落定。在 <strong>3.26</strong> 收到 <strong>腾讯光子</strong> 的 Offer 的时候，过去近四个月的高压终于得到了释放。这时身心俱疲，甚至对面试产生了 PTSD，于是把其它厂的后续面试全拒了。</p>
+<p>尘埃落定。在 <strong>3.26</strong> 收到 <strong>腾讯光子</strong> 的 Offer 的时候，过去近四个月的高压终于得到了释放。这时身心俱疲，甚至对面试产生了 PTSD，于是把其它厂的后续面试全拒了。（太感谢腾讯给的机会啦！）</p>
 <p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202201020036629.png" alt="img"></p>
 <h2 id="四月-五月">四月~五月</h2>
 <p>接下来好好把之前速成的八股学了学，认真学了下计网和操作系统。杂七杂八的东西也学了一堆，搭建起了这个博客。</p>
