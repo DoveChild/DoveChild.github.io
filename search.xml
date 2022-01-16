@@ -8569,6 +8569,9 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <h3 id="骨骼动画">骨骼动画</h3>
 <p><a href="https://www.bearchild.top/2021/11/27/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%8A%A8%E7%94%BB/%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">骨骼动画原理</a></p>
 <h2 id="3-Gameplay">3. Gameplay</h2>
+<h3 id="架构">架构</h3>
+<p><a href="https://blog.codingnow.com/2017/06/overwatch_ecs.html">浅谈《守望先锋》中的 ECS 构架</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/270927422">漫谈Entity Component System (ECS)</a></p>
 <h2 id="4-工具流">4. 工具流</h2>
 <h3 id="引入第三方库">引入第三方库</h3>
 <p><a href="https://wofead.top/2019/10/31/c++%E5%A4%B4%E6%96%87%E4%BB%B6%E5%BA%93%E6%96%87%E4%BB%B6%E5%92%8C%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E6%96%87%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E4%BD%9C%E7%94%A8/">c++库文件的理解</a></p>
@@ -8587,6 +8590,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <h3 id="图形学">图形学</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/27471300">四元数——基本概念</a></p>
 <p><a href="https://www.zhihu.com/question/23005815/answer/33971127">如何形象地理解四元数？</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/97186723">四元数(Quaternions)</a></p>
 <p><a href="https://zhiruili.github.io/posts/transformations/">图形学入门</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/370059588">图形渲染基础：光栅化算法</a></p>
 <p><a href="https://www.bearchild.top/2021/09/22/%E5%9B%BE%E5%BD%A2%E5%AD%A6/%5B%E5%9B%BE%E5%BD%A2%E5%AD%A6%5D%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF/">[图形学] 基础知识 - 渲染管线</a></p>
@@ -8601,6 +8605,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://zhuanlan.zhihu.com/p/258985044">大世界技术浅析——超远视距处理</a></p>
 <h2 id="9-性能优化">9. 性能优化</h2>
 <p><a href="https://zhuanlan.zhihu.com/p/259760974">IMR, TBR, TBDR 还有GPU架构方面的一些理解</a></p>
+<p><a href="https://www.cnblogs.com/timlly/p/11471507.html">深入GPU硬件架构及运行机制</a></p>
 ]]></content>
       <categories>
         <category>游戏开发</category>
@@ -8624,7 +8629,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzU5MjQ1NTEwOA==&amp;mid=2247493316&amp;idx=1&amp;sn=7e4fef834a8066faca3d2f1f1a090bb4&amp;chksm=fe1dd26fc96a5b79856840f556cf65026facb83520ac1891605e42d5e777d30a0d5219060e21&amp;mpshare=1&amp;scene=1&amp;srcid=0606YJLYnfprk9UjpPQCnre1#rd">Playable API：定制你的动画系统</a></p>
 <p><a href="https://kybernetik.com.au/animancer/">Animancer</a></p>
 <h2 id="3-Gameplay">3. Gameplay</h2>
-<h3 id="框架">框架</h3>
+<h3 id="架构">架构</h3>
 <p><a href="https://www.drflower.top/posts/4981aa9/">GameFramework 解析</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/186970833">Unity DOTS：目录</a></p>
 <h3 id="协程">协程</h3>
