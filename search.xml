@@ -8152,7 +8152,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p>UE4 主要使用 RecastDetour 组件主要支持 3D 场景的导航网格导出和寻路，也就是 NavMesh</p>
 <h3 id="行为树">行为树</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/143298443">UE4行为树详解</a></p>
-<p>[<a href="https://zhuanlan.zhihu.com/p/139514376">UE4][AI] 浅析UE4-BehaviorTree的特性</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/139514376">[UE4][AI] 浅析UE4-BehaviorTree的特性</a></p>
 <h2 id="2-动画">2. 动画</h2>
 <h2 id="3-Gameplay">3. Gameplay</h2>
 <h3 id="基础">基础</h3>
@@ -8234,7 +8234,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <h2 id="8-渲染">8. 渲染</h2>
 <h3 id="Niagara">Niagara</h3>
 <p><a href="https://www.cyanhall.com/cn/tutorial/">Niagara 教程</a></p>
-<h2 id="材质">材质</h2>
+<h3 id="材质">材质</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/73754807">[UE4]动态液体材质浅谈</a></p>
 <h2 id="9-性能优化">9. 性能优化</h2>
 <h3 id="内存管理">内存管理</h3>
