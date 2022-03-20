@@ -8159,7 +8159,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://zhuanlan.zhihu.com/p/362218832">Unity3D 经验者转到 UE4 的经验</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/369974105">UE4的智能指针 TSharedPtr</a></p>
 <p><a href="https://dawnarc.com/2016/05/ue4console%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4command/">[UE4]console命令行常用命令(command)</a></p>
-<h2 id="蓝图">蓝图</h2>
+<h3 id="蓝图">蓝图</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/92268112">理解蓝图技术架构</a></p>
 <h3 id="架构">架构</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/22833151">《InsideUE4》GamePlay架构（一）Actor和Component</a></p>
@@ -8243,6 +8243,9 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://zhuanlan.zhihu.com/p/49046671">[UE4] 对象内存管理几种模式</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/61366273">UE4内存Profiler</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/219588301">UE4 垃圾收集大杂烩</a></p>
+<h3 id="性能分析">性能分析</h3>
+<p><a href="https://www.cnblogs.com/ghl_carmack/p/5481763.html">UE4 性能优化方法(工具篇)</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/267335603?utm_source=qq">[UE4] 项目帧率低排查瓶颈文件步骤记录</a></p>
 ]]></content>
       <categories>
         <category>游戏开发</category>
