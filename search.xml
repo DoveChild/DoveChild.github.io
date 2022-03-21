@@ -8161,6 +8161,8 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://dawnarc.com/2016/05/ue4console%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4command/">[UE4]console命令行常用命令(command)</a></p>
 <h3 id="蓝图">蓝图</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/92268112">理解蓝图技术架构</a></p>
+<h3 id="GAS">GAS</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/440168260">UE的GAS原理深入探究</a></p>
 <h3 id="架构">架构</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/22833151">《InsideUE4》GamePlay架构（一）Actor和Component</a></p>
 <h3 id="Demo">Demo</h3>
@@ -8567,6 +8569,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://www.cnblogs.com/KillerAery/p/12242445.html">JPS/JPS+ 寻路算法</a></p>
 <p><a href="http://www.aisharing.com/archives/80">在AI寻路决策中运用势力图（Influence Map）</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/362500376">LPA* 与 D* Lite</a></p>
+<p><a href="https://wo1fsea.github.io/2016/08/21/A_Quick_Introduction_to_NavMesh/">NavMesh 生成算法</a></p>
 <blockquote>
 <p>A* 的估价：设起点为 S、终点为 T，可以选择 D0 * ManhattanDist(S, T) + D1 * abs( Cross(Se, Te) )</p>
 <p>其中 D0 = 2，D1 = 0.001</p>
