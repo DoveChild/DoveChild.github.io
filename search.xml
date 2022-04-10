@@ -7990,116 +7990,6 @@ d_0 &amp;= F(x+1,y-0.5)\\
       </tags>
   </entry>
   <entry>
-    <title>[UE4]CanvasPanelSlot布局规则</title>
-    <url>/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/UI/%5BUE4%5DCanvasPanelSlot%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99/</url>
-    <content><![CDATA[<h1>CanvasPanelSlot 布局规则</h1>
-<h2 id="UMG-中的-CanvasPanelSlot">UMG 中的 CanvasPanelSlot</h2>
-<p>我们先来看一下在 UI 面板中，CanvasPanelSlot 有哪些信息：</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121642491.png" alt="image-20210812153142702" style="zoom:50%;" />
-<h2 id="源码中的-CanvasPanelSlot">源码中的 CanvasPanelSlot</h2>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UMG_API</span> <span class="title">UCanvasPanelSlot</span> :</span> <span class="keyword">public</span> UPanelSlot</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">GENERATED_UCLASS_BODY</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** The anchoring information for the slot */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadOnly, Category=<span class="string">&quot;Layout|Canvas Slot&quot;</span>)</span><br><span class="line">	FAnchorData LayoutData;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** When AutoSize is true we use the widget&#x27;s desired size */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadOnly, Category=<span class="string">&quot;Layout|Canvas Slot&quot;</span>, AdvancedDisplay, meta=( DisplayName=<span class="string">&quot;Size To Content&quot;</span> ))</span><br><span class="line">	<span class="keyword">bool</span> bAutoSize;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** The order priority this widget is rendered in.  Higher values are rendered last (and so they will appear to be on top). */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadOnly, Category=<span class="string">&quot;Layout|Canvas Slot&quot;</span>)</span><br><span class="line">	int32 ZOrder;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/*其余信息*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FAnchorData</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">GENERATED_USTRUCT_BODY</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** Offset. */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadWrite, Category=AnchorData)</span><br><span class="line">	FMargin Offsets;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/** Anchors. */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadWrite, Category=AnchorData)</span><br><span class="line">	FAnchors Anchors;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Alignment is the pivot point of the widget.  Starting in the upper left at (0,0),</span></span><br><span class="line"><span class="comment">	 * ending in the lower right at (1,1).  Moving the alignment point allows you to move</span></span><br><span class="line"><span class="comment">	 * the origin of the widget.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadWrite, Category=AnchorData)</span><br><span class="line">	FVector2D Alignment;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>我们会发现，在面板中的 <code>Position</code> 与 <code>Size</code>，在源码中也是以 <code>Offsets</code> 形式存在的。</p>
-<p><code>Anchor.Minimum.X / Anchor.Minimum.Y</code>、<code>Anchor.Maximum.X / Anchor.Maximum.Y</code>、<code>Alignment.X / Alignment.Y</code>，均是以 <strong>比例</strong> 的形式给出。</p>
-<h2 id="布局规则">布局规则</h2>
-<p>实际上，如果我们改动 Anchor，在 <code>Minimum.X ≠ Maximum.X</code> 的时候，<code>Position X</code> 会显示为 <code>Offset Left</code>，<code>Size X</code> 会显示为 <code>OffsetRight</code>：</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121648711.png" alt="image-20210812164808737" style="zoom:67%;" />
-<p>在控件绝对位置不变的情况下，修改锚点的位置，会导致此时这两个值会改变非常多，对绝对位置的转换造成了困难。</p>
-<p>接下来简单整理下其规则：</p>
-<table>
-<thead>
-<tr>
-<th><code>Minimum.X</code> = <code>Maximum.X</code></th>
-<th><code>Minimum.X</code> ≠ <code>Maximum.X</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643933.png" alt="image-20210812160759667" style="zoom:25%;" /></td>
-<td><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643765.png" alt="image-20210812160922400" style="zoom:25%;" /></td>
-</tr>
-<tr>
-<td><code>Alignment</code> 有用：<br /><code>Alignment.X * Size.X</code> 确定了 “对齐点” 的横坐标偏移量。<br />当 <code>Alignment.X</code> 为 0 时，对齐点在最左边；<br />当 <code>Alignment.X</code> 为 1 时，对齐点在最右边；</td>
-<td><code>Alignment</code> 无用</td>
-</tr>
-<tr>
-<td>采用：<code>Position X</code><br />（表示 <code>Anchor_Min</code> 横坐标 到 对齐点.X 的距离）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643173.png" alt="image-20210812162308662" style="zoom:33%;" /></td>
-<td>采用：<code>Offset Left</code> <br />（表示 Anchor_Min 横坐标 到 控件左侧的距离）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643621.png" alt="image-20210812163026182" style="zoom:33%;" /></td>
-</tr>
-<tr>
-<td>采用：<code>Size X</code><br />（表示控件自身的横坐标大小）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643732.png" alt="image-20210812162439904" style="zoom: 33%;" /></td>
-<td>采用 <code>Offset Right</code> <br />（表示 <code>Anchor_Max</code> 横坐标到 控件右侧的距离）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643326.png" alt="image-20210812163222501" style="zoom:33%;" /></td>
-</tr>
-<tr>
-<td><code>AbsolutePosition.X = AnchorMinimumPositon.X + Offsets.Left - Alignment.X * Offsets.Right</code></td>
-<td><code>AbsolutePosition.X = MinimumPositon.X + Offsets.Left</code></td>
-</tr>
-<tr>
-<td><code> AbsoluteSize.X = Offsets.Right</code></td>
-<td><code>AbsoluteSize.X = AnchorMaximumPositon.X - AnchorMinimumPositon.X - Offsets.Left - Offsets.Right</code></td>
-</tr>
-</tbody>
-</table>
-<p>其中 <code>AnchorMinimumPosition.X</code> = <code>Anchor.Minimum.X * 父控件的 Size.X</code>。</p>
-<p>对于 Y 轴的处理也是类似的。<code>Position Y</code> 对应 <code>Offset Top</code>，<code>Size Y</code> 对应 <code>Offset Bottom</code>。</p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-        <category>UI</category>
-      </categories>
-      <tags>
-        <tag>UE4</tag>
-        <tag>UI</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[UE4]读取本地字体文件</title>
-    <url>/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%B7%A5%E5%85%B7%E6%B5%81/%5BUE4%5D%E8%AF%BB%E5%8F%96%E6%9C%AC%E5%9C%B0%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6/</url>
-    <content><![CDATA[<h1>读取本地字体文件</h1>
-<h2 id="效果">效果</h2>
-<p>通过代码读取指定目录下的字体文件 (.ttf / .otf) 转换为 UE4 内部可用的 Font</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737676.png" alt="image-20210812171850767" style="zoom:50%;" />
-<h2 id="步骤">步骤</h2>
-<ol>
-<li>根据 FontName 在目录下寻找字体文件</li>
-<li>生成 FontFace</li>
-<li>生成字体对象</li>
-<li>保存资源</li>
-</ol>
-<h2 id="根据-FontName-在目录下寻找字体文件">根据 FontName 在目录下寻找字体文件</h2>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">FString FontPath;</span><br><span class="line"><span class="keyword">const</span> FString FontPathTTF = FontDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;.ttf&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> FString FontPathOTF = FontDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;.otf&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断是否存在 TTF / OTF 文件</span></span><br><span class="line"><span class="keyword">if</span> (FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*FontPathTTF)) FontPath = FontPathTTF;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*FontPathOTF)) FontPath = FontPathOTF;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 不存在名字为 FontNameStr 的字体文件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="生成-FontFace">生成 FontFace</h2>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737983.png" alt="image-20210812171924508" style="zoom: 50%;" />
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 读取字体数据</span></span><br><span class="line">TArray&lt;uint8&gt; FontData;</span><br><span class="line"><span class="keyword">if</span> (!FFileHelper::<span class="built_in">LoadFileToArray</span>(FontData, *FontPath))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 无法解析数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">FontFace-&gt;FontFaceData-&gt;<span class="built_in">SetData</span>(<span class="built_in">MoveTemp</span>(FontData));</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (FontFace)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* 执行之后的操作 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="生成字体对象">生成字体对象</h2>
-<p>根据刚才生成的 FontFace 生成一个默认的 Font，就像使用拖入生成字体文件时一样：</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737101.png" alt="image-20210812171939351" style="zoom:33%;" />
-<p>（即模拟此时选中 <strong>Yes</strong> 时的操作）</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 先生成一个空的字体对象</span></span><br><span class="line">Font = NewObject&lt;UFont&gt;(FontPackage, <span class="built_in">FName</span>(*(FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;_FONT&quot;</span>))), RF_Public | RF_Standalone | RF_MarkAsRootSet | RF_Transactional);</span><br><span class="line"></span><br><span class="line">Font-&gt;FontCacheType = EFontCacheType::Runtime;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用刚才生成的 FontFace 生成一个默认字体</span></span><br><span class="line">FTypefaceEntry&amp; DefaultTypefaceEntry = Font-&gt;CompositeFont.DefaultTypeface.Fonts[Font-&gt;CompositeFont.DefaultTypeface.Fonts.<span class="built_in">AddDefaulted</span>()];</span><br><span class="line">DefaultTypefaceEntry.Name = <span class="string">&quot;Default&quot;</span>;</span><br><span class="line">DefaultTypefaceEntry.Font = <span class="built_in">FFontData</span>(FontFace);</span><br></pre></td></tr></table></figure>
-<h2 id="保存资源">保存资源</h2>
-<p>首先我们要确定想要生成的 Font 所在的位置，也就是要确定 Package 的位置，也就是确定 Path：</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737934.png" alt="image-20210812172807755" style="zoom:50%;" />
-<p>Package 的位置由 <code>MountPoint</code> 开始，这个 <code>MountPoint</code> 就是类似 <code>/Game</code>、<code>/Engine</code> 这样的东西；</p>
-<p>如果我们需要 <strong>在指定目录保存这些文件</strong>，比如我们不想在 <code>/Game</code>、<code>/Engine</code> 的目录写入这些信息，想在自己的插件目录、其它本地目录保存，那么我们需要先注册 MountPoint：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Register mount point to save assets</span></span><br><span class="line">FPackageName::<span class="built_in">RegisterMountPoint</span>(<span class="string">&quot;/你想的 MountPoint 名字/&quot;</span>,  对应的路径);</span><br></pre></td></tr></table></figure>
-<p>需要注意的是，MountPoint 一般直接使用 <code>/Game</code> 或者 <code>/Engine</code>，如果我们的 MountPoint 是自己给定的，有可能就无法在 UMG 中搜索到：</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737045.png" alt="image-20210812173227245" style="zoom:50%;" />
-<p>接着我们：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">FString PackageName = MountPointName + <span class="built_in">TEXT</span>(<span class="string">&quot;/fonts/&quot;</span>) + FontNameStr;</span><br><span class="line">UPackage* FontPackage = <span class="built_in">CreatePackage</span>(<span class="literal">nullptr</span>, *PackageName);</span><br><span class="line">FontPackage-&gt;<span class="built_in">FullyLoad</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 生成字体 */</span></span><br><span class="line"></span><br><span class="line">FontPackage-&gt;<span class="built_in">MarkPackageDirty</span>();</span><br><span class="line">FAssetRegistryModule::<span class="built_in">AssetCreated</span>(Font);</span><br><span class="line"></span><br><span class="line">FString PackageFileName = FPackageName::<span class="built_in">LongPackageNameToFilename</span>(PackageName, FPackageName::<span class="built_in">GetAssetPackageExtension</span>());</span><br><span class="line"></span><br><span class="line">UPackage::<span class="built_in">SavePackage</span>(FontPackage, Font, EObjectFlags::RF_Public | EObjectFlags::RF_Standalone, *PackageFileName);</span><br></pre></td></tr></table></figure>
-<h2 id="完整代码">完整代码</h2>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">UObject* <span class="title">CreateFontObject</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 设置一开始默认字体，若生成失败则返回默认字体</span></span><br><span class="line">	UFont* Font = GEngine-&gt;<span class="built_in">GetSmallFont</span>();</span><br><span class="line">	</span><br><span class="line">	FString FontPath;</span><br><span class="line">	<span class="keyword">const</span> FString FontPathTTF = FontDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;.ttf&quot;</span>);</span><br><span class="line">	<span class="keyword">const</span> FString FontPathOTF = FontDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;.otf&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*FontPathTTF)) FontPath = FontPathTTF;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*FontPathOTF)) FontPath = FontPathOTF;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">        <span class="comment">// 不存在名字为 FontNameStr 的字体文件</span></span><br><span class="line">		<span class="keyword">return</span> Font;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	FString PackageName = MountPointName + <span class="built_in">TEXT</span>(<span class="string">&quot;/fonts/&quot;</span>) + FontNameStr;</span><br><span class="line">	UPackage* FontPackage = <span class="built_in">CreatePackage</span>(<span class="literal">nullptr</span>, *PackageName);</span><br><span class="line">	FontPackage-&gt;<span class="built_in">FullyLoad</span>();</span><br><span class="line"></span><br><span class="line">	UFontFace* FontFace = NewObject&lt;UFontFace&gt;(FontPackage, <span class="built_in">FName</span>(*FontNameStr), RF_Public | RF_Standalone | RF_MarkAsRootSet);</span><br><span class="line">	FontFace-&gt;SourceFilename = FontNameStr;</span><br><span class="line"></span><br><span class="line">	TArray&lt;uint8&gt; FontData;</span><br><span class="line">	<span class="keyword">if</span> (!FFileHelper::<span class="built_in">LoadFileToArray</span>(FontData, *FontPath))</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="comment">// 无法解析数据</span></span><br><span class="line">		<span class="keyword">return</span> Font;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	FontFace-&gt;FontFaceData-&gt;<span class="built_in">SetData</span>(<span class="built_in">MoveTemp</span>(FontData));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (FontFace)</span><br><span class="line">	&#123;</span><br><span class="line">		Font = NewObject&lt;UFont&gt;(FontPackage, <span class="built_in">FName</span>(*(FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;_FONT&quot;</span>))), RF_Public | RF_Standalone | RF_MarkAsRootSet | RF_Transactional);</span><br><span class="line">		</span><br><span class="line">		Font-&gt;FontCacheType = EFontCacheType::Runtime;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Add a default typeface referencing the newly created font face</span></span><br><span class="line">		FTypefaceEntry&amp; DefaultTypefaceEntry = Font-&gt;CompositeFont.DefaultTypeface.Fonts[Font-&gt;CompositeFont.DefaultTypeface.Fonts.<span class="built_in">AddDefaulted</span>()];</span><br><span class="line">		DefaultTypefaceEntry.Name = <span class="string">&quot;Default&quot;</span>;</span><br><span class="line">		DefaultTypefaceEntry.Font = <span class="built_in">FFontData</span>(FontFace);</span><br><span class="line"></span><br><span class="line">		FontPackage-&gt;<span class="built_in">MarkPackageDirty</span>();</span><br><span class="line">		FAssetRegistryModule::<span class="built_in">AssetCreated</span>(Font);</span><br><span class="line">		</span><br><span class="line">		FString PackageFileName = FPackageName::<span class="built_in">LongPackageNameToFilename</span>(PackageName, FPackageName::<span class="built_in">GetAssetPackageExtension</span>());</span><br><span class="line"></span><br><span class="line">		UPackage::<span class="built_in">SavePackage</span>(FontPackage, Font, EObjectFlags::RF_Public | EObjectFlags::RF_Standalone, *PackageFileName);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">        <span class="comment">// 不存在 FontFace，无法生成 Font</span></span><br><span class="line">	&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">return</span> Font;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="参考源码">参考源码</h2>
-<p><code>EditorFactories : UFontFileImportFactory</code>：生成字体的工厂</p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-        <category>工具流</category>
-      </categories>
-      <tags>
-        <tag>UE4</tag>
-        <tag>工具流</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[前端开发]简单的WebService调用</title>
     <url>/2021/10/14/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%5B%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%5D%E7%AE%80%E5%8D%95%E7%9A%84WebService%E8%B0%83%E7%94%A8/</url>
     <content><![CDATA[<h1>简单的WebService调用</h1>
@@ -8139,222 +8029,6 @@ d_0 &amp;= F(x+1,y-0.5)\\
       <tags>
         <tag>网站开发</tag>
         <tag>前端开发</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[UE4]知识总结</title>
-    <url>/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BUE4%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1>知识总结</h1>
-<h2 id="1-AI">1. AI</h2>
-<h3 id="寻路">寻路</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/74537236">UE4 Navmesh寻路</a></p>
-<p><a href="https://github.com/recastnavigation/recastnavigation">UE4 的 RecastDetour 组件</a></p>
-<p>UE4 主要使用 RecastDetour 组件主要支持 3D 场景的导航网格导出和寻路，也就是 NavMesh</p>
-<h3 id="行为树">行为树</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/143298443">UE4行为树详解</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/139514376">[UE4][AI] 浅析UE4-BehaviorTree的特性</a></p>
-<h2 id="2-动画">2. 动画</h2>
-<h2 id="3-Gameplay">3. Gameplay</h2>
-<h3 id="基础">基础</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/362218832">Unity3D 经验者转到 UE4 的经验</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/369974105">UE4的智能指针 TSharedPtr</a></p>
-<p><a href="https://dawnarc.com/2016/05/ue4console%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4command/">[UE4]console命令行常用命令(command)</a></p>
-<h3 id="蓝图">蓝图</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/92268112">理解蓝图技术架构</a></p>
-<h3 id="GAS">GAS</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/440168260">UE的GAS原理深入探究</a></p>
-<h3 id="架构">架构</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/22833151">《InsideUE4》GamePlay架构（一）Actor和Component</a></p>
-<h3 id="Demo">Demo</h3>
-<p><a href="https://github.com/tomlooman/EpicSurvivalGameSeries">EpicSurvivalGameSeries</a></p>
-<p><a href="https://docs.unrealengine.com/4.27/en-US/Resources/SampleGames/ShooterGame/">Shooter Game</a></p>
-<p><a href="https://www.unrealengine.com/marketplace/zh-CN/product/action-rpg">ActionRPG</a></p>
-<h3 id="资源管理">资源管理</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/69078536">UE4中的烘焙</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/256342436">大世界技术浅析，WOW的梦幻影歌——客户端资源加载</a></p>
-<h2 id="4-工具流">4. 工具流</h2>
-<h3 id="插件基础">插件基础</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/121152396">插件与模块</a></p>
-<p><a href="https://cloud.tencent.com/developer/article/1699614">UE4编辑器如何生成和共享插件</a></p>
-<p><a href="%E4%B8%BA%E5%A4%9A%E4%B8%AA%E6%9C%89%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%E7%9A%84plugin%E7%94%9F%E6%88%90%E9%A2%84%E7%BC%96%E8%AF%91%E7%9A%84%E9%93%BE%E6%8E%A5%E5%BA%93%EF%BC%9Ahttps://zhuanlan.zhihu.com/p/115292711">[UE4]无插件源码编译和打包工程</a></p>
-<p><a href="https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html">How to Make Tools in UE4</a></p>
-<blockquote>
-<p>注意事项</p>
-<p>在同一个插件模块里面定义的全局静态变量共享。（在 <code>A.cpp</code> 中定义 <code>static int a</code>，在 <code>B.cpp</code> 可以调用。若在 <code>B.cpp</code> 中也定义 <code>static int a</code> 则会报重定义的错误）</p>
-</blockquote>
-<h3 id="序列化">序列化</h3>
-<h4 id="JSON">JSON</h4>
-<p><a href="https://www.bilibili.com/read/cv10071665">[UE4 C++入门到进阶]10.Json数据读写</a>、<a href="https://sanctorum003.github.io/2019/08/07/CG/UE4/JSON/">虚幻4之JSON学习</a>、<a href="https://zhuanlan.zhihu.com/p/74720067">反序列化方法</a>、<a href="https://www.dazhuanlan.com/2020/02/24/5e536ade3f9b8/">[UE4]写入Json文件</a></p>
-<p>参考源码：<code>PaperSpriteSheetImportFactory</code>、<code>PaperTiledImporterFactory</code>、<code>PaperJsonSpriteSheetImporter</code></p>
-<h3 id="Config-系统">Config 系统</h3>
-<p><a href="https://blog.ch-wind.com/ue4-config-usage/">UE4 中 Config 的使用</a></p>
-<p><a href="https://blog.ch-wind.com/ue4-config-setting/">UE4 的配置界面写入</a></p>
-<p><a href="http://supervj.top/2020/08/31/%E6%89%A9%E5%B1%95%E6%B8%B8%E6%88%8F%E8%AE%BE%E7%BD%AE/">UE4 添加自定义项目设置</a></p>
-<p>参考源码：<code>Paper2DEditorModule</code></p>
-<h3 id="拓展编辑器">拓展编辑器</h3>
-<p>显示 UI 的可拓展点：Edit -&gt; Editor Preferences -&gt; General -&gt; Miscellaneous -&gt; Developer Tools -&gt; Display UIExtension Points，勾选后即可显示</p>
-<p><a href="https://www.lfzxb.top/ue4-plugins-development/">UE4插件开发总结</a></p>
-<p><a href="https://blog.csdn.net/qq_29523119/article/details/100088321">UE4给编辑器添加菜单栏(Menu)，工具栏(TooBar)，Tab窗口</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/302632931">【UE4编辑器】ContentBrowser 扩展之资源菜单</a></p>
-<p><a href="https://nerivec.github.io/old-ue4-wiki/pages/custom-context-menu-for-actors-in-editor.html">Custom Context Menu for Actors in Editor</a></p>
-<blockquote>
-<p>本质就是 通过 FModuleManager 获得对应模块，在其扩展数组（MenuExtenderArray）里添加新的委托，委托里的内容就是用来添加真正的菜单项。可添加的内容根据 Extender 来确定。</p>
-</blockquote>
-<p>参考源码：<code>AssetManagerEditorModule</code>、<code>ContentBrowserExtensions：InstallHooks</code>、<code>SpriteAssetTypeActions：GetActions</code></p>
-<h4 id="Slate">Slate</h4>
-<p><a href="https://zhuanlan.zhihu.com/p/115267691">UE4 Slate 基本框架</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/77681049">虚幻4渲染编程（工具篇）【第九卷：SlateUI布局】</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/56127773">Slate VS UMG（Slate 控件基本框架）</a></p>
-<p><a href="https://gameinstitute.qq.com/community/detail/121778">Slate控件中的代理事件如何绑定 UObject 方法</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/28355166">【UE4 Renderer】&lt;02&gt; Slate系统</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/346275251">【UEInside】 Slate合批机制剖析</a></p>
-<p>参考源码：<code>SlateTypes</code></p>
-<h3 id="引入第三方库">引入第三方库</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/395423662">UE4引入第三方库</a></p>
-<h3 id="创建-Asset">创建 Asset</h3>
-<p><a href="https://blog.csdn.net/weixin_39743369/article/details/112160932">ue4 通过指定路径加载资源_UE4 C++基础教程 - 资源常见名词解释</a></p>
-<p><a href="https://answers.unrealengine.com/questions/500286/view.html">Create a package in a special path</a></p>
-<p><a href="https://gmpreussner.com/reference/adding-new-asset-types-to-ue4">Adding New Asset Types to UE4</a></p>
-<p><a href="https://blog.csdn.net/u010385624/article/details/99729152">ue4 创建自定义资源，导入与重新导入自定义资源</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/374152267">UE4的DragonBones插件的开发</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/55132638">虚幻4渲染编程（工具篇）【第八卷：Asset creation】</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/338729328">虚幻4渲染编程（工具篇V2）【第一卷：UE4 Assets tool DV basic Intro】</a></p>
-<p>参考源码：<code>EditorFactories</code>、<code>SoundFactory</code>、<code>PaperTiledImporterFactory</code></p>
-<h2 id="5-UI">5. UI</h2>
-<h3 id="UI基础知识">UI基础知识</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/117582084">UE4入门之路（UI篇）：UMG系统介绍</a></p>
-<p><a href="https://gameinstitute.qq.com/community/detail/121327">UE4的UI制作流程</a></p>
-<p><a href="https://gamedevworks.com/blog/ue4-how-to-get-umg-widget-position-in-screen-space/">How to get UMG widget absolute position in UE4</a></p>
-<p><a href="https://dawnarc.com/2018/12/ue4slate-and-native-umgc-notes/">[UE4]Slate 和 Native UMG(C++) 笔记</a></p>
-<h3 id="程序化生成">程序化生成</h3>
-<p><a href="https://answers.unrealengine.com/questions/561607/view.html">How to construct UMG widget in C++?</a></p>
-<p><a href="https://gist.github.com/SalahAdDin/b3814f109d340f1e0f5dcac6e623b8ce">代码生成 Widget 与 WidgetBlueprint</a></p>
-<p>参考源码：<code>WidgetBlueprintFactory</code></p>
-<h2 id="6-网络">6. 网络</h2>
-<p><a href="https://zhuanlan.zhihu.com/p/34723199">《Exploring in UE4》网络同步原理深入（上）[原理分析]</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/105040792">使用虚幻引擎4年，我想再谈谈他的网络架构【经验总结】</a></p>
-<p>参考源码：<code>NetDriver.h</code>、<code>IpNetDriver.h</code>、<code>NetworkDriver.cpp</code>、<code>OnlineSybsystemUtils.h</code></p>
-<h2 id="7-物理">7. 物理</h2>
-<h2 id="8-渲染">8. 渲染</h2>
-<h3 id="Niagara">Niagara</h3>
-<p><a href="https://www.cyanhall.com/cn/tutorial/">Niagara 教程</a></p>
-<h3 id="材质">材质</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/73754807">[UE4]动态液体材质浅谈</a></p>
-<h2 id="9-性能优化">9. 性能优化</h2>
-<h3 id="内存管理">内存管理</h3>
-<p><a href="https://zhuanlan.zhihu.com/p/49046671">[UE4] 对象内存管理几种模式</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/61366273">UE4内存Profiler</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/219588301">UE4 垃圾收集大杂烩</a></p>
-<h3 id="性能分析">性能分析</h3>
-<p><a href="https://www.cnblogs.com/ghl_carmack/p/5481763.html">UE4 性能优化方法(工具篇)</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/267335603?utm_source=qq">[UE4] 项目帧率低排查瓶颈文件步骤记录</a></p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-        <category>知识总结</category>
-      </categories>
-      <tags>
-        <tag>UE4</tag>
-        <tag>知识总结</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[UE4]读取与导出本地图片</title>
-    <url>/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%B7%A5%E5%85%B7%E6%B5%81/%5BUE4%5D%E8%AF%BB%E5%8F%96%E4%B8%8E%E5%AF%BC%E5%87%BA%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</url>
-    <content><![CDATA[<h1>读取与导出本地图片</h1>
-<h2 id="效果">效果</h2>
-<ol>
-<li>
-<p>通过代码读取本地的 png 图片（可自己扩展其它类型）转换为 UE4 内部可用的 Texture2D；</p>
-</li>
-<li>
-<p>利用 UE4 内的 Texture2D 在本地指定目录下生成对应 png 图片；</p>
-</li>
-<li>
-<p>利用 UE4 内的 Sprite 在本地指定目录下生成对应的 png 图片。</p>
-</li>
-</ol>
-<h2 id="PNG-Texture2D">PNG -&gt; Texture2D</h2>
-<h3 id="分析">分析</h3>
-<ol>
-<li>读取指定目录的 png 图片，将信息存入数组 RawFileData</li>
-<li>用 ImageWrapper 来保存 RawFileData 转为可用信息</li>
-<li>生成空的 Texture</li>
-<li>将数据写入 Texture 中</li>
-<li>保存资源</li>
-</ol>
-<h3 id="读取指定目录的-png-图片，将信息存入数组-RawFileData">读取指定目录的 png 图片，将信息存入数组 RawFileData</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> FString PicturePath = ImageDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + ImageName + <span class="built_in">TEXT</span>(<span class="string">&quot;.png&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*PicturePath))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 不存在 PicturePath 文件</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TArray&lt;uint8&gt; RawFileData;</span><br><span class="line"><span class="keyword">if</span> (!FFileHelper::<span class="built_in">LoadFileToArray</span>(RawFileData, *PicturePath))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 无法解析 PicturePath</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="用-ImageWrapper-来保存-RawFileData-转为可用信息">用 ImageWrapper 来保存 RawFileData 转为可用信息</h3>
-<p>需要依赖模块：<code>ImageWrapper </code>，包含头文件：<code>IImageWrapper.h</code>、<code>IImageWrapperModule.h</code></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">IImageWrapperModule&amp; ImageWrapperModule = FModuleManager::LoadModuleChecked&lt;IImageWrapperModule&gt;(<span class="string">&quot;ImageWrapper&quot;</span>);</span><br><span class="line"></span><br><span class="line">TSharedPtr&lt;IImageWrapper&gt; ImageWrapper = ImageWrapperModule.<span class="built_in">CreateImageWrapper</span>(EImageFormat::PNG);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (ImageWrapper.<span class="built_in">IsValid</span>() &amp;&amp; ImageWrapper-&gt;<span class="built_in">SetCompressed</span>(RawFileData.<span class="built_in">GetData</span>(), RawFileData.<span class="built_in">Num</span>()))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">const</span> TArray&lt;uint8&gt;* UncompressedRGBA = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ERGBFormat::BGRA 为 RGB 的格式</span></span><br><span class="line">    <span class="comment">// 第二个参数为通道的位深度，通常为 8</span></span><br><span class="line">    <span class="comment">// UncompressedRGBA 保存了uncompressed raw data.</span></span><br><span class="line">    <span class="keyword">if</span> (ImageWrapper-&gt;<span class="built_in">GetRaw</span>(ERGBFormat::BGRA, <span class="number">8</span>, UncompressedRGBA))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* 执行接下来的操作 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="生成空的-Texture">生成空的 Texture</h3>
-<p>首先我们要确定想要生成的 Texture 所在的位置，也就是要确定 Package 的位置，也就是确定 Path：</p>
-<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121427037.png" alt="image-20210812142156093.png"></p>
-<p>Package 的位置由 <code>MountPoint</code> 开始，这个 <code>MountPoint</code> 就是类似 <code>/Game</code>、<code>/Engine</code> 这样的东西；</p>
-<p>如果我们需要 <strong>在指定目录保存这些文件</strong>，比如我们不想在 <code>/Game</code>、<code>/Engine</code> 的目录写入这些信息，想在自己的插件目录、其它本地目录保存，那么我们需要先注册 MountPoint：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Register mount point to save assets</span></span><br><span class="line">FPackageName::<span class="built_in">RegisterMountPoint</span>(<span class="string">&quot;/你想的 MountPoint 名字/&quot;</span>,  对应的路径);</span><br></pre></td></tr></table></figure>
-<p>接着我们：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> FString PackageName = MountPointName + <span class="built_in">TEXT</span>(<span class="string">&quot;/textures/&quot;</span>) + ImageName;</span><br><span class="line"></span><br><span class="line">UPackage* TexturePackage = <span class="built_in">CreatePackage</span>(<span class="literal">nullptr</span>, *PackageName);</span><br><span class="line">TexturePackage-&gt;<span class="built_in">FullyLoad</span>();</span><br><span class="line"></span><br><span class="line">Texture = NewObject&lt;UTexture2D&gt;(TexturePackage, <span class="built_in">FName</span>(*ImageName), RF_Public | RF_Standalone | RF_MarkAsRootSet);</span><br></pre></td></tr></table></figure>
-<h3 id="将数据写入-Texture-中">将数据写入 Texture 中</h3>
-<p>我们生成的空 Texture 会默认采用 Mipmap 压缩，但是显然这不一定合理。</p>
-<p>如果 边长 不是 <strong>2 的幂次方</strong>，则不能使用 Mipmap 压缩，否则会出现错误，我们可以用 <code>x &amp; (x - 1)</code> 来判断 <code>x</code> 是否是 2 的幂次方，如果 <code>x &amp; (x - 1) == 0</code> 则说明是，否则不是 。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">int32 SizeX = ImageWrapper-&gt;<span class="built_in">GetWidth</span>();</span><br><span class="line">int32 SizeY = ImageWrapper-&gt;<span class="built_in">GetHeight</span>();</span><br><span class="line"><span class="keyword">const</span> EPixelFormat PixelFormat = PF_B8G8R8A8;</span><br><span class="line">int32 PixelSize = SizeX * SizeY * GPixelFormats[PixelFormat].BlockBytes;</span><br><span class="line"><span class="comment">// PixelSize 计算了所有的像素信息一共占了多少空间</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (SizeX &gt; <span class="number">0</span> &amp;&amp; SizeY &gt; <span class="number">0</span> &amp;&amp; (SizeX % GPixelFormats[PixelFormat].BlockSizeX) == <span class="number">0</span> &amp;&amp; (SizeY % GPixelFormats[PixelFormat].BlockSizeY) == <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">   		<span class="comment">/* 先生成一个空的 Texture */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新 Texture 的 PlatformData</span></span><br><span class="line">    Texture-&gt;PlatformData = <span class="keyword">new</span> <span class="built_in">FTexturePlatformData</span>();</span><br><span class="line">    Texture-&gt;PlatformData-&gt;SizeX = SizeX;</span><br><span class="line">    Texture-&gt;PlatformData-&gt;SizeY = SizeY;</span><br><span class="line">    Texture-&gt;PlatformData-&gt;NumSlices = <span class="number">1</span>;</span><br><span class="line">    Texture-&gt;PlatformData-&gt;PixelFormat = PixelFormat;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断边长是否是 2 的幂次方，如果当前的边长不是 2 的幂次方的时候，不开启 Mipmap 压缩</span></span><br><span class="line">    <span class="keyword">if</span> ( (SizeX &amp; (SizeX - <span class="number">1</span>) || (SizeY &amp; (SizeY - <span class="number">1</span>))) )</span><br><span class="line">        Texture-&gt;MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分配第一个 Mip</span></span><br><span class="line">    FTexture2DMipMap* Mip = <span class="keyword">new</span> <span class="built_in">FTexture2DMipMap</span>();</span><br><span class="line">    Texture-&gt;PlatformData-&gt;Mips.<span class="built_in">Add</span>(Mip);</span><br><span class="line">    Mip-&gt;SizeX = SizeX;</span><br><span class="line">    Mip-&gt;SizeY = SizeY;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向 Mip 的 Bulkdata 中写入数据，注意先加上锁</span></span><br><span class="line">    Mip-&gt;BulkData.<span class="built_in">Lock</span>(LOCK_READ_WRITE);</span><br><span class="line">    uint8* TextureData = (uint8*) Mip-&gt;BulkData.<span class="built_in">Realloc</span>(PixelSize);</span><br><span class="line">    FMemory::<span class="built_in">Memcpy</span>(TextureData, UncompressedRGBA-&gt;<span class="built_in">GetData</span>(), PixelSize);</span><br><span class="line">    Mip-&gt;BulkData.<span class="built_in">Unlock</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化 Texture 的信息，完成数据的临时写入，也就是可选保存的状态</span></span><br><span class="line">    Texture-&gt;Source.<span class="built_in">Init</span>(SizeX, SizeY, <span class="number">1</span>, <span class="number">1</span>, ETextureSourceFormat::TSF_BGRA8, UncompressedRGBA-&gt;<span class="built_in">GetData</span>());</span><br><span class="line">    Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="保存资源">保存资源</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Create Assets</span></span><br><span class="line">TexturePackage-&gt;<span class="built_in">MarkPackageDirty</span>();</span><br><span class="line">FAssetRegistryModule::<span class="built_in">AssetCreated</span>(Texture);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 Package 的文件名</span></span><br><span class="line">FString PackageFileName = FPackageName::<span class="built_in">LongPackageNameToFilename</span>(PackageName, FPackageName::<span class="built_in">GetAssetPackageExtension</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保存资源</span></span><br><span class="line">UPackage::<span class="built_in">SavePackage</span>(TexturePackage, Texture, EObjectFlags::RF_Public | EObjectFlags::RF_Standalone, *PackageFileName);</span><br></pre></td></tr></table></figure>
-<h3 id="完整代码">完整代码</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">UTexture2D* <span class="title">CreateTexture</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	UTexture2D* Texture = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> FString PicturePath = ImageDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + ImageName + <span class="built_in">TEXT</span>(<span class="string">&quot;.png&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (!FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*PicturePath))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">const</span> FString PackageName = MountPointName + <span class="built_in">TEXT</span>(<span class="string">&quot;/textures/&quot;</span>) + ImageName;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Read loacl PNG to Texture</span></span><br><span class="line"></span><br><span class="line">	TArray&lt;uint8&gt; RawFileData;</span><br><span class="line">	<span class="keyword">if</span> (!FFileHelper::<span class="built_in">LoadFileToArray</span>(RawFileData, *PicturePath))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	IImageWrapperModule&amp; ImageWrapperModule = FModuleManager::LoadModuleChecked&lt;IImageWrapperModule&gt;(<span class="string">&quot;ImageWrapper&quot;</span>);</span><br><span class="line"></span><br><span class="line">	TSharedPtr&lt;IImageWrapper&gt; ImageWrapper = ImageWrapperModule.<span class="built_in">CreateImageWrapper</span>(EImageFormat::PNG);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (ImageWrapper.<span class="built_in">IsValid</span>() &amp;&amp; ImageWrapper-&gt;<span class="built_in">SetCompressed</span>(RawFileData.<span class="built_in">GetData</span>(), RawFileData.<span class="built_in">Num</span>()))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">const</span> TArray&lt;uint8&gt;* UncompressedRGBA = <span class="literal">nullptr</span>;</span><br><span class="line">		<span class="keyword">if</span> (ImageWrapper-&gt;<span class="built_in">GetRaw</span>(ERGBFormat::BGRA, <span class="number">8</span>, UncompressedRGBA))</span><br><span class="line">		&#123;</span><br><span class="line">			int32 SizeX = ImageWrapper-&gt;<span class="built_in">GetWidth</span>();</span><br><span class="line">			int32 SizeY = ImageWrapper-&gt;<span class="built_in">GetHeight</span>();</span><br><span class="line">			<span class="keyword">const</span> EPixelFormat PixelFormat = PF_B8G8R8A8;</span><br><span class="line">			int32 PixelSize = SizeX * SizeY * GPixelFormats[PixelFormat].BlockBytes;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (SizeX &gt; <span class="number">0</span> &amp;&amp; SizeY &gt; <span class="number">0</span> &amp;&amp; (SizeX % GPixelFormats[PixelFormat].BlockSizeX) == <span class="number">0</span> &amp;&amp; (SizeY % GPixelFormats[PixelFormat].BlockSizeY) == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">// Create new texture pointer			</span></span><br><span class="line">				UPackage* TexturePackage = <span class="built_in">CreatePackage</span>(<span class="literal">nullptr</span>, *PackageName);</span><br><span class="line">				TexturePackage-&gt;<span class="built_in">FullyLoad</span>();</span><br><span class="line">				Texture = NewObject&lt;UTexture2D&gt;(TexturePackage, <span class="built_in">FName</span>(*ImageName), RF_Public | RF_Standalone | RF_MarkAsRootSet);</span><br><span class="line"></span><br><span class="line">				Texture-&gt;PlatformData = <span class="keyword">new</span> <span class="built_in">FTexturePlatformData</span>();</span><br><span class="line">				Texture-&gt;PlatformData-&gt;SizeX = SizeX;</span><br><span class="line">				Texture-&gt;PlatformData-&gt;SizeY = SizeY;</span><br><span class="line">				Texture-&gt;PlatformData-&gt;NumSlices = <span class="number">1</span>;</span><br><span class="line">				Texture-&gt;PlatformData-&gt;PixelFormat = PixelFormat;</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Determine whether it is a power of 2 to use mipmap</span></span><br><span class="line">				<span class="keyword">if</span> ( (SizeX &amp; (SizeX - <span class="number">1</span>) || (SizeY &amp; (SizeY - <span class="number">1</span>))) )</span><br><span class="line">					Texture-&gt;MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;</span><br><span class="line">				</span><br><span class="line">				<span class="comment">// Allocate first mipmap.</span></span><br><span class="line">				FTexture2DMipMap* Mip = <span class="keyword">new</span> <span class="built_in">FTexture2DMipMap</span>();</span><br><span class="line">				Texture-&gt;PlatformData-&gt;Mips.<span class="built_in">Add</span>(Mip);</span><br><span class="line">				Mip-&gt;SizeX = SizeX;</span><br><span class="line">				Mip-&gt;SizeY = SizeY;</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Lock the texture so that it can be modified</span></span><br><span class="line">				Mip-&gt;BulkData.<span class="built_in">Lock</span>(LOCK_READ_WRITE);</span><br><span class="line">				uint8* TextureData = (uint8*) Mip-&gt;BulkData.<span class="built_in">Realloc</span>(PixelSize);</span><br><span class="line">				FMemory::<span class="built_in">Memcpy</span>(TextureData, UncompressedRGBA-&gt;<span class="built_in">GetData</span>(), PixelSize);</span><br><span class="line">				Mip-&gt;BulkData.<span class="built_in">Unlock</span>();</span><br><span class="line"></span><br><span class="line">				Texture-&gt;Source.<span class="built_in">Init</span>(SizeX, SizeY, <span class="number">1</span>, <span class="number">1</span>, ETextureSourceFormat::TSF_BGRA8, UncompressedRGBA-&gt;<span class="built_in">GetData</span>());</span><br><span class="line">				Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Create Assets</span></span><br><span class="line">				TexturePackage-&gt;<span class="built_in">MarkPackageDirty</span>();</span><br><span class="line">				</span><br><span class="line">				FAssetRegistryModule::<span class="built_in">AssetCreated</span>(Texture);</span><br><span class="line"></span><br><span class="line">				FString PackageFileName = FPackageName::<span class="built_in">LongPackageNameToFilename</span>(PackageName, FPackageName::<span class="built_in">GetAssetPackageExtension</span>());</span><br><span class="line"></span><br><span class="line">				UPackage::<span class="built_in">SavePackage</span>(TexturePackage, Texture, EObjectFlags::RF_Public | EObjectFlags::RF_Standalone, *PackageFileName);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> Texture; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="参考源码">参考源码</h3>
-<p><code>EditorFactories : UTextureFactory::ImportTexture()</code>：实现了从外部导入图片生成 Texture</p>
-<p><code>Texture2D : UTexture2D::CreateTransient()</code>：实现了生成一个临时性的 Texture2D 文件</p>
-<p><code>Texture : FTextureSource::GetMipData()</code>：实现了获取 Texture 中 Mip 的数据</p>
-<h2 id="Texture2D-PNG">Texture2D -&gt; PNG</h2>
-<h3 id="分析-2">分析</h3>
-<ol>
-<li>修改 Texture 的设置</li>
-<li>读取像素信息并生成图片</li>
-</ol>
-<h3 id="修改-Texture-的设置">修改 Texture 的设置</h3>
-<p>在原本 Texture 的设置下，我们可能无法从 BulkData 读取出信息，会返回一个空指针，所以我们需要先修改一下 Texture 的设置；同时记录一下原本的设置，用于之后的复原。</p>
-<blockquote>
-<p>CompressionSettings 设置为 TC_VectorDisplacementmap</p>
-<p>MipGenSettings 设置为 TMGS_NoMipmaps</p>
-<p>SRGB 设置为 false</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 记录原本的设置信息</span></span><br><span class="line">TextureCompressionSettings OldCompressionSettings = Texture-&gt;CompressionSettings;</span><br><span class="line">TextureMipGenSettings OldMipGenSettings = Texture-&gt;MipGenSettings;</span><br><span class="line"><span class="keyword">bool</span> OldSRGB = Texture-&gt;SRGB;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改设置</span></span><br><span class="line">Texture-&gt;CompressionSettings = TextureCompressionSettings::TC_VectorDisplacementmap;</span><br><span class="line">Texture-&gt;MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;</span><br><span class="line">Texture-&gt;SRGB = <span class="literal">false</span>;</span><br><span class="line">Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 读取信息 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 复原回原本的设置</span></span><br><span class="line">Texture-&gt;CompressionSettings = OldCompressionSettings;</span><br><span class="line">Texture-&gt;MipGenSettings = OldMipGenSettings;</span><br><span class="line">Texture-&gt;SRGB = OldSRGB;</span><br><span class="line">Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br></pre></td></tr></table></figure>
-<h3 id="读取像素信息并生成图片">读取像素信息并生成图片</h3>
-<p>我们从 Texture 的 Platform 中读取出 Mip 的 BulkData，然后对其进行映射，将信息映射到 PixelColor 中</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121506053.png" alt="image-20210812145950820" style="zoom:50%;" />
-<p>每一个 PixelColor 包含着 BGRA 的信息，多个 PixelColor 组成了数组 ColorData；</p>
-<p>接着依赖于 <code>ImageUtils</code> ，我们压缩这个 ColorData 生成 ImageData，并将其写入指定位置，就可以生成出 png 图片。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// export texture to image</span></span><br><span class="line">FTexture2DMipMap&amp; Mip = Texture-&gt;PlatformData-&gt;Mips[<span class="number">0</span>];</span><br><span class="line">uint8* TextureData = (uint8*) Mip.BulkData.<span class="built_in">Lock</span>(LOCK_READ_WRITE);</span><br><span class="line">Mip.BulkData.<span class="built_in">Unlock</span>();</span><br><span class="line"></span><br><span class="line">int32 SizeX = Texture-&gt;PlatformData-&gt;SizeX;</span><br><span class="line">int32 SizeY = Texture-&gt;PlatformData-&gt;SizeY;</span><br><span class="line">TArray&lt;FColor&gt; ColorData;</span><br><span class="line"><span class="keyword">for</span> (int32 IndexY = <span class="number">0</span>; IndexY &lt; SizeY; IndexY++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (int32 IndexX = <span class="number">0</span>; IndexX &lt; SizeX; IndexX++)</span><br><span class="line">    &#123;</span><br><span class="line">        FColor PixelColor;</span><br><span class="line">        PixelColor.B = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">0</span>];</span><br><span class="line">        PixelColor.G = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">1</span>];</span><br><span class="line">        PixelColor.R = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">2</span>];</span><br><span class="line">        PixelColor.A = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">3</span>];</span><br><span class="line">        ColorData.<span class="built_in">Add</span>(PixelColor);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TArray&lt;uint8&gt; ImageData;</span><br><span class="line">FImageUtils::<span class="built_in">CompressImageArray</span>(SizeX, SizeY, ColorData, ImageData);</span><br><span class="line">FFileHelper::<span class="built_in">SaveArrayToFile</span>(ImageData, *PicturePath);</span><br></pre></td></tr></table></figure>
-<h3 id="完整代码-2">完整代码</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">WriteTexture</span><span class="params">(UTexture2D* Texture)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	FString PicturePath = ExportImageDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + Texture-&gt;<span class="built_in">GetName</span>() + <span class="built_in">TEXT</span>(<span class="string">&quot;.png&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// record old settings</span></span><br><span class="line">	TextureCompressionSettings OldCompressionSettings = Texture-&gt;CompressionSettings;</span><br><span class="line">	TextureMipGenSettings OldMipGenSettings = Texture-&gt;MipGenSettings;</span><br><span class="line">	<span class="keyword">bool</span> OldSRGB = Texture-&gt;SRGB;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// modified to exportable settings</span></span><br><span class="line">	Texture-&gt;CompressionSettings = TextureCompressionSettings::TC_VectorDisplacementmap;</span><br><span class="line">	Texture-&gt;MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;</span><br><span class="line">	Texture-&gt;SRGB = <span class="literal">false</span>;</span><br><span class="line">	Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// export texture to image</span></span><br><span class="line">	FTexture2DMipMap&amp; Mip = Texture-&gt;PlatformData-&gt;Mips[<span class="number">0</span>];</span><br><span class="line">	uint8* TextureData = (uint8*) Mip.BulkData.<span class="built_in">Lock</span>(LOCK_READ_WRITE);</span><br><span class="line">	Mip.BulkData.<span class="built_in">Unlock</span>();</span><br><span class="line">	</span><br><span class="line">	int32 SizeX = Texture-&gt;PlatformData-&gt;SizeX;</span><br><span class="line">	int32 SizeY = Texture-&gt;PlatformData-&gt;SizeY;</span><br><span class="line">	TArray&lt;FColor&gt; ColorData;</span><br><span class="line">	<span class="keyword">for</span> (int32 IndexY = <span class="number">0</span>; IndexY &lt; SizeY; IndexY++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (int32 IndexX = <span class="number">0</span>; IndexX &lt; SizeX; IndexX++)</span><br><span class="line">		&#123;</span><br><span class="line">			FColor PixelColor;</span><br><span class="line">			PixelColor.B = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">0</span>];</span><br><span class="line">			PixelColor.G = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">1</span>];</span><br><span class="line">			PixelColor.R = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">2</span>];</span><br><span class="line">			PixelColor.A = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">3</span>];</span><br><span class="line">			ColorData.<span class="built_in">Add</span>(PixelColor);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	TArray&lt;uint8&gt; ImageData;</span><br><span class="line">	FImageUtils::<span class="built_in">CompressImageArray</span>(SizeX, SizeY, ColorData, ImageData);</span><br><span class="line">	FFileHelper::<span class="built_in">SaveArrayToFile</span>(ImageData, *PicturePath);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// return to old settings</span></span><br><span class="line">	Texture-&gt;CompressionSettings = OldCompressionSettings;</span><br><span class="line">	Texture-&gt;MipGenSettings = OldMipGenSettings;</span><br><span class="line">	Texture-&gt;SRGB = OldSRGB;</span><br><span class="line">	Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="参考源码-2">参考源码</h3>
-<p><code>GameViewportClient : UGameViewportClient::ProcessScreenShots()</code>：实现了导出屏幕截图</p>
-<h2 id="Sprite-PNG">Sprite -&gt; PNG</h2>
-<h3 id="分析-3">分析</h3>
-<p>首先我们来看一下 Sprite 的信息：</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121506969.png" alt="image-20210812150627183" style="zoom: 50%;" />
-<p>其中，SourceUV 切割出的图片，左上角的偏移量；Source Dimension 表示切割图片的大小；SourceTexture 表示从哪个 Texture 切割而来。</p>
-<p>举个例子：</p>
-<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/20210812231715.png" alt="image-20210812231527306"></p>
-<p>在这幅图中，<code>Texture-&gt;PlatformData-&gt;SizeX = 9</code>、<code>Texture-&gt;PlatformData-&gt;SizeY = 5</code>，</p>
-<p>假设我们切割的是红色部分，则 <code>SourceUV = (3, 1) </code>、<code>SourceDimension = (4, 3)</code>，此时的偏移量应该是 <code>9(第一行) + 3(第二行空白处) = 12</code></p>
-<p>我们发现 PaperSprite 中预留了这个函数，可以让我们获取到这三个信息：</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121509794.png" alt="image-20210812150952019" style="zoom:50%;" />
-<p>这下子就很明确了，我们拿到这些信息，通过计算偏移量，就可以从 SourceTexture 中切割出图片来，剩下的内容和 Texture -&gt; PNG 就一样了。</p>
-<p>还一些需要注意的是，记得包含 <code>PaperSpriteComponent.h</code>、<code>PaperSprite.h</code>，如果在插件中使用 Sprite，需要依赖模块 <code>Paper2D</code>。</p>
-<h3 id="完整代码-3">完整代码</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">WriteSprite</span><span class="params">(UPaperSprite* Sprite)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	FString PicturePath = ExportImageDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + Sprite-&gt;<span class="built_in">GetName</span>() + <span class="built_in">TEXT</span>(<span class="string">&quot;.png&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// record old settings</span></span><br><span class="line">	UTexture2D* Texture = Sprite-&gt;<span class="built_in">GetSourceTexture</span>();</span><br><span class="line">	</span><br><span class="line">	TextureCompressionSettings OldCompressionSettings = Texture-&gt;CompressionSettings;</span><br><span class="line">	TextureMipGenSettings OldMipGenSettings = Texture-&gt;MipGenSettings;</span><br><span class="line">	<span class="keyword">bool</span> OldSRGB = Texture-&gt;SRGB;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// modified to exportable settings</span></span><br><span class="line">	Texture-&gt;CompressionSettings = TextureCompressionSettings::TC_VectorDisplacementmap;</span><br><span class="line">	Texture-&gt;MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;</span><br><span class="line">	Texture-&gt;SRGB = <span class="literal">false</span>;</span><br><span class="line">	Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// export texture to image</span></span><br><span class="line">	FTexture2DMipMap&amp; Mip = Texture-&gt;PlatformData-&gt;Mips[<span class="number">0</span>];</span><br><span class="line">	uint8* TextureData = (uint8*) Mip.BulkData.<span class="built_in">Lock</span>(LOCK_READ_WRITE);</span><br><span class="line">	Mip.BulkData.<span class="built_in">Unlock</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 切割 Sprite，计算偏移量</span></span><br><span class="line">	FVector2D SourceUV = Sprite-&gt;<span class="built_in">GetSourceUV</span>();</span><br><span class="line">	FVector2D SourceSize = Sprite-&gt;<span class="built_in">GetSourceSize</span>();</span><br><span class="line">	</span><br><span class="line">	int32 SizeX = (int32)SourceSize.X;</span><br><span class="line">	int32 SizeY = (int32)SourceSize.Y;</span><br><span class="line">	int32 Offsets = (int32)SourceUV.Y * Texture-&gt;PlatformData-&gt;SizeX + (int32)SourceUV.X;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	TArray&lt;FColor&gt; ColorData;</span><br><span class="line">	<span class="keyword">for</span> (int32 IndexY = <span class="number">0</span>; IndexY &lt; SizeY; IndexY++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (int32 IndexX = <span class="number">0</span>; IndexX &lt; SizeX; IndexX++)</span><br><span class="line">		&#123;</span><br><span class="line">			FColor PixelColor;</span><br><span class="line">			PixelColor.B = TextureData[(IndexY * Texture-&gt;PlatformData-&gt;SizeX + IndexX + Offsets) * <span class="number">4</span> + <span class="number">0</span>];</span><br><span class="line">			PixelColor.G = TextureData[(IndexY * Texture-&gt;PlatformData-&gt;SizeX + IndexX + Offsets) * <span class="number">4</span> + <span class="number">1</span>];</span><br><span class="line">			PixelColor.R = TextureData[(IndexY * Texture-&gt;PlatformData-&gt;SizeX + IndexX + Offsets) * <span class="number">4</span> + <span class="number">2</span>];</span><br><span class="line">			PixelColor.A = TextureData[(IndexY * Texture-&gt;PlatformData-&gt;SizeX + IndexX + Offsets) * <span class="number">4</span> + <span class="number">3</span>];</span><br><span class="line">			ColorData.<span class="built_in">Add</span>(PixelColor);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	TArray&lt;uint8&gt; ImageData;</span><br><span class="line">	FImageUtils::<span class="built_in">CompressImageArray</span>(SizeX, SizeY, ColorData, ImageData);</span><br><span class="line">	FFileHelper::<span class="built_in">SaveArrayToFile</span>(ImageData, *PicturePath);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// return to old settings</span></span><br><span class="line">	Texture-&gt;CompressionSettings = OldCompressionSettings;</span><br><span class="line">	Texture-&gt;MipGenSettings = OldMipGenSettings;</span><br><span class="line">	Texture-&gt;SRGB = OldSRGB;</span><br><span class="line">	Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-        <category>工具流</category>
-      </categories>
-      <tags>
-        <tag>UE4</tag>
-        <tag>工具流</tag>
       </tags>
   </entry>
   <entry>
@@ -8747,6 +8421,378 @@ d_0 &amp;= F(x+1,y-0.5)\\
       </categories>
       <tags>
         <tag>日志</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[UE]CanvasPanelSlot布局规则</title>
+    <url>/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/UI/%5BUE%5DCanvasPanelSlot%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99/</url>
+    <content><![CDATA[<h1>CanvasPanelSlot 布局规则</h1>
+<h2 id="UMG-中的-CanvasPanelSlot">UMG 中的 CanvasPanelSlot</h2>
+<p>我们先来看一下在 UI 面板中，CanvasPanelSlot 有哪些信息：</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121642491.png" alt="image-20210812153142702" style="zoom:50%;" />
+<h2 id="源码中的-CanvasPanelSlot">源码中的 CanvasPanelSlot</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UMG_API</span> <span class="title">UCanvasPanelSlot</span> :</span> <span class="keyword">public</span> UPanelSlot</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">GENERATED_UCLASS_BODY</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** The anchoring information for the slot */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadOnly, Category=<span class="string">&quot;Layout|Canvas Slot&quot;</span>)</span><br><span class="line">	FAnchorData LayoutData;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** When AutoSize is true we use the widget&#x27;s desired size */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadOnly, Category=<span class="string">&quot;Layout|Canvas Slot&quot;</span>, AdvancedDisplay, meta=( DisplayName=<span class="string">&quot;Size To Content&quot;</span> ))</span><br><span class="line">	<span class="keyword">bool</span> bAutoSize;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** The order priority this widget is rendered in.  Higher values are rendered last (and so they will appear to be on top). */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadOnly, Category=<span class="string">&quot;Layout|Canvas Slot&quot;</span>)</span><br><span class="line">	int32 ZOrder;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/*其余信息*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FAnchorData</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">GENERATED_USTRUCT_BODY</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** Offset. */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadWrite, Category=AnchorData)</span><br><span class="line">	FMargin Offsets;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/** Anchors. */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadWrite, Category=AnchorData)</span><br><span class="line">	FAnchors Anchors;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Alignment is the pivot point of the widget.  Starting in the upper left at (0,0),</span></span><br><span class="line"><span class="comment">	 * ending in the lower right at (1,1).  Moving the alignment point allows you to move</span></span><br><span class="line"><span class="comment">	 * the origin of the widget.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadWrite, Category=AnchorData)</span><br><span class="line">	FVector2D Alignment;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>我们会发现，在面板中的 <code>Position</code> 与 <code>Size</code>，在源码中也是以 <code>Offsets</code> 形式存在的。</p>
+<p><code>Anchor.Minimum.X / Anchor.Minimum.Y</code>、<code>Anchor.Maximum.X / Anchor.Maximum.Y</code>、<code>Alignment.X / Alignment.Y</code>，均是以 <strong>比例</strong> 的形式给出。</p>
+<h2 id="布局规则">布局规则</h2>
+<p>实际上，如果我们改动 Anchor，在 <code>Minimum.X ≠ Maximum.X</code> 的时候，<code>Position X</code> 会显示为 <code>Offset Left</code>，<code>Size X</code> 会显示为 <code>OffsetRight</code>：</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121648711.png" alt="image-20210812164808737" style="zoom:67%;" />
+<p>在控件绝对位置不变的情况下，修改锚点的位置，会导致此时这两个值会改变非常多，对绝对位置的转换造成了困难。</p>
+<p>接下来简单整理下其规则：</p>
+<table>
+<thead>
+<tr>
+<th><code>Minimum.X</code> = <code>Maximum.X</code></th>
+<th><code>Minimum.X</code> ≠ <code>Maximum.X</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643933.png" alt="image-20210812160759667" style="zoom:25%;" /></td>
+<td><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643765.png" alt="image-20210812160922400" style="zoom:25%;" /></td>
+</tr>
+<tr>
+<td><code>Alignment</code> 有用：<br /><code>Alignment.X * Size.X</code> 确定了 “对齐点” 的横坐标偏移量。<br />当 <code>Alignment.X</code> 为 0 时，对齐点在最左边；<br />当 <code>Alignment.X</code> 为 1 时，对齐点在最右边；</td>
+<td><code>Alignment</code> 无用</td>
+</tr>
+<tr>
+<td>采用：<code>Position X</code><br />（表示 <code>Anchor_Min</code> 横坐标 到 对齐点.X 的距离）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643173.png" alt="image-20210812162308662" style="zoom:33%;" /></td>
+<td>采用：<code>Offset Left</code> <br />（表示 Anchor_Min 横坐标 到 控件左侧的距离）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643621.png" alt="image-20210812163026182" style="zoom:33%;" /></td>
+</tr>
+<tr>
+<td>采用：<code>Size X</code><br />（表示控件自身的横坐标大小）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643732.png" alt="image-20210812162439904" style="zoom: 33%;" /></td>
+<td>采用 <code>Offset Right</code> <br />（表示 <code>Anchor_Max</code> 横坐标到 控件右侧的距离）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643326.png" alt="image-20210812163222501" style="zoom:33%;" /></td>
+</tr>
+<tr>
+<td><code>AbsolutePosition.X = AnchorMinimumPositon.X + Offsets.Left - Alignment.X * Offsets.Right</code></td>
+<td><code>AbsolutePosition.X = MinimumPositon.X + Offsets.Left</code></td>
+</tr>
+<tr>
+<td><code> AbsoluteSize.X = Offsets.Right</code></td>
+<td><code>AbsoluteSize.X = AnchorMaximumPositon.X - AnchorMinimumPositon.X - Offsets.Left - Offsets.Right</code></td>
+</tr>
+</tbody>
+</table>
+<p>其中 <code>AnchorMinimumPosition.X</code> = <code>Anchor.Minimum.X * 父控件的 Size.X</code>。</p>
+<p>对于 Y 轴的处理也是类似的。<code>Position Y</code> 对应 <code>Offset Top</code>，<code>Size Y</code> 对应 <code>Offset Bottom</code>。</p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>UI</category>
+      </categories>
+      <tags>
+        <tag>UI</tag>
+        <tag>UE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[UE]读取本地字体文件</title>
+    <url>/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%B7%A5%E5%85%B7%E6%B5%81/%5BUE%5D%E8%AF%BB%E5%8F%96%E6%9C%AC%E5%9C%B0%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<h1>读取本地字体文件</h1>
+<h2 id="效果">效果</h2>
+<p>通过代码读取指定目录下的字体文件 (.ttf / .otf) 转换为 UE4 内部可用的 Font</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737676.png" alt="image-20210812171850767" style="zoom:50%;" />
+<h2 id="步骤">步骤</h2>
+<ol>
+<li>根据 FontName 在目录下寻找字体文件</li>
+<li>生成 FontFace</li>
+<li>生成字体对象</li>
+<li>保存资源</li>
+</ol>
+<h2 id="根据-FontName-在目录下寻找字体文件">根据 FontName 在目录下寻找字体文件</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">FString FontPath;</span><br><span class="line"><span class="keyword">const</span> FString FontPathTTF = FontDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;.ttf&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> FString FontPathOTF = FontDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;.otf&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断是否存在 TTF / OTF 文件</span></span><br><span class="line"><span class="keyword">if</span> (FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*FontPathTTF)) FontPath = FontPathTTF;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*FontPathOTF)) FontPath = FontPathOTF;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 不存在名字为 FontNameStr 的字体文件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="生成-FontFace">生成 FontFace</h2>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737983.png" alt="image-20210812171924508" style="zoom: 50%;" />
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 读取字体数据</span></span><br><span class="line">TArray&lt;uint8&gt; FontData;</span><br><span class="line"><span class="keyword">if</span> (!FFileHelper::<span class="built_in">LoadFileToArray</span>(FontData, *FontPath))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 无法解析数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">FontFace-&gt;FontFaceData-&gt;<span class="built_in">SetData</span>(<span class="built_in">MoveTemp</span>(FontData));</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (FontFace)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* 执行之后的操作 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="生成字体对象">生成字体对象</h2>
+<p>根据刚才生成的 FontFace 生成一个默认的 Font，就像使用拖入生成字体文件时一样：</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737101.png" alt="image-20210812171939351" style="zoom:33%;" />
+<p>（即模拟此时选中 <strong>Yes</strong> 时的操作）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 先生成一个空的字体对象</span></span><br><span class="line">Font = NewObject&lt;UFont&gt;(FontPackage, <span class="built_in">FName</span>(*(FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;_FONT&quot;</span>))), RF_Public | RF_Standalone | RF_MarkAsRootSet | RF_Transactional);</span><br><span class="line"></span><br><span class="line">Font-&gt;FontCacheType = EFontCacheType::Runtime;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用刚才生成的 FontFace 生成一个默认字体</span></span><br><span class="line">FTypefaceEntry&amp; DefaultTypefaceEntry = Font-&gt;CompositeFont.DefaultTypeface.Fonts[Font-&gt;CompositeFont.DefaultTypeface.Fonts.<span class="built_in">AddDefaulted</span>()];</span><br><span class="line">DefaultTypefaceEntry.Name = <span class="string">&quot;Default&quot;</span>;</span><br><span class="line">DefaultTypefaceEntry.Font = <span class="built_in">FFontData</span>(FontFace);</span><br></pre></td></tr></table></figure>
+<h2 id="保存资源">保存资源</h2>
+<p>首先我们要确定想要生成的 Font 所在的位置，也就是要确定 Package 的位置，也就是确定 Path：</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737934.png" alt="image-20210812172807755" style="zoom:50%;" />
+<p>Package 的位置由 <code>MountPoint</code> 开始，这个 <code>MountPoint</code> 就是类似 <code>/Game</code>、<code>/Engine</code> 这样的东西；</p>
+<p>如果我们需要 <strong>在指定目录保存这些文件</strong>，比如我们不想在 <code>/Game</code>、<code>/Engine</code> 的目录写入这些信息，想在自己的插件目录、其它本地目录保存，那么我们需要先注册 MountPoint：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Register mount point to save assets</span></span><br><span class="line">FPackageName::<span class="built_in">RegisterMountPoint</span>(<span class="string">&quot;/你想的 MountPoint 名字/&quot;</span>,  对应的路径);</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，MountPoint 一般直接使用 <code>/Game</code> 或者 <code>/Engine</code>，如果我们的 MountPoint 是自己给定的，有可能就无法在 UMG 中搜索到：</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121737045.png" alt="image-20210812173227245" style="zoom:50%;" />
+<p>接着我们：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">FString PackageName = MountPointName + <span class="built_in">TEXT</span>(<span class="string">&quot;/fonts/&quot;</span>) + FontNameStr;</span><br><span class="line">UPackage* FontPackage = <span class="built_in">CreatePackage</span>(<span class="literal">nullptr</span>, *PackageName);</span><br><span class="line">FontPackage-&gt;<span class="built_in">FullyLoad</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 生成字体 */</span></span><br><span class="line"></span><br><span class="line">FontPackage-&gt;<span class="built_in">MarkPackageDirty</span>();</span><br><span class="line">FAssetRegistryModule::<span class="built_in">AssetCreated</span>(Font);</span><br><span class="line"></span><br><span class="line">FString PackageFileName = FPackageName::<span class="built_in">LongPackageNameToFilename</span>(PackageName, FPackageName::<span class="built_in">GetAssetPackageExtension</span>());</span><br><span class="line"></span><br><span class="line">UPackage::<span class="built_in">SavePackage</span>(FontPackage, Font, EObjectFlags::RF_Public | EObjectFlags::RF_Standalone, *PackageFileName);</span><br></pre></td></tr></table></figure>
+<h2 id="完整代码">完整代码</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">UObject* <span class="title">CreateFontObject</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 设置一开始默认字体，若生成失败则返回默认字体</span></span><br><span class="line">	UFont* Font = GEngine-&gt;<span class="built_in">GetSmallFont</span>();</span><br><span class="line">	</span><br><span class="line">	FString FontPath;</span><br><span class="line">	<span class="keyword">const</span> FString FontPathTTF = FontDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;.ttf&quot;</span>);</span><br><span class="line">	<span class="keyword">const</span> FString FontPathOTF = FontDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;.otf&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*FontPathTTF)) FontPath = FontPathTTF;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*FontPathOTF)) FontPath = FontPathOTF;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">        <span class="comment">// 不存在名字为 FontNameStr 的字体文件</span></span><br><span class="line">		<span class="keyword">return</span> Font;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	FString PackageName = MountPointName + <span class="built_in">TEXT</span>(<span class="string">&quot;/fonts/&quot;</span>) + FontNameStr;</span><br><span class="line">	UPackage* FontPackage = <span class="built_in">CreatePackage</span>(<span class="literal">nullptr</span>, *PackageName);</span><br><span class="line">	FontPackage-&gt;<span class="built_in">FullyLoad</span>();</span><br><span class="line"></span><br><span class="line">	UFontFace* FontFace = NewObject&lt;UFontFace&gt;(FontPackage, <span class="built_in">FName</span>(*FontNameStr), RF_Public | RF_Standalone | RF_MarkAsRootSet);</span><br><span class="line">	FontFace-&gt;SourceFilename = FontNameStr;</span><br><span class="line"></span><br><span class="line">	TArray&lt;uint8&gt; FontData;</span><br><span class="line">	<span class="keyword">if</span> (!FFileHelper::<span class="built_in">LoadFileToArray</span>(FontData, *FontPath))</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="comment">// 无法解析数据</span></span><br><span class="line">		<span class="keyword">return</span> Font;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	FontFace-&gt;FontFaceData-&gt;<span class="built_in">SetData</span>(<span class="built_in">MoveTemp</span>(FontData));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (FontFace)</span><br><span class="line">	&#123;</span><br><span class="line">		Font = NewObject&lt;UFont&gt;(FontPackage, <span class="built_in">FName</span>(*(FontNameStr + <span class="built_in">TEXT</span>(<span class="string">&quot;_FONT&quot;</span>))), RF_Public | RF_Standalone | RF_MarkAsRootSet | RF_Transactional);</span><br><span class="line">		</span><br><span class="line">		Font-&gt;FontCacheType = EFontCacheType::Runtime;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Add a default typeface referencing the newly created font face</span></span><br><span class="line">		FTypefaceEntry&amp; DefaultTypefaceEntry = Font-&gt;CompositeFont.DefaultTypeface.Fonts[Font-&gt;CompositeFont.DefaultTypeface.Fonts.<span class="built_in">AddDefaulted</span>()];</span><br><span class="line">		DefaultTypefaceEntry.Name = <span class="string">&quot;Default&quot;</span>;</span><br><span class="line">		DefaultTypefaceEntry.Font = <span class="built_in">FFontData</span>(FontFace);</span><br><span class="line"></span><br><span class="line">		FontPackage-&gt;<span class="built_in">MarkPackageDirty</span>();</span><br><span class="line">		FAssetRegistryModule::<span class="built_in">AssetCreated</span>(Font);</span><br><span class="line">		</span><br><span class="line">		FString PackageFileName = FPackageName::<span class="built_in">LongPackageNameToFilename</span>(PackageName, FPackageName::<span class="built_in">GetAssetPackageExtension</span>());</span><br><span class="line"></span><br><span class="line">		UPackage::<span class="built_in">SavePackage</span>(FontPackage, Font, EObjectFlags::RF_Public | EObjectFlags::RF_Standalone, *PackageFileName);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">        <span class="comment">// 不存在 FontFace，无法生成 Font</span></span><br><span class="line">	&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">return</span> Font;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考源码">参考源码</h2>
+<p><code>EditorFactories : UFontFileImportFactory</code>：生成字体的工厂</p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>工具流</category>
+      </categories>
+      <tags>
+        <tag>工具流</tag>
+        <tag>UE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[UE]知识总结</title>
+    <url>/2099/01/01/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%5BUE%5D%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1>知识总结</h1>
+<h2 id="1-AI">1. AI</h2>
+<h3 id="寻路">寻路</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/74537236">UE4 Navmesh寻路</a></p>
+<p><a href="https://github.com/recastnavigation/recastnavigation">UE4 的 RecastDetour 组件</a></p>
+<p>UE4 主要使用 RecastDetour 组件主要支持 3D 场景的导航网格导出和寻路，也就是 NavMesh</p>
+<h3 id="行为树">行为树</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/143298443">UE4行为树详解</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/139514376">[UE4][AI] 浅析UE4-BehaviorTree的特性</a></p>
+<h2 id="2-动画">2. 动画</h2>
+<h2 id="3-Gameplay">3. Gameplay</h2>
+<h3 id="基础">基础</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/362218832">Unity3D 经验者转到 UE4 的经验</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/369974105">UE4的智能指针 TSharedPtr</a></p>
+<p><a href="https://dawnarc.com/2016/05/ue4console%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4command/">[UE4]console命令行常用命令(command)</a></p>
+<h3 id="蓝图">蓝图</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/92268112">理解蓝图技术架构</a></p>
+<h3 id="GAS">GAS</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/440168260">UE的GAS原理深入探究</a></p>
+<h3 id="架构">架构</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/22833151">《InsideUE4》GamePlay架构（一）Actor和Component</a></p>
+<h3 id="Demo">Demo</h3>
+<p><a href="https://github.com/tomlooman/EpicSurvivalGameSeries">EpicSurvivalGameSeries</a></p>
+<p><a href="https://docs.unrealengine.com/4.27/en-US/Resources/SampleGames/ShooterGame/">Shooter Game</a></p>
+<p><a href="https://www.unrealengine.com/marketplace/zh-CN/product/action-rpg">ActionRPG</a></p>
+<h3 id="资源管理">资源管理</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/69078536">UE4中的烘焙</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/256342436">大世界技术浅析，WOW的梦幻影歌——客户端资源加载</a></p>
+<h2 id="4-工具流">4. 工具流</h2>
+<h3 id="插件基础">插件基础</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/121152396">插件与模块</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1699614">UE4编辑器如何生成和共享插件</a></p>
+<p><a href="%E4%B8%BA%E5%A4%9A%E4%B8%AA%E6%9C%89%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB%E7%9A%84plugin%E7%94%9F%E6%88%90%E9%A2%84%E7%BC%96%E8%AF%91%E7%9A%84%E9%93%BE%E6%8E%A5%E5%BA%93%EF%BC%9Ahttps://zhuanlan.zhihu.com/p/115292711">[UE4]无插件源码编译和打包工程</a></p>
+<p><a href="https://lxjk.github.io/2019/10/01/How-to-Make-Tools-in-U-E.html">How to Make Tools in UE4</a></p>
+<blockquote>
+<p>注意事项</p>
+<p>在同一个插件模块里面定义的全局静态变量共享。（在 <code>A.cpp</code> 中定义 <code>static int a</code>，在 <code>B.cpp</code> 可以调用。若在 <code>B.cpp</code> 中也定义 <code>static int a</code> 则会报重定义的错误）</p>
+</blockquote>
+<h3 id="序列化">序列化</h3>
+<h4 id="JSON">JSON</h4>
+<p><a href="https://www.bilibili.com/read/cv10071665">[UE4 C++入门到进阶]10.Json数据读写</a>、<a href="https://sanctorum003.github.io/2019/08/07/CG/UE4/JSON/">虚幻4之JSON学习</a>、<a href="https://zhuanlan.zhihu.com/p/74720067">反序列化方法</a>、<a href="https://www.dazhuanlan.com/2020/02/24/5e536ade3f9b8/">[UE4]写入Json文件</a></p>
+<p>参考源码：<code>PaperSpriteSheetImportFactory</code>、<code>PaperTiledImporterFactory</code>、<code>PaperJsonSpriteSheetImporter</code></p>
+<h3 id="Config-系统">Config 系统</h3>
+<p><a href="https://blog.ch-wind.com/ue4-config-usage/">UE4 中 Config 的使用</a></p>
+<p><a href="https://blog.ch-wind.com/ue4-config-setting/">UE4 的配置界面写入</a></p>
+<p><a href="http://supervj.top/2020/08/31/%E6%89%A9%E5%B1%95%E6%B8%B8%E6%88%8F%E8%AE%BE%E7%BD%AE/">UE4 添加自定义项目设置</a></p>
+<p>参考源码：<code>Paper2DEditorModule</code></p>
+<h3 id="拓展编辑器">拓展编辑器</h3>
+<p>显示 UI 的可拓展点：Edit -&gt; Editor Preferences -&gt; General -&gt; Miscellaneous -&gt; Developer Tools -&gt; Display UIExtension Points，勾选后即可显示</p>
+<p><a href="https://www.lfzxb.top/ue4-plugins-development/">UE4插件开发总结</a></p>
+<p><a href="https://blog.csdn.net/qq_29523119/article/details/100088321">UE4给编辑器添加菜单栏(Menu)，工具栏(TooBar)，Tab窗口</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/302632931">【UE4编辑器】ContentBrowser 扩展之资源菜单</a></p>
+<p><a href="https://nerivec.github.io/old-ue4-wiki/pages/custom-context-menu-for-actors-in-editor.html">Custom Context Menu for Actors in Editor</a></p>
+<blockquote>
+<p>本质就是 通过 FModuleManager 获得对应模块，在其扩展数组（MenuExtenderArray）里添加新的委托，委托里的内容就是用来添加真正的菜单项。可添加的内容根据 Extender 来确定。</p>
+</blockquote>
+<p>参考源码：<code>AssetManagerEditorModule</code>、<code>ContentBrowserExtensions：InstallHooks</code>、<code>SpriteAssetTypeActions：GetActions</code></p>
+<h4 id="Slate">Slate</h4>
+<p><a href="https://zhuanlan.zhihu.com/p/115267691">UE4 Slate 基本框架</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/77681049">虚幻4渲染编程（工具篇）【第九卷：SlateUI布局】</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/56127773">Slate VS UMG（Slate 控件基本框架）</a></p>
+<p><a href="https://gameinstitute.qq.com/community/detail/121778">Slate控件中的代理事件如何绑定 UObject 方法</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/28355166">【UE4 Renderer】&lt;02&gt; Slate系统</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/346275251">【UEInside】 Slate合批机制剖析</a></p>
+<p>参考源码：<code>SlateTypes</code></p>
+<h3 id="引入第三方库">引入第三方库</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/395423662">UE4引入第三方库</a></p>
+<h3 id="创建-Asset">创建 Asset</h3>
+<p><a href="https://blog.csdn.net/weixin_39743369/article/details/112160932">ue4 通过指定路径加载资源_UE4 C++基础教程 - 资源常见名词解释</a></p>
+<p><a href="https://answers.unrealengine.com/questions/500286/view.html">Create a package in a special path</a></p>
+<p><a href="https://gmpreussner.com/reference/adding-new-asset-types-to-ue4">Adding New Asset Types to UE4</a></p>
+<p><a href="https://blog.csdn.net/u010385624/article/details/99729152">ue4 创建自定义资源，导入与重新导入自定义资源</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/374152267">UE4的DragonBones插件的开发</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/55132638">虚幻4渲染编程（工具篇）【第八卷：Asset creation】</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/338729328">虚幻4渲染编程（工具篇V2）【第一卷：UE4 Assets tool DV basic Intro】</a></p>
+<p>参考源码：<code>EditorFactories</code>、<code>SoundFactory</code>、<code>PaperTiledImporterFactory</code></p>
+<h2 id="5-UI">5. UI</h2>
+<h3 id="UI基础知识">UI基础知识</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/117582084">UE4入门之路（UI篇）：UMG系统介绍</a></p>
+<p><a href="https://gameinstitute.qq.com/community/detail/121327">UE4的UI制作流程</a></p>
+<p><a href="https://gamedevworks.com/blog/ue4-how-to-get-umg-widget-position-in-screen-space/">How to get UMG widget absolute position in UE4</a></p>
+<p><a href="https://dawnarc.com/2018/12/ue4slate-and-native-umgc-notes/">[UE4]Slate 和 Native UMG(C++) 笔记</a></p>
+<h3 id="程序化生成">程序化生成</h3>
+<p><a href="https://answers.unrealengine.com/questions/561607/view.html">How to construct UMG widget in C++?</a></p>
+<p><a href="https://gist.github.com/SalahAdDin/b3814f109d340f1e0f5dcac6e623b8ce">代码生成 Widget 与 WidgetBlueprint</a></p>
+<p>参考源码：<code>WidgetBlueprintFactory</code></p>
+<h2 id="6-网络">6. 网络</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/34723199">《Exploring in UE4》网络同步原理深入（上）[原理分析]</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/105040792">使用虚幻引擎4年，我想再谈谈他的网络架构【经验总结】</a></p>
+<p>参考源码：<code>NetDriver.h</code>、<code>IpNetDriver.h</code>、<code>NetworkDriver.cpp</code>、<code>OnlineSybsystemUtils.h</code></p>
+<h2 id="7-物理">7. 物理</h2>
+<h2 id="8-渲染">8. 渲染</h2>
+<h3 id="Niagara">Niagara</h3>
+<p><a href="https://www.cyanhall.com/cn/tutorial/">Niagara 教程</a></p>
+<h3 id="材质">材质</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/73754807">[UE4]动态液体材质浅谈</a></p>
+<h2 id="9-性能优化">9. 性能优化</h2>
+<h3 id="内存管理">内存管理</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/49046671">[UE4] 对象内存管理几种模式</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/61366273">UE4内存Profiler</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/219588301">UE4 垃圾收集大杂烩</a></p>
+<h3 id="性能分析">性能分析</h3>
+<p><a href="https://www.cnblogs.com/ghl_carmack/p/5481763.html">UE4 性能优化方法(工具篇)</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/267335603?utm_source=qq">[UE4] 项目帧率低排查瓶颈文件步骤记录</a></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>知识总结</category>
+      </categories>
+      <tags>
+        <tag>知识总结</tag>
+        <tag>UE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[UE]PushModel属性同步</title>
+    <url>/2022/04/10/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C/%5BUE%5DPushModel%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1>PushModel属性同步</h1>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202204101622619.png" alt="image-20220410162250125"></p>
+<h2 id="优势">优势</h2>
+<p><code>PushModel</code> 是对 <code>Replicate</code> 的一个优化。</p>
+<p>对于属性的同步，原有的 <code>Replicated</code> 属性，在 <code>Replicate</code>  之前需要对比所有的属性是否发生变化。</p>
+<p>而用上了 <code>PushModel</code>，则会在 <code>Set</code> 时主动将属性设置为脏，省去了 “比较” 这个高消耗的操作。</p>
+<p>UE5 中还对 <code>PushModel</code> 做了更进一步的优化，添加了一些新的宏以及对更多基础组件的支持。</p>
+<h2 id="实践">实践</h2>
+<h3 id="设置依赖">设置依赖</h3>
+<p>首先，我们需要在 <code>Build.cs</code> 中添加 <code>NetCore</code> 模块的依赖。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">PublicDependcyModuleNames.<span class="built_in">AddRange</span>(<span class="keyword">new</span> string[] &#123;<span class="string">&quot;NetCore&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="设置属性">设置属性</h3>
+<p>我们对于一个需要同步的属性，得先加上 <code>Replicated</code> 标签；有必要的话，需要加上<code>RepilicatedUsing </code> 来设置属性为脏时执行的回调函数。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">UCLASS</span>()</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ATest</span> :</span> <span class="keyword">public</span> AActor</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">GENERATED_BODY</span>()</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">UPROPERTY</span>(Replicated, EditAnywhere, ReplicatedUsing = OnRep_Param)</span><br><span class="line">	<span class="keyword">float</span> Param;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UFUNCITON</span>()</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnRep_Param</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ATest::OnRep_Param</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="声明同步">声明同步</h3>
+<p>接着我们需要实现 <code>GetLifetimeReplicatedProps</code>，在这个接口中添加宏标记同步的 Property。</p>
+<p>注意</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ATest::GetLifetimeReplicatedProps</span><span class="params">(TArray&lt; FLifetimeProperty &gt;&amp; OutLifetimeProps)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Super::<span class="built_in">GetLifetimeReplicatedProps</span>(OutLifetimeProps);</span><br><span class="line">    </span><br><span class="line">	FDoRepLifetimeParams SharedParams;</span><br><span class="line">	SharedParams.bIsPushBased = <span class="literal">true</span>;</span><br><span class="line">    </span><br><span class="line">	<span class="built_in">DOREPLIFETIME_WITH_PARAMS_FAST</span>(ATest, Param, SharedParams);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>FDoRepLifetimeParams</code> 中设置了同步的条件，其中<code>bIsPushBased</code> 表明是否使用 <code>PushModel</code>。</p>
+<p>其中 <code>DOREPLIFETIME_WITH_PARAMS_FAST</code> 的宏实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">define <span class="title">DOREPLIFETIME_WITH_PARAMS_FAST</span><span class="params">(c,v,params)</span> \</span></span><br><span class="line"><span class="function"></span>&#123; \</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">bool</span> bIsValid_##c_#<span class="meta">#v = ValidateReplicatedClassInheritance(StaticClass(), c::StaticClass(), TEXT(#v)); \</span></span><br><span class="line"><span class="meta">	const TCHAR* DoRepPropertyName_##c_##v(TEXT(#v)); \</span></span><br><span class="line"><span class="meta">	const NetworkingPrivate::FRepPropertyDescriptor PropertyDescriptor_##c_##v(DoRepPropertyName_##c_##v, (int32)c::ENetFields_Private::v, 1); \</span></span><br><span class="line"><span class="meta">	RegisterReplicatedLifetimeProperty(PropertyDescriptor_##c_##v, OutLifetimeProps, params); \</span></span><br><span class="line"><span class="meta">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改属性">修改属性</h3>
+<p>最后，我们在修改属性的时候，可以使用 <code>MARK_PROPERTY_DIRTY_FROM_NAME</code> 来将属性设脏。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ATest::SetParam</span><span class="params">(<span class="keyword">const</span> <span class="keyword">float</span> NewParam)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">MARK_PROPERTY_DIRTY_FROM_NAME</span>(ATest, Param, <span class="keyword">this</span>);</span><br><span class="line">    Param = NewParam;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在，<code>Server</code> 只需要检测属性是否被 <code>MARK_DIRTY</code> 就可以知道是否需要同步。</p>
+<p>当然，除了 <code>MARK_PROPERTY_DIRTY_FROM_NAME</code> 以外，UE 还实现了一些作用类似的其它的宏：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY(Object, Property) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_STATIC_ARRAY_INDEX(Object, RepIndex, ArrayIndex) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_STATIC_ARRAY(Object, RepIndex, ArrayIndex) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_FROM_NAME(ClassName, PropertyName, Object) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_FROM_NAME_STATIC_ARRAY_INDEX(ClassName, PropertyName, ArrayIndex, Object) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_FROM_NAME_STATIC_ARRAY(ClassName, PropertyName, ArrayIndex, Object)</span></span><br></pre></td></tr></table></figure>
+<h3 id="改进">改进</h3>
+<p>当然，我们也可以不这么复杂，我们可以自己设置一个新的标签。</p>
+<p>对于打上这个标签的属性，让其在 <code>CodeGenerator</code> 中自动生成 <code>Setter</code> 与 <code>Getter</code>，然后通过 <code>Setter</code> 与 <code>Getter</code> 来进行修改与访问。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _T&gt; \</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetParam</span><span class="params">(_T&amp;&amp; NewParam)</span> \</span></span><br><span class="line"><span class="function"></span>&#123; \</span><br><span class="line">    <span class="built_in">MARK_PROPERTY_DIRTYFROM_NAME</span>(ATest, Param, <span class="keyword">this</span>); \</span><br><span class="line">    Param = Forward&lt;_T&gt;(NewParam); \</span><br><span class="line">&#125; \</span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">float</span>&amp; <span class="title">GetParam</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;<span class="keyword">return</span> Param;&#125; \</span><br><span class="line"><span class="function"><span class="keyword">float</span>&amp; <span class="title">GetParam_Mutable</span><span class="params">()</span> \</span></span><br><span class="line"><span class="function"></span>&#123; \</span><br><span class="line">   <span class="built_in">MARK_PROPERTY_DIRTYFROM_NAME</span>(ATest, Param, <span class="keyword">this</span>); \</span><br><span class="line">   <span class="keyword">return</span> Param;</span><br><span class="line">&#125; \</span><br></pre></td></tr></table></figure>
+<h2 id="参考">参考</h2>
+<p>Unreal Engine 4. New network model: PushModel：<a href="https://tech-en.netlify.app/articles/en539604/index.html">https://tech-en.netlify.app/articles/en539604/index.html</a></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[UE]读取与导出本地图片</title>
+    <url>/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%B7%A5%E5%85%B7%E6%B5%81/%5BUE%5D%E8%AF%BB%E5%8F%96%E4%B8%8E%E5%AF%BC%E5%87%BA%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<h1>读取与导出本地图片</h1>
+<h2 id="效果">效果</h2>
+<ol>
+<li>
+<p>通过代码读取本地的 png 图片（可自己扩展其它类型）转换为 UE4 内部可用的 Texture2D；</p>
+</li>
+<li>
+<p>利用 UE4 内的 Texture2D 在本地指定目录下生成对应 png 图片；</p>
+</li>
+<li>
+<p>利用 UE4 内的 Sprite 在本地指定目录下生成对应的 png 图片。</p>
+</li>
+</ol>
+<h2 id="PNG-Texture2D">PNG -&gt; Texture2D</h2>
+<h3 id="分析">分析</h3>
+<ol>
+<li>读取指定目录的 png 图片，将信息存入数组 RawFileData</li>
+<li>用 ImageWrapper 来保存 RawFileData 转为可用信息</li>
+<li>生成空的 Texture</li>
+<li>将数据写入 Texture 中</li>
+<li>保存资源</li>
+</ol>
+<h3 id="读取指定目录的-png-图片，将信息存入数组-RawFileData">读取指定目录的 png 图片，将信息存入数组 RawFileData</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> FString PicturePath = ImageDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + ImageName + <span class="built_in">TEXT</span>(<span class="string">&quot;.png&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*PicturePath))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 不存在 PicturePath 文件</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TArray&lt;uint8&gt; RawFileData;</span><br><span class="line"><span class="keyword">if</span> (!FFileHelper::<span class="built_in">LoadFileToArray</span>(RawFileData, *PicturePath))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 无法解析 PicturePath</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="用-ImageWrapper-来保存-RawFileData-转为可用信息">用 ImageWrapper 来保存 RawFileData 转为可用信息</h3>
+<p>需要依赖模块：<code>ImageWrapper </code>，包含头文件：<code>IImageWrapper.h</code>、<code>IImageWrapperModule.h</code></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">IImageWrapperModule&amp; ImageWrapperModule = FModuleManager::LoadModuleChecked&lt;IImageWrapperModule&gt;(<span class="string">&quot;ImageWrapper&quot;</span>);</span><br><span class="line"></span><br><span class="line">TSharedPtr&lt;IImageWrapper&gt; ImageWrapper = ImageWrapperModule.<span class="built_in">CreateImageWrapper</span>(EImageFormat::PNG);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (ImageWrapper.<span class="built_in">IsValid</span>() &amp;&amp; ImageWrapper-&gt;<span class="built_in">SetCompressed</span>(RawFileData.<span class="built_in">GetData</span>(), RawFileData.<span class="built_in">Num</span>()))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">const</span> TArray&lt;uint8&gt;* UncompressedRGBA = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ERGBFormat::BGRA 为 RGB 的格式</span></span><br><span class="line">    <span class="comment">// 第二个参数为通道的位深度，通常为 8</span></span><br><span class="line">    <span class="comment">// UncompressedRGBA 保存了uncompressed raw data.</span></span><br><span class="line">    <span class="keyword">if</span> (ImageWrapper-&gt;<span class="built_in">GetRaw</span>(ERGBFormat::BGRA, <span class="number">8</span>, UncompressedRGBA))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* 执行接下来的操作 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="生成空的-Texture">生成空的 Texture</h3>
+<p>首先我们要确定想要生成的 Texture 所在的位置，也就是要确定 Package 的位置，也就是确定 Path：</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121427037.png" alt="image-20210812142156093.png"></p>
+<p>Package 的位置由 <code>MountPoint</code> 开始，这个 <code>MountPoint</code> 就是类似 <code>/Game</code>、<code>/Engine</code> 这样的东西；</p>
+<p>如果我们需要 <strong>在指定目录保存这些文件</strong>，比如我们不想在 <code>/Game</code>、<code>/Engine</code> 的目录写入这些信息，想在自己的插件目录、其它本地目录保存，那么我们需要先注册 MountPoint：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Register mount point to save assets</span></span><br><span class="line">FPackageName::<span class="built_in">RegisterMountPoint</span>(<span class="string">&quot;/你想的 MountPoint 名字/&quot;</span>,  对应的路径);</span><br></pre></td></tr></table></figure>
+<p>接着我们：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> FString PackageName = MountPointName + <span class="built_in">TEXT</span>(<span class="string">&quot;/textures/&quot;</span>) + ImageName;</span><br><span class="line"></span><br><span class="line">UPackage* TexturePackage = <span class="built_in">CreatePackage</span>(<span class="literal">nullptr</span>, *PackageName);</span><br><span class="line">TexturePackage-&gt;<span class="built_in">FullyLoad</span>();</span><br><span class="line"></span><br><span class="line">Texture = NewObject&lt;UTexture2D&gt;(TexturePackage, <span class="built_in">FName</span>(*ImageName), RF_Public | RF_Standalone | RF_MarkAsRootSet);</span><br></pre></td></tr></table></figure>
+<h3 id="将数据写入-Texture-中">将数据写入 Texture 中</h3>
+<p>我们生成的空 Texture 会默认采用 Mipmap 压缩，但是显然这不一定合理。</p>
+<p>如果 边长 不是 <strong>2 的幂次方</strong>，则不能使用 Mipmap 压缩，否则会出现错误，我们可以用 <code>x &amp; (x - 1)</code> 来判断 <code>x</code> 是否是 2 的幂次方，如果 <code>x &amp; (x - 1) == 0</code> 则说明是，否则不是 。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">int32 SizeX = ImageWrapper-&gt;<span class="built_in">GetWidth</span>();</span><br><span class="line">int32 SizeY = ImageWrapper-&gt;<span class="built_in">GetHeight</span>();</span><br><span class="line"><span class="keyword">const</span> EPixelFormat PixelFormat = PF_B8G8R8A8;</span><br><span class="line">int32 PixelSize = SizeX * SizeY * GPixelFormats[PixelFormat].BlockBytes;</span><br><span class="line"><span class="comment">// PixelSize 计算了所有的像素信息一共占了多少空间</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (SizeX &gt; <span class="number">0</span> &amp;&amp; SizeY &gt; <span class="number">0</span> &amp;&amp; (SizeX % GPixelFormats[PixelFormat].BlockSizeX) == <span class="number">0</span> &amp;&amp; (SizeY % GPixelFormats[PixelFormat].BlockSizeY) == <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">   		<span class="comment">/* 先生成一个空的 Texture */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新 Texture 的 PlatformData</span></span><br><span class="line">    Texture-&gt;PlatformData = <span class="keyword">new</span> <span class="built_in">FTexturePlatformData</span>();</span><br><span class="line">    Texture-&gt;PlatformData-&gt;SizeX = SizeX;</span><br><span class="line">    Texture-&gt;PlatformData-&gt;SizeY = SizeY;</span><br><span class="line">    Texture-&gt;PlatformData-&gt;NumSlices = <span class="number">1</span>;</span><br><span class="line">    Texture-&gt;PlatformData-&gt;PixelFormat = PixelFormat;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断边长是否是 2 的幂次方，如果当前的边长不是 2 的幂次方的时候，不开启 Mipmap 压缩</span></span><br><span class="line">    <span class="keyword">if</span> ( (SizeX &amp; (SizeX - <span class="number">1</span>) || (SizeY &amp; (SizeY - <span class="number">1</span>))) )</span><br><span class="line">        Texture-&gt;MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分配第一个 Mip</span></span><br><span class="line">    FTexture2DMipMap* Mip = <span class="keyword">new</span> <span class="built_in">FTexture2DMipMap</span>();</span><br><span class="line">    Texture-&gt;PlatformData-&gt;Mips.<span class="built_in">Add</span>(Mip);</span><br><span class="line">    Mip-&gt;SizeX = SizeX;</span><br><span class="line">    Mip-&gt;SizeY = SizeY;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向 Mip 的 Bulkdata 中写入数据，注意先加上锁</span></span><br><span class="line">    Mip-&gt;BulkData.<span class="built_in">Lock</span>(LOCK_READ_WRITE);</span><br><span class="line">    uint8* TextureData = (uint8*) Mip-&gt;BulkData.<span class="built_in">Realloc</span>(PixelSize);</span><br><span class="line">    FMemory::<span class="built_in">Memcpy</span>(TextureData, UncompressedRGBA-&gt;<span class="built_in">GetData</span>(), PixelSize);</span><br><span class="line">    Mip-&gt;BulkData.<span class="built_in">Unlock</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化 Texture 的信息，完成数据的临时写入，也就是可选保存的状态</span></span><br><span class="line">    Texture-&gt;Source.<span class="built_in">Init</span>(SizeX, SizeY, <span class="number">1</span>, <span class="number">1</span>, ETextureSourceFormat::TSF_BGRA8, UncompressedRGBA-&gt;<span class="built_in">GetData</span>());</span><br><span class="line">    Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="保存资源">保存资源</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Create Assets</span></span><br><span class="line">TexturePackage-&gt;<span class="built_in">MarkPackageDirty</span>();</span><br><span class="line">FAssetRegistryModule::<span class="built_in">AssetCreated</span>(Texture);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 Package 的文件名</span></span><br><span class="line">FString PackageFileName = FPackageName::<span class="built_in">LongPackageNameToFilename</span>(PackageName, FPackageName::<span class="built_in">GetAssetPackageExtension</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保存资源</span></span><br><span class="line">UPackage::<span class="built_in">SavePackage</span>(TexturePackage, Texture, EObjectFlags::RF_Public | EObjectFlags::RF_Standalone, *PackageFileName);</span><br></pre></td></tr></table></figure>
+<h3 id="完整代码">完整代码</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">UTexture2D* <span class="title">CreateTexture</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	UTexture2D* Texture = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> FString PicturePath = ImageDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + ImageName + <span class="built_in">TEXT</span>(<span class="string">&quot;.png&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (!FPlatformFileManager::<span class="built_in">Get</span>().<span class="built_in">GetPlatformFile</span>().<span class="built_in">FileExists</span>(*PicturePath))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">const</span> FString PackageName = MountPointName + <span class="built_in">TEXT</span>(<span class="string">&quot;/textures/&quot;</span>) + ImageName;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Read loacl PNG to Texture</span></span><br><span class="line"></span><br><span class="line">	TArray&lt;uint8&gt; RawFileData;</span><br><span class="line">	<span class="keyword">if</span> (!FFileHelper::<span class="built_in">LoadFileToArray</span>(RawFileData, *PicturePath))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	IImageWrapperModule&amp; ImageWrapperModule = FModuleManager::LoadModuleChecked&lt;IImageWrapperModule&gt;(<span class="string">&quot;ImageWrapper&quot;</span>);</span><br><span class="line"></span><br><span class="line">	TSharedPtr&lt;IImageWrapper&gt; ImageWrapper = ImageWrapperModule.<span class="built_in">CreateImageWrapper</span>(EImageFormat::PNG);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (ImageWrapper.<span class="built_in">IsValid</span>() &amp;&amp; ImageWrapper-&gt;<span class="built_in">SetCompressed</span>(RawFileData.<span class="built_in">GetData</span>(), RawFileData.<span class="built_in">Num</span>()))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">const</span> TArray&lt;uint8&gt;* UncompressedRGBA = <span class="literal">nullptr</span>;</span><br><span class="line">		<span class="keyword">if</span> (ImageWrapper-&gt;<span class="built_in">GetRaw</span>(ERGBFormat::BGRA, <span class="number">8</span>, UncompressedRGBA))</span><br><span class="line">		&#123;</span><br><span class="line">			int32 SizeX = ImageWrapper-&gt;<span class="built_in">GetWidth</span>();</span><br><span class="line">			int32 SizeY = ImageWrapper-&gt;<span class="built_in">GetHeight</span>();</span><br><span class="line">			<span class="keyword">const</span> EPixelFormat PixelFormat = PF_B8G8R8A8;</span><br><span class="line">			int32 PixelSize = SizeX * SizeY * GPixelFormats[PixelFormat].BlockBytes;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (SizeX &gt; <span class="number">0</span> &amp;&amp; SizeY &gt; <span class="number">0</span> &amp;&amp; (SizeX % GPixelFormats[PixelFormat].BlockSizeX) == <span class="number">0</span> &amp;&amp; (SizeY % GPixelFormats[PixelFormat].BlockSizeY) == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">// Create new texture pointer			</span></span><br><span class="line">				UPackage* TexturePackage = <span class="built_in">CreatePackage</span>(<span class="literal">nullptr</span>, *PackageName);</span><br><span class="line">				TexturePackage-&gt;<span class="built_in">FullyLoad</span>();</span><br><span class="line">				Texture = NewObject&lt;UTexture2D&gt;(TexturePackage, <span class="built_in">FName</span>(*ImageName), RF_Public | RF_Standalone | RF_MarkAsRootSet);</span><br><span class="line"></span><br><span class="line">				Texture-&gt;PlatformData = <span class="keyword">new</span> <span class="built_in">FTexturePlatformData</span>();</span><br><span class="line">				Texture-&gt;PlatformData-&gt;SizeX = SizeX;</span><br><span class="line">				Texture-&gt;PlatformData-&gt;SizeY = SizeY;</span><br><span class="line">				Texture-&gt;PlatformData-&gt;NumSlices = <span class="number">1</span>;</span><br><span class="line">				Texture-&gt;PlatformData-&gt;PixelFormat = PixelFormat;</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Determine whether it is a power of 2 to use mipmap</span></span><br><span class="line">				<span class="keyword">if</span> ( (SizeX &amp; (SizeX - <span class="number">1</span>) || (SizeY &amp; (SizeY - <span class="number">1</span>))) )</span><br><span class="line">					Texture-&gt;MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;</span><br><span class="line">				</span><br><span class="line">				<span class="comment">// Allocate first mipmap.</span></span><br><span class="line">				FTexture2DMipMap* Mip = <span class="keyword">new</span> <span class="built_in">FTexture2DMipMap</span>();</span><br><span class="line">				Texture-&gt;PlatformData-&gt;Mips.<span class="built_in">Add</span>(Mip);</span><br><span class="line">				Mip-&gt;SizeX = SizeX;</span><br><span class="line">				Mip-&gt;SizeY = SizeY;</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Lock the texture so that it can be modified</span></span><br><span class="line">				Mip-&gt;BulkData.<span class="built_in">Lock</span>(LOCK_READ_WRITE);</span><br><span class="line">				uint8* TextureData = (uint8*) Mip-&gt;BulkData.<span class="built_in">Realloc</span>(PixelSize);</span><br><span class="line">				FMemory::<span class="built_in">Memcpy</span>(TextureData, UncompressedRGBA-&gt;<span class="built_in">GetData</span>(), PixelSize);</span><br><span class="line">				Mip-&gt;BulkData.<span class="built_in">Unlock</span>();</span><br><span class="line"></span><br><span class="line">				Texture-&gt;Source.<span class="built_in">Init</span>(SizeX, SizeY, <span class="number">1</span>, <span class="number">1</span>, ETextureSourceFormat::TSF_BGRA8, UncompressedRGBA-&gt;<span class="built_in">GetData</span>());</span><br><span class="line">				Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Create Assets</span></span><br><span class="line">				TexturePackage-&gt;<span class="built_in">MarkPackageDirty</span>();</span><br><span class="line">				</span><br><span class="line">				FAssetRegistryModule::<span class="built_in">AssetCreated</span>(Texture);</span><br><span class="line"></span><br><span class="line">				FString PackageFileName = FPackageName::<span class="built_in">LongPackageNameToFilename</span>(PackageName, FPackageName::<span class="built_in">GetAssetPackageExtension</span>());</span><br><span class="line"></span><br><span class="line">				UPackage::<span class="built_in">SavePackage</span>(TexturePackage, Texture, EObjectFlags::RF_Public | EObjectFlags::RF_Standalone, *PackageFileName);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> Texture; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="参考源码">参考源码</h3>
+<p><code>EditorFactories : UTextureFactory::ImportTexture()</code>：实现了从外部导入图片生成 Texture</p>
+<p><code>Texture2D : UTexture2D::CreateTransient()</code>：实现了生成一个临时性的 Texture2D 文件</p>
+<p><code>Texture : FTextureSource::GetMipData()</code>：实现了获取 Texture 中 Mip 的数据</p>
+<h2 id="Texture2D-PNG">Texture2D -&gt; PNG</h2>
+<h3 id="分析-2">分析</h3>
+<ol>
+<li>修改 Texture 的设置</li>
+<li>读取像素信息并生成图片</li>
+</ol>
+<h3 id="修改-Texture-的设置">修改 Texture 的设置</h3>
+<p>在原本 Texture 的设置下，我们可能无法从 BulkData 读取出信息，会返回一个空指针，所以我们需要先修改一下 Texture 的设置；同时记录一下原本的设置，用于之后的复原。</p>
+<blockquote>
+<p>CompressionSettings 设置为 TC_VectorDisplacementmap</p>
+<p>MipGenSettings 设置为 TMGS_NoMipmaps</p>
+<p>SRGB 设置为 false</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 记录原本的设置信息</span></span><br><span class="line">TextureCompressionSettings OldCompressionSettings = Texture-&gt;CompressionSettings;</span><br><span class="line">TextureMipGenSettings OldMipGenSettings = Texture-&gt;MipGenSettings;</span><br><span class="line"><span class="keyword">bool</span> OldSRGB = Texture-&gt;SRGB;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改设置</span></span><br><span class="line">Texture-&gt;CompressionSettings = TextureCompressionSettings::TC_VectorDisplacementmap;</span><br><span class="line">Texture-&gt;MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;</span><br><span class="line">Texture-&gt;SRGB = <span class="literal">false</span>;</span><br><span class="line">Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 读取信息 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 复原回原本的设置</span></span><br><span class="line">Texture-&gt;CompressionSettings = OldCompressionSettings;</span><br><span class="line">Texture-&gt;MipGenSettings = OldMipGenSettings;</span><br><span class="line">Texture-&gt;SRGB = OldSRGB;</span><br><span class="line">Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br></pre></td></tr></table></figure>
+<h3 id="读取像素信息并生成图片">读取像素信息并生成图片</h3>
+<p>我们从 Texture 的 Platform 中读取出 Mip 的 BulkData，然后对其进行映射，将信息映射到 PixelColor 中</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121506053.png" alt="image-20210812145950820" style="zoom:50%;" />
+<p>每一个 PixelColor 包含着 BGRA 的信息，多个 PixelColor 组成了数组 ColorData；</p>
+<p>接着依赖于 <code>ImageUtils</code> ，我们压缩这个 ColorData 生成 ImageData，并将其写入指定位置，就可以生成出 png 图片。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// export texture to image</span></span><br><span class="line">FTexture2DMipMap&amp; Mip = Texture-&gt;PlatformData-&gt;Mips[<span class="number">0</span>];</span><br><span class="line">uint8* TextureData = (uint8*) Mip.BulkData.<span class="built_in">Lock</span>(LOCK_READ_WRITE);</span><br><span class="line">Mip.BulkData.<span class="built_in">Unlock</span>();</span><br><span class="line"></span><br><span class="line">int32 SizeX = Texture-&gt;PlatformData-&gt;SizeX;</span><br><span class="line">int32 SizeY = Texture-&gt;PlatformData-&gt;SizeY;</span><br><span class="line">TArray&lt;FColor&gt; ColorData;</span><br><span class="line"><span class="keyword">for</span> (int32 IndexY = <span class="number">0</span>; IndexY &lt; SizeY; IndexY++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (int32 IndexX = <span class="number">0</span>; IndexX &lt; SizeX; IndexX++)</span><br><span class="line">    &#123;</span><br><span class="line">        FColor PixelColor;</span><br><span class="line">        PixelColor.B = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">0</span>];</span><br><span class="line">        PixelColor.G = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">1</span>];</span><br><span class="line">        PixelColor.R = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">2</span>];</span><br><span class="line">        PixelColor.A = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">3</span>];</span><br><span class="line">        ColorData.<span class="built_in">Add</span>(PixelColor);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TArray&lt;uint8&gt; ImageData;</span><br><span class="line">FImageUtils::<span class="built_in">CompressImageArray</span>(SizeX, SizeY, ColorData, ImageData);</span><br><span class="line">FFileHelper::<span class="built_in">SaveArrayToFile</span>(ImageData, *PicturePath);</span><br></pre></td></tr></table></figure>
+<h3 id="完整代码-2">完整代码</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">WriteTexture</span><span class="params">(UTexture2D* Texture)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	FString PicturePath = ExportImageDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + Texture-&gt;<span class="built_in">GetName</span>() + <span class="built_in">TEXT</span>(<span class="string">&quot;.png&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// record old settings</span></span><br><span class="line">	TextureCompressionSettings OldCompressionSettings = Texture-&gt;CompressionSettings;</span><br><span class="line">	TextureMipGenSettings OldMipGenSettings = Texture-&gt;MipGenSettings;</span><br><span class="line">	<span class="keyword">bool</span> OldSRGB = Texture-&gt;SRGB;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// modified to exportable settings</span></span><br><span class="line">	Texture-&gt;CompressionSettings = TextureCompressionSettings::TC_VectorDisplacementmap;</span><br><span class="line">	Texture-&gt;MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;</span><br><span class="line">	Texture-&gt;SRGB = <span class="literal">false</span>;</span><br><span class="line">	Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// export texture to image</span></span><br><span class="line">	FTexture2DMipMap&amp; Mip = Texture-&gt;PlatformData-&gt;Mips[<span class="number">0</span>];</span><br><span class="line">	uint8* TextureData = (uint8*) Mip.BulkData.<span class="built_in">Lock</span>(LOCK_READ_WRITE);</span><br><span class="line">	Mip.BulkData.<span class="built_in">Unlock</span>();</span><br><span class="line">	</span><br><span class="line">	int32 SizeX = Texture-&gt;PlatformData-&gt;SizeX;</span><br><span class="line">	int32 SizeY = Texture-&gt;PlatformData-&gt;SizeY;</span><br><span class="line">	TArray&lt;FColor&gt; ColorData;</span><br><span class="line">	<span class="keyword">for</span> (int32 IndexY = <span class="number">0</span>; IndexY &lt; SizeY; IndexY++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (int32 IndexX = <span class="number">0</span>; IndexX &lt; SizeX; IndexX++)</span><br><span class="line">		&#123;</span><br><span class="line">			FColor PixelColor;</span><br><span class="line">			PixelColor.B = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">0</span>];</span><br><span class="line">			PixelColor.G = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">1</span>];</span><br><span class="line">			PixelColor.R = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">2</span>];</span><br><span class="line">			PixelColor.A = TextureData[(IndexY * SizeX + IndexX) * <span class="number">4</span> + <span class="number">3</span>];</span><br><span class="line">			ColorData.<span class="built_in">Add</span>(PixelColor);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	TArray&lt;uint8&gt; ImageData;</span><br><span class="line">	FImageUtils::<span class="built_in">CompressImageArray</span>(SizeX, SizeY, ColorData, ImageData);</span><br><span class="line">	FFileHelper::<span class="built_in">SaveArrayToFile</span>(ImageData, *PicturePath);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// return to old settings</span></span><br><span class="line">	Texture-&gt;CompressionSettings = OldCompressionSettings;</span><br><span class="line">	Texture-&gt;MipGenSettings = OldMipGenSettings;</span><br><span class="line">	Texture-&gt;SRGB = OldSRGB;</span><br><span class="line">	Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="参考源码-2">参考源码</h3>
+<p><code>GameViewportClient : UGameViewportClient::ProcessScreenShots()</code>：实现了导出屏幕截图</p>
+<h2 id="Sprite-PNG">Sprite -&gt; PNG</h2>
+<h3 id="分析-3">分析</h3>
+<p>首先我们来看一下 Sprite 的信息：</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121506969.png" alt="image-20210812150627183" style="zoom: 50%;" />
+<p>其中，SourceUV 切割出的图片，左上角的偏移量；Source Dimension 表示切割图片的大小；SourceTexture 表示从哪个 Texture 切割而来。</p>
+<p>举个例子：</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/20210812231715.png" alt="image-20210812231527306"></p>
+<p>在这幅图中，<code>Texture-&gt;PlatformData-&gt;SizeX = 9</code>、<code>Texture-&gt;PlatformData-&gt;SizeY = 5</code>，</p>
+<p>假设我们切割的是红色部分，则 <code>SourceUV = (3, 1) </code>、<code>SourceDimension = (4, 3)</code>，此时的偏移量应该是 <code>9(第一行) + 3(第二行空白处) = 12</code></p>
+<p>我们发现 PaperSprite 中预留了这个函数，可以让我们获取到这三个信息：</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121509794.png" alt="image-20210812150952019" style="zoom:50%;" />
+<p>这下子就很明确了，我们拿到这些信息，通过计算偏移量，就可以从 SourceTexture 中切割出图片来，剩下的内容和 Texture -&gt; PNG 就一样了。</p>
+<p>还一些需要注意的是，记得包含 <code>PaperSpriteComponent.h</code>、<code>PaperSprite.h</code>，如果在插件中使用 Sprite，需要依赖模块 <code>Paper2D</code>。</p>
+<h3 id="完整代码-3">完整代码</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">WriteSprite</span><span class="params">(UPaperSprite* Sprite)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	FString PicturePath = ExportImageDirectory.Path + <span class="built_in">TEXT</span>(<span class="string">&quot;/&quot;</span>) + Sprite-&gt;<span class="built_in">GetName</span>() + <span class="built_in">TEXT</span>(<span class="string">&quot;.png&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// record old settings</span></span><br><span class="line">	UTexture2D* Texture = Sprite-&gt;<span class="built_in">GetSourceTexture</span>();</span><br><span class="line">	</span><br><span class="line">	TextureCompressionSettings OldCompressionSettings = Texture-&gt;CompressionSettings;</span><br><span class="line">	TextureMipGenSettings OldMipGenSettings = Texture-&gt;MipGenSettings;</span><br><span class="line">	<span class="keyword">bool</span> OldSRGB = Texture-&gt;SRGB;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// modified to exportable settings</span></span><br><span class="line">	Texture-&gt;CompressionSettings = TextureCompressionSettings::TC_VectorDisplacementmap;</span><br><span class="line">	Texture-&gt;MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;</span><br><span class="line">	Texture-&gt;SRGB = <span class="literal">false</span>;</span><br><span class="line">	Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// export texture to image</span></span><br><span class="line">	FTexture2DMipMap&amp; Mip = Texture-&gt;PlatformData-&gt;Mips[<span class="number">0</span>];</span><br><span class="line">	uint8* TextureData = (uint8*) Mip.BulkData.<span class="built_in">Lock</span>(LOCK_READ_WRITE);</span><br><span class="line">	Mip.BulkData.<span class="built_in">Unlock</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 切割 Sprite，计算偏移量</span></span><br><span class="line">	FVector2D SourceUV = Sprite-&gt;<span class="built_in">GetSourceUV</span>();</span><br><span class="line">	FVector2D SourceSize = Sprite-&gt;<span class="built_in">GetSourceSize</span>();</span><br><span class="line">	</span><br><span class="line">	int32 SizeX = (int32)SourceSize.X;</span><br><span class="line">	int32 SizeY = (int32)SourceSize.Y;</span><br><span class="line">	int32 Offsets = (int32)SourceUV.Y * Texture-&gt;PlatformData-&gt;SizeX + (int32)SourceUV.X;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	TArray&lt;FColor&gt; ColorData;</span><br><span class="line">	<span class="keyword">for</span> (int32 IndexY = <span class="number">0</span>; IndexY &lt; SizeY; IndexY++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (int32 IndexX = <span class="number">0</span>; IndexX &lt; SizeX; IndexX++)</span><br><span class="line">		&#123;</span><br><span class="line">			FColor PixelColor;</span><br><span class="line">			PixelColor.B = TextureData[(IndexY * Texture-&gt;PlatformData-&gt;SizeX + IndexX + Offsets) * <span class="number">4</span> + <span class="number">0</span>];</span><br><span class="line">			PixelColor.G = TextureData[(IndexY * Texture-&gt;PlatformData-&gt;SizeX + IndexX + Offsets) * <span class="number">4</span> + <span class="number">1</span>];</span><br><span class="line">			PixelColor.R = TextureData[(IndexY * Texture-&gt;PlatformData-&gt;SizeX + IndexX + Offsets) * <span class="number">4</span> + <span class="number">2</span>];</span><br><span class="line">			PixelColor.A = TextureData[(IndexY * Texture-&gt;PlatformData-&gt;SizeX + IndexX + Offsets) * <span class="number">4</span> + <span class="number">3</span>];</span><br><span class="line">			ColorData.<span class="built_in">Add</span>(PixelColor);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	TArray&lt;uint8&gt; ImageData;</span><br><span class="line">	FImageUtils::<span class="built_in">CompressImageArray</span>(SizeX, SizeY, ColorData, ImageData);</span><br><span class="line">	FFileHelper::<span class="built_in">SaveArrayToFile</span>(ImageData, *PicturePath);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// return to old settings</span></span><br><span class="line">	Texture-&gt;CompressionSettings = OldCompressionSettings;</span><br><span class="line">	Texture-&gt;MipGenSettings = OldMipGenSettings;</span><br><span class="line">	Texture-&gt;SRGB = OldSRGB;</span><br><span class="line">	Texture-&gt;<span class="built_in">UpdateResource</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>工具流</category>
+      </categories>
+      <tags>
+        <tag>工具流</tag>
+        <tag>UE</tag>
       </tags>
   </entry>
 </search>
