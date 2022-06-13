@@ -111,6 +111,36 @@
   </entry>
   
   <entry>
+    <title>[UE]BuffSystem的简单实现</title>
+    <link href="https://www.bearchild.top/2022/06/13/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Gameplay/[UE]BuffSystem%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://www.bearchild.top/2022/06/13/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Gameplay/[UE]BuffSystem%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</id>
+    <published>2022-06-12T16:00:00.000Z</published>
+    <updated>2022-06-13T13:28:40.097Z</updated>
+    
+    <content type="html"><![CDATA[<h1>BuffSystem的简单实现</h1><h2 id="设计">设计</h2><p>首先对于一个 <code>BuffSystem</code> 来说，最重要的肯定是 <code>Buff</code>，我们的 <code>Buff</code> 应该记录最基本的信息：<code>BuffID</code>、<code>Givers(授予者)</code>、<code>Recipient(接受者)</code>，并且有最基本的功能：<code>Create(生成)</code>、<code>Tick</code>、<code>Merge(合并)</code>、<code>Break(打断)</code>。</p><p>然后我们需要一个 <code>BuffSystem</code> 用来管理所有的操作，我们通过这个 <code>System</code> 来发起 <code>Commit</code>、<code>Query</code> 某个 <code>Buff</code>，并且保存一下最基本的信息 <code>BuffTable(buff总表)</code>、<code>RecipientDict(当前 Recipient 上有哪些 BUff)</code>。其中<code>BuffTable</code> 在蓝图中手动添加。</p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202206132128656.png" alt="image-20220613212816579"></p><h2 id="BuffBase">BuffBase</h2><ol><li><code>Create</code>：保存 <code>BuffID</code>、<code>Givers(授予者)</code>、<code>Recipient(接受者)</code> 信息；</li><li><code>Break</code>：执行需要的方法，并将 <code>bInterrupted</code> 设为 <code>true</code> （对于每个 <code>Buff</code>，保存一个 <code>bInterrupted</code> 判断是否被 <code>Break</code>，可以有一个蓝图可调用的 <code>CanBeInterrupted</code> 方法来设置该值）</li><li><code>Merge</code>：执行当 <code>Recipient</code> 身上被 <code>Commit</code> 了相同 <code>Buff</code> 时，可能需要的逻辑；</li><li><code>Tick</code>：执行 <code>Tick</code> 内的逻辑；</li></ol><p>每个 <code>Buff</code> 的生命周期由 <code>BuffSystem</code> 上的 <code>RecipientDict</code> 来管理。</p><h2 id="BuffSystem">BuffSystem</h2><ol><li><code>Commit</code>：判断 <code>BuffTable</code> 里是否有对应 <code>BuffID</code> 的 <code>Buff</code>，若存在则创建该实例，然后写进 <code>RecipientDict</code>；注意判断一下是否原本已经有该 <code>Buff</code>，若有的话执行 <code>OldBuff</code> 的  <code>Merge</code> 即可；</li><li><code>Query</code>：直接判断是否在 <code>RecipientDict</code>，返回对应 <code>Handler</code>；</li><li><code>Tick</code>：遍历 <code>RecipientDict</code>，遍历 <code>BuffGroup</code>；第一轮我们执行每一个 <code>Buff</code> 的 <code>Tick</code>；第二轮针对每个 <code>Buff</code> ，判断 <code>CanBeInterrupted</code>，执行 <code>Break</code> 方法；最后一轮判断每一个 <code>Buff</code> 是否 <code>Interrupted</code>，如果是则 <code>Remove</code> 。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;BuffSystem的简单实现&lt;/h1&gt;
+&lt;h2 id=&quot;设计&quot;&gt;设计&lt;/h2&gt;
+&lt;p&gt;首先对于一个 &lt;code&gt;BuffSystem&lt;/code&gt; 来说，最重要的肯定是 &lt;code&gt;Buff&lt;/code&gt;，我们的 &lt;code&gt;Buff&lt;/code&gt; 应该记录最基本的信息</summary>
+      
+    
+    
+    
+    <category term="游戏开发" scheme="https://www.bearchild.top/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"/>
+    
+    <category term="Gameplay" scheme="https://www.bearchild.top/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Gameplay/"/>
+    
+    
+    <category term="Gameplay" scheme="https://www.bearchild.top/tags/Gameplay/"/>
+    
+    <category term="UE" scheme="https://www.bearchild.top/tags/UE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>[UE]PushModel属性同步</title>
     <link href="https://www.bearchild.top/2022/04/10/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C/[UE]PushModel%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     <id>https://www.bearchild.top/2022/04/10/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C/[UE]PushModel%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
@@ -562,37 +592,6 @@
     
     
     <category term="图形学" scheme="https://www.bearchild.top/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[UE]CanvasPanelSlot布局规则</title>
-    <link href="https://www.bearchild.top/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/UI/[UE]CanvasPanelSlot%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99/"/>
-    <id>https://www.bearchild.top/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/UI/[UE]CanvasPanelSlot%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99/</id>
-    <published>2021-08-11T16:00:03.000Z</published>
-    <updated>2022-04-10T07:38:27.016Z</updated>
-    
-    <content type="html"><![CDATA[<h1>CanvasPanelSlot 布局规则</h1><h2 id="UMG-中的-CanvasPanelSlot">UMG 中的 CanvasPanelSlot</h2><p>我们先来看一下在 UI 面板中，CanvasPanelSlot 有哪些信息：</p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121642491.png" alt="image-20210812153142702" style="zoom:50%;" /><h2 id="源码中的-CanvasPanelSlot">源码中的 CanvasPanelSlot</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UMG_API</span> <span class="title">UCanvasPanelSlot</span> :</span> <span class="keyword">public</span> UPanelSlot</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">GENERATED_UCLASS_BODY</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line"><span class="comment">/** The anchoring information for the slot */</span></span><br><span class="line"><span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadOnly, Category=<span class="string">&quot;Layout|Canvas Slot&quot;</span>)</span><br><span class="line">FAnchorData LayoutData;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** When AutoSize is true we use the widget&#x27;s desired size */</span></span><br><span class="line"><span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadOnly, Category=<span class="string">&quot;Layout|Canvas Slot&quot;</span>, AdvancedDisplay, meta=( DisplayName=<span class="string">&quot;Size To Content&quot;</span> ))</span><br><span class="line"><span class="keyword">bool</span> bAutoSize;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** The order priority this widget is rendered in.  Higher values are rendered last (and so they will appear to be on top). */</span></span><br><span class="line"><span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadOnly, Category=<span class="string">&quot;Layout|Canvas Slot&quot;</span>)</span><br><span class="line">int32 ZOrder;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*其余信息*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FAnchorData</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="built_in">GENERATED_USTRUCT_BODY</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Offset. */</span></span><br><span class="line"><span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadWrite, Category=AnchorData)</span><br><span class="line">FMargin Offsets;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Anchors. */</span></span><br><span class="line"><span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadWrite, Category=AnchorData)</span><br><span class="line">FAnchors Anchors;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Alignment is the pivot point of the widget.  Starting in the upper left at (0,0),</span></span><br><span class="line"><span class="comment"> * ending in the lower right at (1,1).  Moving the alignment point allows you to move</span></span><br><span class="line"><span class="comment"> * the origin of the widget.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">UPROPERTY</span>(EditAnywhere, BlueprintReadWrite, Category=AnchorData)</span><br><span class="line">FVector2D Alignment;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>我们会发现，在面板中的 <code>Position</code> 与 <code>Size</code>，在源码中也是以 <code>Offsets</code> 形式存在的。</p><p><code>Anchor.Minimum.X / Anchor.Minimum.Y</code>、<code>Anchor.Maximum.X / Anchor.Maximum.Y</code>、<code>Alignment.X / Alignment.Y</code>，均是以 <strong>比例</strong> 的形式给出。</p><h2 id="布局规则">布局规则</h2><p>实际上，如果我们改动 Anchor，在 <code>Minimum.X ≠ Maximum.X</code> 的时候，<code>Position X</code> 会显示为 <code>Offset Left</code>，<code>Size X</code> 会显示为 <code>OffsetRight</code>：</p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121648711.png" alt="image-20210812164808737" style="zoom:67%;" /><p>在控件绝对位置不变的情况下，修改锚点的位置，会导致此时这两个值会改变非常多，对绝对位置的转换造成了困难。</p><p>接下来简单整理下其规则：</p><table><thead><tr><th><code>Minimum.X</code> = <code>Maximum.X</code></th><th><code>Minimum.X</code> ≠ <code>Maximum.X</code></th></tr></thead><tbody><tr><td><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643933.png" alt="image-20210812160759667" style="zoom:25%;" /></td><td><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643765.png" alt="image-20210812160922400" style="zoom:25%;" /></td></tr><tr><td><code>Alignment</code> 有用：<br /><code>Alignment.X * Size.X</code> 确定了 “对齐点” 的横坐标偏移量。<br />当 <code>Alignment.X</code> 为 0 时，对齐点在最左边；<br />当 <code>Alignment.X</code> 为 1 时，对齐点在最右边；</td><td><code>Alignment</code> 无用</td></tr><tr><td>采用：<code>Position X</code><br />（表示 <code>Anchor_Min</code> 横坐标 到 对齐点.X 的距离）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643173.png" alt="image-20210812162308662" style="zoom:33%;" /></td><td>采用：<code>Offset Left</code> <br />（表示 Anchor_Min 横坐标 到 控件左侧的距离）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643621.png" alt="image-20210812163026182" style="zoom:33%;" /></td></tr><tr><td>采用：<code>Size X</code><br />（表示控件自身的横坐标大小）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643732.png" alt="image-20210812162439904" style="zoom: 33%;" /></td><td>采用 <code>Offset Right</code> <br />（表示 <code>Anchor_Max</code> 横坐标到 控件右侧的距离）<br /><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202108121643326.png" alt="image-20210812163222501" style="zoom:33%;" /></td></tr><tr><td><code>AbsolutePosition.X = AnchorMinimumPositon.X + Offsets.Left - Alignment.X * Offsets.Right</code></td><td><code>AbsolutePosition.X = MinimumPositon.X + Offsets.Left</code></td></tr><tr><td><code> AbsoluteSize.X = Offsets.Right</code></td><td><code>AbsoluteSize.X = AnchorMaximumPositon.X - AnchorMinimumPositon.X - Offsets.Left - Offsets.Right</code></td></tr></tbody></table><p>其中 <code>AnchorMinimumPosition.X</code> = <code>Anchor.Minimum.X * 父控件的 Size.X</code>。</p><p>对于 Y 轴的处理也是类似的。<code>Position Y</code> 对应 <code>Offset Top</code>，<code>Size Y</code> 对应 <code>Offset Bottom</code>。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;CanvasPanelSlot 布局规则&lt;/h1&gt;
-&lt;h2 id=&quot;UMG-中的-CanvasPanelSlot&quot;&gt;UMG 中的 CanvasPanelSlot&lt;/h2&gt;
-&lt;p&gt;我们先来看一下在 UI 面板中，CanvasPanelSlot 有哪些信息：&lt;/p&gt;
-&lt;img</summary>
-      
-    
-    
-    
-    <category term="游戏开发" scheme="https://www.bearchild.top/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"/>
-    
-    <category term="UI" scheme="https://www.bearchild.top/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/UI/"/>
-    
-    
-    <category term="UI" scheme="https://www.bearchild.top/tags/UI/"/>
-    
-    <category term="UE" scheme="https://www.bearchild.top/tags/UE/"/>
     
   </entry>
   
