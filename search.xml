@@ -8261,6 +8261,8 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <h2 id="5-UI">5. UI</h2>
 <h2 id="6-网络">6. 网络</h2>
 <p><a href="https://zhuanlan.zhihu.com/p/445398809">预测、和解、插值</a></p>
+<p><a href="https://www.lfzxb.top/nkgmoba-skillandnetwork/">技能系统与网络同步</a></p>
+<p><a href="https://github.com/skywind3000/kcp">KCP</a></p>
 <h2 id="7-物理">7. 物理</h2>
 <h3 id="碰撞">碰撞</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/86981378?utm_source=qq&amp;utm_medium=social&amp;utm_oi=792136550879227904">多边形碰撞检测</a></p>
