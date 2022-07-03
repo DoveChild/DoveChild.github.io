@@ -8252,6 +8252,8 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <h3 id="骨骼动画">骨骼动画</h3>
 <p><a href="https://www.bearchild.top/2021/11/27/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%8A%A8%E7%94%BB/%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB%E5%8E%9F%E7%90%86/">骨骼动画原理</a></p>
 <h2 id="3-Gameplay">3. Gameplay</h2>
+<h3 id="基础">基础</h3>
+<p><a href="https://harttle.land/effective-cpp.html">Effective C++</a></p>
 <h3 id="架构">架构</h3>
 <p><a href="https://blog.codingnow.com/2017/06/overwatch_ecs.html">浅谈《守望先锋》中的 ECS 构架</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/270927422">漫谈Entity Component System (ECS)</a></p>
@@ -8642,6 +8644,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <h3 id="性能分析">性能分析</h3>
 <p><a href="https://www.cnblogs.com/ghl_carmack/p/5481763.html">UE4 性能优化方法(工具篇)</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/267335603?utm_source=qq">[UE4] 项目帧率低排查瓶颈文件步骤记录</a></p>
+<p><a href="https://www.puredevsoftware.com/framepro/index.htm">FramePro</a></p>
 ]]></content>
       <categories>
         <category>游戏开发</category>
