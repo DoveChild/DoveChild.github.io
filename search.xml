@@ -8643,6 +8643,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://zhuanlan.zhihu.com/p/219588301">UE4 垃圾收集大杂烩</a></p>
 <h3 id="性能分析">性能分析</h3>
 <p><a href="https://www.cnblogs.com/ghl_carmack/p/5481763.html">UE4 性能优化方法(工具篇)</a></p>
+<p><a href="https://www.cnblogs.com/kekec/p/14960139.html">UE4 stats性能埋点</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/267335603?utm_source=qq">[UE4] 项目帧率低排查瓶颈文件步骤记录</a></p>
 <p><a href="https://www.puredevsoftware.com/framepro/index.htm">FramePro</a></p>
 ]]></content>
