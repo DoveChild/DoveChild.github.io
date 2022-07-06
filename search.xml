@@ -8822,7 +8822,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <ol>
 <li><code>Commit</code>：判断 <code>BuffTable</code> 里是否有对应 <code>BuffID</code> 的 <code>Buff</code>，若存在则创建该实例，然后写进 <code>RecipientDict</code>；注意判断一下是否原本已经有该 <code>Buff</code>，若有的话执行 <code>OldBuff</code> 的  <code>Merge</code> 即可；</li>
 <li><code>Query</code>：直接判断是否在 <code>RecipientDict</code>，返回对应 <code>Handler</code>；</li>
-<li><code>Tick</code>：遍历 <code>RecipientDict</code>，遍历 <code>BuffGroup</code>；第一轮我们执行每一个 <code>Buff</code> 的 <code>Tick</code>；第二轮针对每个 <code>Buff</code> ，判断 <code>CanBeInterrupted</code>，执行 <code>Break</code> 方法；最后一轮判断每一个 <code>Buff</code> 是否 <code>Interrupted</code>，如果是则 <code>Remove</code> 。</li>
+<li><code>Tick</code>：遍历 <code>RecipientDict</code>，遍历 <code>BuffGroup</code>；第一轮我们执行每一个 <code>Buff</code> 的 <code>Tick</code>；第二轮针对每个 <code>Buff</code> ，判断 <code>CanBeInterrupted</code>，执行 <code>Break</code> 方法，然后 <code>Remove</code> 。</li>
 </ol>
 ]]></content>
       <categories>
