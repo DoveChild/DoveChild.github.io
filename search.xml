@@ -8550,6 +8550,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://zhuanlan.zhihu.com/p/143298443">UE4行为树详解</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/139514376">[UE4][AI] 浅析UE4-BehaviorTree的特性</a></p>
 <h2 id="2-动画">2. 动画</h2>
+<p><a href="https://www.zhihu.com/column/c_1354205128203993089">虚幻引擎里的运动学研究</a></p>
 <h2 id="3-Gameplay">3. Gameplay</h2>
 <h3 id="基础">基础</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/362218832">Unity3D 经验者转到 UE4 的经验</a></p>
@@ -8560,6 +8561,11 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://zhuanlan.zhihu.com/p/92268112">理解蓝图技术架构</a></p>
 <h3 id="GAS">GAS</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/440168260">UE的GAS原理深入探究</a></p>
+<p><a href="https://www.youtube.com/watch?v=_713CSOWkTU">SplashDamage的技术负责人的GAS介绍</a></p>
+<p><a href="https://github.com/tranek/GASDocumentation#concepts-asc-rm">GAS Documentation</a></p>
+<p><a href="https://docs.unrealengine.com/5.0/en-US/lyra-sample-game-in-unreal-engine/">UE5：Lyra示例项目</a></p>
+<h3 id="反射">反射</h3>
+<p><a href="https://www.xianlongok.site/post/6605f9f/">反射系统</a></p>
 <h3 id="架构">架构</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/22833151">《InsideUE4》GamePlay架构（一）Actor和Component</a></p>
 <h3 id="Demo">Demo</h3>
@@ -8569,6 +8575,10 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <h3 id="资源管理">资源管理</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/69078536">UE4中的烘焙</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/256342436">大世界技术浅析，WOW的梦幻影歌——客户端资源加载</a></p>
+<h3 id="生命周期">生命周期</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/577433224?utm_medium=social&amp;utm_oi=854673897260457984&amp;utm_psn=1572287088678162432&amp;utm_source=wechat_session">UE5 – 引擎运行流程（从main到BeginPlay）</a></p>
+<p><a href="https://blog.csdn.net/u014391423/article/details/107104283/">Ue4 客户端登录流程解析</a></p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202211242037757.jpg" alt="img"></p>
 <h2 id="4-工具流">4. 工具流</h2>
 <h3 id="插件基础">插件基础</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/121152396">插件与模块</a></p>
