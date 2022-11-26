@@ -8673,8 +8673,9 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202204101622619.png" alt="image-20220410162250125"></p>
 <h2 id="优势">优势</h2>
 <p><code>PushModel</code> 是对 <code>Replicate</code> 的一个优化。</p>
-<p>对于属性的同步，原有的 <code>Replicated</code> 属性，在 <code>Replicate</code>  之前需要对比所有的属性是否发生变化。</p>
-<p>而用上了 <code>PushModel</code>，则会在 <code>Set</code> 时主动将属性设置为脏，省去了 “比较” 这个高消耗的操作。</p>
+<p>对于属性的同步，原有的 <code>Replicated</code> 属性，在 <code>Replicate</code>  之前需要通过<code>反射</code>对一个 <code>Actor</code> 的所有属性进行 <code>diff</code>，对比所有的属性是否发生变化，变化的属性才进行同步。</p>
+<p>而用上了 <code>PushModel</code>，我们可以主动 <code>MARK_DIRTY</code>，在 <code>Set</code> 时主动将其设置为脏，相当于给该属性上了一个<code>Flag</code>，底层会自动通过这个<code>Flag</code> 来判断是否需要同步，省去了 <code>diff</code> 这个高消耗的操作。</p>
+<p>需要注意的是，对于一个 <code>Actor</code>，如果采用了 <code>PushModel</code>，则需要将所有需要同步的属性都挂上这个 <code>PushModel</code>，否则如果存在非<code>PushModel</code>的需要<code>Repilicated </code>的属性，可能会该功能不生效，退化到原来的情况。</p>
 <p>UE5 中还对 <code>PushModel</code> 做了更进一步的优化，添加了一些新的宏以及对更多基础组件的支持。</p>
 <h2 id="实践">实践</h2>
 <h3 id="设置依赖">设置依赖</h3>
