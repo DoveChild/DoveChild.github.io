@@ -8561,9 +8561,12 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><a href="https://zhuanlan.zhihu.com/p/92268112">理解蓝图技术架构</a></p>
 <h3 id="GAS">GAS</h3>
 <p><a href="https://zhuanlan.zhihu.com/p/440168260">UE的GAS原理深入探究</a></p>
-<p><a href="https://www.youtube.com/watch?v=_713CSOWkTU">SplashDamage的技术负责人的GAS介绍</a></p>
 <p><a href="https://github.com/tranek/GASDocumentation#concepts-asc-rm">GAS Documentation</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/464329488">GAS架构分析</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/458192589">GAS探究</a></p>
+<p><a href="https://www.youtube.com/watch?v=_713CSOWkTU">SplashDamage的技术负责人的GAS介绍</a></p>
 <p><a href="https://docs.unrealengine.com/5.0/en-US/lyra-sample-game-in-unreal-engine/">UE5：Lyra示例项目</a></p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202308110009187" alt="img"></p>
 <h3 id="反射">反射</h3>
 <p><a href="https://www.xianlongok.site/post/6605f9f/">反射系统</a></p>
 <h3 id="架构">架构</h3>
