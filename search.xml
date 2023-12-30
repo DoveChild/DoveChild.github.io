@@ -9024,11 +9024,11 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p>在工作中沉沦，写了 Gameplay经分框架、接了卡车玩法，优化了 DisplayInfoSystem。各种业务框架、性能优化、代码重构…… 日子一天天过去。为了出包、Showcase 更是一次又一次的爆肝。</p>
 <p>但哪怕如此，最高通缉第一次 CE 测，也还是被喷烂了，玩家表示甚至不知道要进去要干啥，又感觉自己的辛苦毫无意义，这一切会不会是在感动自己呢？</p>
 <blockquote>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430257.png" alt="image-20231231032512777" style="zoom:33%;" />
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430257.png" alt="image-20231231032512777" style="zoom: 50%;" />
 </blockquote>
 <p>那天晚上，一个人坐在人才公园的岸边发呆了两个小时。左边是体育中心演唱会有人正在高歌，右边是高楼的霓虹与起重机正在工作的轰鸣。身前有虫鸣和偶尔鱼儿跳出浅滩的声音，身后是光污染的写字楼高不见顶。</p>
 <p>这座城市好吵，我好像与这里格格不入。这 <strong>混沌而复杂</strong> 的城市，<strong>迷幻与孤独</strong> 好像淹没了我。</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430492.png" alt="image-20231231013616851" style="zoom: 33%;" />
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430492.png" alt="image-20231231013616851" style="zoom: 50%;" />
 <p>不过幸好，这段时间煦哥也来深圳实习了，我们经常一起出去恰大排档吃宵夜，讨论着当下的困境与迷茫、矛盾和艰难，也畅谈人生和理想、目标和未来。</p>
 <p>同时，这段时间还认识了一个很活泼的女孩子，给当时的我带来了很多鼓励。我们相约一起去看电影，她真的好爱说话好有分享的欲望，对生活充满了 <strong>乐观和希望</strong> ，令人不禁感慨，世界上还有这样元气的人。</p>
 <p>可惜的是，不知道为什么，我有点不敢直视这种阳光，光明虽然可以带来 <strong>温暖</strong>，但有时也太过刺眼 。</p>
@@ -9066,7 +9066,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 </blockquote>
 <p>有勇气 <strong>追逐梦想</strong> 的人真是耀眼。大家都有各自青春的回忆与故事，或悲伤或美好。各怀心绪，<strong>光彩熠熠</strong>。</p>
 <p>最高通缉也是这样一个梦想，我们总是在被质疑、被挑战、被拷打，<strong>但我们始终坚持走在路上</strong>。</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430024.png" alt="image-20231231015112457" style="zoom:33%;" />
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430024.png" alt="image-20231231015112457" style="zoom: 50%;" />
 <h2 id="七月-八月">七月~八月</h2>
 <p>继续奋战。加班到深夜早就已经是常事，不过搞各种新需求的同时，偶尔还会和 宇健、超哥、法爷 一起出去恰烧烤火锅。辛苦也带着甜蜜。</p>
 <p>期间还经历了一次封培开始，结果恰巧项目有重大改动，需要添加关键的搜索态，走不开身，法爷直接亲自帮我写封培延期申请，好家伙。在这样辛苦的日子里，即将迎来 beta2测。出版本前一周，每天晚上都和老铁、球哥他们一起调各种配置到两三点，大家经常点宵夜来工位一起爆肝。</p>
@@ -9086,7 +9086,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p>热力追踪也在不断优化，偶尔也会一边喝酒一边写代码到天亮，大家一起喝酒解压。</p>
 <p>在迷茫的日子里，有一天酒后早醒，恰逢天亮，看到了美丽的风景。</p>
 <p><em>“曦日分昏晓，凌云任风飘”</em>，或许也预示着之后咱们游戏会迎来那道晨曦曙光。</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430500.png" alt="image-20231231023237399" style="zoom: 25%;" />
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430500.png" alt="image-20231231023237399" style="zoom: 50%;" />
 <p>在国庆节前夕，策划意识到了撤离玩法需要大改，开了个大会议，一看全是我的功能，doctor 在会议室里狠狠打鸡血，“此时就好像创业最后一搏，现在不冲更待何时”。于是我国庆节前狠狠加班了一波。中秋的晚上，一个人在公司干到了晚上十一点，终于把 PeakMomentSystem 写完了。和兄弟们一起恰了一波铁板烧，迎接国庆假期。</p>
 <h2 id="十月-十一月">十月~十一月</h2>
 <p>在修bug期的空闲时间，补了很多当时没看的好番。</p>
@@ -9125,10 +9125,10 @@ d_0 &amp;= F(x+1,y-0.5)\\
 </blockquote>
 <p>不过人生总是有喜有悲，在一个情绪爆发的夜晚，在莫名的思绪下，结合着酒精的作用，有点幼稚地向一个在网上交流了一年多的女孩子表达了心意，其实自己也知道结局早已注定，也算是借此斩断了这段虚空的情缘。虽然在那之后至今没有联系，不过哪怕如此，也还是很感谢那些曾经深夜一起交流游戏分享生活、满怀欣喜聊着未来的时光。</p>
 <blockquote>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430686.png" alt="image-20231231040016305" style="zoom:50%;" />
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430686.png" alt="image-20231231040016305" style="zoom: 67%;" />
 </blockquote>
 <p>在这样平淡也复杂的日子里，迎来了游戏的 beta3 测。</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430767.png" alt="image-20231231031125877" style="zoom:50%;" />
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430767.png" alt="image-20231231031125877" style="zoom: 80%;" />
 <h2 id="十二月">十二月</h2>
 <p>丰收的一个月。</p>
 <p>先令人惊喜的是，这次 beta3测 数据异常的好，远超 beta2测，甚至比已经数据很棒的 beta1测 更好。不过细细想来，这可能也是我们如此付出理应得到的回报，大家也一起久违开心地团建了一次。</p>
@@ -9142,7 +9142,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p>“头顶苍穹，总有星辰为我而闪烁，穿过亿万光年，热爱无畏时空。”</p>
 <p>“心怀远方，总有理想为我而呐喊，越过流言汹涌，信仰生生不息。”</p>
 <p>过往皆为篇章，未来海阔天空，希望这个故事还有很长很长……</p>
-<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430457.png" alt="image-20231231034527582" style="zoom:33%;" />
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202312310430457.png" alt="image-20231231034527582" style="zoom: 50%;" />
 </blockquote>
 <p>在年末的最后一天工作日，和朋友们一起出去恰了一顿鸡煲，结束了这相对圆满的一年。</p>
 <h2 id="总结">总结</h2>
