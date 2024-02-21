@@ -8625,12 +8625,13 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <h2 id="7-网络">7. 网络</h2>
 <p><a href="https://zhuanlan.zhihu.com/p/678112760">UE4 浅谈网络同步中的RPC</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/533738684">UE4网络同步-RPC流程详解</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/682972215">UE4 属性同步-同步前的准备</a></p>
 <p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202305282307110.png" alt="image-20230528230743329"></p>
 <p><a href="https://zhuanlan.zhihu.com/p/567579687">虚幻笔记：RPC中Actor的所有权</a></p>
 <p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202305282307655.png" alt="image-20230528230724616"></p>
 <p><a href="https://zhuanlan.zhihu.com/p/34723199">《Exploring in UE4》网络同步原理深入（上）[原理分析]</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/105040792">使用虚幻引擎4年，我想再谈谈他的网络架构【经验总结】</a></p>
-<p>参考源码：<code>NetDriver</code>、<code>ActorChannel</code>、<code>IpNetDriver</code>、</p>
+<p>参考源码：<code>NetDriver</code>、<code>ActorChannel</code>、<code>FObjectReplicator::SendCustomDeltaPropert</code></p>
 <h2 id="8-物理">8. 物理</h2>
 <h2 id="9-渲染">9. 渲染</h2>
 <h3 id="Niagara">Niagara</h3>
