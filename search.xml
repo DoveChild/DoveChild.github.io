@@ -9209,7 +9209,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><code>GameFeature</code> 由一个 <code>UGameFeaturesSubsystem : UEngineSubsystem</code> 管理其生命周期：</p>
 <pre class="mermaid">classDiagram
     class UGameFeaturesSubsystem
-    UGameFeaturesSubsystem : TMap &ltGameFeature, StateMachine&gt GameFeaturePluginStateMachines
+    UGameFeaturesSubsystem : TMap[GameFeature, StateMachine] GameFeaturePluginStateMachines
     UGameFeaturesSubsystem : ListGameFeaturePlugins()
     UGameFeaturesSubsystem : LoadGameFeaturePlugin()
     UGameFeaturesSubsystem : DeactivateGameFeaturePlugin()
@@ -9220,13 +9220,13 @@ d_0 &amp;= F(x+1,y-0.5)\\
     
     UGameFeaturesSubsystem<--UGameFeaturePluginStateMachine
 class UGameFeaturePluginStateMachine
-    UGameFeaturePluginStateMachine : TUniquePtr &ltFGameFeaturePluginState&gt AllStates
+    UGameFeaturePluginStateMachine : TUniquePtr[FGameFeaturePluginState] AllStates
     UGameFeaturePluginStateMachine : FGameFeaturePluginStateInfo CurrentStateInfo
     UGameFeaturePluginStateMachine : SetDestination()
     
     UGameFeaturePluginStateMachine<--FGameFeaturePluginState
 class FGameFeaturePluginState
-    FGameFeaturePluginState : FTSTicker&#58&#58FDelegateHandle TickHandle
+    FGameFeaturePluginState : FTSTicker-FDelegateHandle TickHandle
     FGameFeaturePluginState : BeginState()
     FGameFeaturePluginState : UpdateState()
     FGameFeaturePluginState : TryCancelState()
@@ -9234,7 +9234,8 @@ class FGameFeaturePluginState
     
     UGameFeaturePluginStateMachine<--FGameFeaturePluginStateInfo
 class FGameFeaturePluginStateInfo
-    FGameFeaturePluginStateInfo : EGameFeaturePluginState State</pre>
+    FGameFeaturePluginStateInfo : EGameFeaturePluginState State
+    FGameFeaturePluginStateInfo : ()</pre>
 <p>最基本的有 <code>Load</code>、<code>Deactivate</code>、<code>Unload</code>、<code>Release</code>、<code>Uninstall</code>、<code>Terminate</code> 几个功能，可以由外部调用。</p>
 <p>核心内容围绕着每个 <code>GameFeaturePlugin</code> 对应的 <code>StateMachine</code> 展开；<code>GameFeatureSubSystem</code> 上记录着 <code>TMap&lt;FString, TObjectPtr&lt;UGameFeaturePluginStateMachine&gt;&gt; GameFeaturePluginStateMachines </code> ，也就是  <code>PluginIdentifier-&gt;StateMachine</code> 的多个映射。</p>
 <p>最后都会走到 <code>UGameFeaturesSubsystem::ChangeGameFeatureDestination</code> 修改状态机的状态：</p>
