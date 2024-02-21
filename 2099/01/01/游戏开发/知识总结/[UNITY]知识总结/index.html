@@ -202,7 +202,18 @@ document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/j
   document.querySelectorAll('#article-container span.katex-display').forEach(item => {
     btf.wrap(item, 'div', '', 'katex-wrap')
   })
-})()</script><script>(()=>{
+})()</script><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      false && mermaid.init()
+    })
+  }
+}</script><script>(()=>{
   const $countDom = document.getElementById('twikoo-count')
   const init = () => {
     twikoo.init(Object.assign({
