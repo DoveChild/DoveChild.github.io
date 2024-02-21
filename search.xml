@@ -9209,7 +9209,7 @@ d_0 &amp;= F(x+1,y-0.5)\\
 <p><code>GameFeature</code> 由一个 <code>UGameFeaturesSubsystem : UEngineSubsystem</code> 管理其生命周期：</p>
 <pre class="mermaid">classDiagram
     class UGameFeaturesSubsystem
-    UGameFeaturesSubsystem : TMap[GameFeature, StateMachine] GameFeaturePluginStateMachines
+    UGameFeaturesSubsystem : TMap&ltGameFeature, StateMachine&gt GameFeaturePluginStateMachines
     UGameFeaturesSubsystem : ListGameFeaturePlugins()
     UGameFeaturesSubsystem : LoadGameFeaturePlugin()
     UGameFeaturesSubsystem : DeactivateGameFeaturePlugin()
@@ -9220,13 +9220,13 @@ d_0 &amp;= F(x+1,y-0.5)\\
     
     UGameFeaturesSubsystem<--UGameFeaturePluginStateMachine
 class UGameFeaturePluginStateMachine
-    UGameFeaturePluginStateMachine : TUniquePtr[FGameFeaturePluginState] AllStates
+    UGameFeaturePluginStateMachine : TUniquePtr&ltFGameFeaturePluginState&gt AllStates
     UGameFeaturePluginStateMachine : FGameFeaturePluginStateInfo CurrentStateInfo
     UGameFeaturePluginStateMachine : SetDestination()
     
     UGameFeaturePluginStateMachine<--FGameFeaturePluginState
 class FGameFeaturePluginState
-    FGameFeaturePluginState : FTSTicker-FDelegateHandle TickHandle
+    FGameFeaturePluginState : FTSTicker&#58&#58FDelegateHandle TickHandle
     FGameFeaturePluginState : BeginState()
     FGameFeaturePluginState : UpdateState()
     FGameFeaturePluginState : TryCancelState()
