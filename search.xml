@@ -9330,7 +9330,7 @@ Deactivating-->*Loaded</pre>
 	UGameplayBuffManager ..> UGameplayBuffComponent
 	UGameplayBuffManager ..> FGameplayBuffParams
     class UGameplayBuffManager {
-        BuffSettings : TMap[int,FGameplayBuffSetting]
+        BuffSettings : TMap[int, FGameplayBuffSetting]
         +CommitBuff(Target, BuffID, Params)
         +QueryBuff(Target, BuffID)
         +CombineBuffParams(Target, BuffID, Params)
@@ -9403,7 +9403,7 @@ Deactivating-->*Loaded</pre>
 		# LastTickTime : float
 		- SpeedFactor : float
 		- bInPause : false
-		- PauseReasons : TArray<FString>
+		- PauseReasons : TArray[FString]
 		# Tick(DeltaTime)
 		+ Refresh(InPassDuration, InTimeDuration)
 		+ BeginPauseTime(Reason)
@@ -9421,7 +9421,6 @@ Deactivating-->*Loaded</pre>
 		
 	UGameplayBuffUtils ..> UGameplayBuffManager
 	class UGameplayBuffUtils {
-		暴露给其它系统的入口()
 	}</pre>
 <h2 id="BuffManager">BuffManager</h2>
 <ol>
