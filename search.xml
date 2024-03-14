@@ -9629,9 +9629,9 @@ Deactivating-->*Loaded</pre>
       </tags>
   </entry>
   <entry>
-    <title>[UE]GameSubSystem简单实现</title>
+    <title>[UE]TeamSystem框架</title>
     <url>/2024/03/14/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Gameplay/%5BUE%5DTeamSystem%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h1>TeamSystem方案</h1>
+    <content><![CDATA[<h1>TeamSystem框架</h1>
 <p>一个简单的组队系统：支持玩家的 <code>加入</code>、<code>退出</code> 队伍，以及维护队伍的各种数据（比如 <code>Members</code>、<code>Score</code>）。</p>
 <p>首先需要一个全局的 <code>TeamManager</code> ，以及一个在 <code>Player</code> 身上的 <code>TeamComponent</code> 负责维护 <code>Player</code> 相关的组队信息；</p>
 <p>同时，将业务拆分为多个 <code>TeamSubSystems</code>。</p>
