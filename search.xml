@@ -9806,7 +9806,8 @@ TeamSubSystemBase--OnSync-->OtherSystem...</pre>
 <h2 id="模式基础">模式基础</h2>
 <h3 id="单局流程">单局流程</h3>
 <p>首先，一个完整的夺旗赛，由若干个子比赛构成，子比赛逐渐推进；</p>
-<pre class="mermaid">flowchart TD
+<pre class="mermaid">flowchart LR
+
 M[MainProcess]
 R0[RaceProcess_0]
 R1[RaceProcess_1]
@@ -9959,9 +9960,7 @@ R1-.-F</pre>
 <li><code>CreateRace_Controller</code>：监听 <code>单局结束</code> 事件，进行处理并向 <code>Dispatcher</code> 分发<code>开赛</code> 事件；</li>
 </ol>
 </blockquote>
-<pre class="mermaid">flowchart LR
-
-direction TB
+<pre class="mermaid">flowchart TB
 
 M[MainProcess]
 D[Dispatcher]
@@ -10032,6 +10031,8 @@ D-.->|Register_Finish|C</pre>
     	- ClearAllItems(bCheckUnused)
     }
     
+    %% ----- FlagItem -----
+    
     namespace FlagItem {
         class FCaptureFlagItem
         class FCaptureFlagItemSyncData
@@ -10050,6 +10051,8 @@ D-.->|Register_Finish|C</pre>
     class FCaptureFlagItemSyncData {
     	+ UID / ItemID / Type / Health / MaxHealth / TransferReason
     }
+    
+    %% ----- FlagContainer -----
     
     namespace FlagContainer {
     	class UCaptureFlagContainerBase
@@ -10081,6 +10084,8 @@ D-.->|Register_Finish|C</pre>
     	# GetType() : ECFContainerType
     	
     }
+    
+    %% ----- ContainerOwner -----
     
     namespace ContainerOwner {
     	class UCaptureFlagManager
