@@ -10059,7 +10059,6 @@ D-.->|Register_Finish|C</pre>
     }
     
     class UCaptureFlagContainerBase {
-   		<<Abstract>>
     	Items : TMap ~uint64|TWeakPtr~FCaptureFlagItem~~
     	Owner : TWeakObjectPtr~UObject~
     	+ Init(InOwner)
