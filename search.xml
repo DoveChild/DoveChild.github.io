@@ -10016,6 +10016,7 @@ D-.->|Register_Finish|C</pre>
 </ol>
 </blockquote>
 <h3 id="FlagItemSystem、ContainerSystem"><code>FlagItemSystem</code>、<code>ContainerSystem</code></h3>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202403200204702.png" alt="image-20240320020401493"></p>
 <pre class="mermaid">classDiagram
 	direction LR
 
@@ -10058,6 +10059,7 @@ D-.->|Register_Finish|C</pre>
     }
     
     class UCaptureFlagContainerBase {
+   		<<Abstract>>
     	Items : TMap ~uint64|TWeakPtr~FCaptureFlagItem~~
     	Owner : TWeakObjectPtr~UObject~
     	+ Init(InOwner)
