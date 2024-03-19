@@ -9504,8 +9504,8 @@ Deactivating-->*Loaded</pre>
 	
 	UGameplayBuffBase ..> UGameplayBuffComponent
 	UGameplayBuffBase ..> FGameplayBuffParams
+	<<Abstract>> UGameplayBuffBase
 	class UGameplayBuffBase {
-		<<Abstract>>
 		Owner : TWeakObjectPtr~UGameBuffComponent~
 		BuffID : int
 		BuffName : FString
@@ -10111,7 +10111,6 @@ D-.->|Register_Finish|C</pre>
     
     ICaptureFlagContainerOwnerInterface..>UCaptureFlagContainerBase
     class ICaptureFlagContainerOwnerInterface{
-   		<<interface>>
     	CreateFlagContainer(InOwner)
     	DestroyFlagContainer(Container)
     }</pre>
