@@ -9505,7 +9505,6 @@ Deactivating-->*Loaded</pre>
 	UGameplayBuffBase ..> UGameplayBuffComponent
 	UGameplayBuffBase ..> FGameplayBuffParams
 	class UGameplayBuffBase {
-		<<Abstract>>
 		Owner : TWeakObjectPtr~UGameBuffComponent~
 		BuffID : int
 		BuffName : FString
@@ -9994,8 +9993,8 @@ D-.->|Register_Finish|C</pre>
     	- DestroyItem(UID)
     }
     
-    UCFScecneItemBase--*UCFScecneItemSyncComponent
-    UCFScecneItemBase--*UCFScecneItemDisplayComponent
+    UCFScecneItemBase-->UCFScecneItemSyncComponent
+    UCFScecneItemBase-->UCFScecneItemDisplayComponent
     class UCFScecneItemBase {
     	SyncComponent : UCFScecneItemSyncComponent
     	OverlapDelegate
@@ -10032,10 +10031,7 @@ D-.->|Register_Finish|C</pre>
     	- ClearAllItems(bCheckUnused)
     }
     
-    namespace FlagItem {
-        class FCaptureFlagItem
-        class FCaptureFlagItemSyncData
-    }
+    
     
     FCaptureFlagItem..FCaptureFlagItemSyncData
     FCaptureFlagItem..UCaptureFlagContainerBase
@@ -10051,15 +10047,8 @@ D-.->|Register_Finish|C</pre>
     	+ UID / ItemID / Type / Health / MaxHealth / TransferReason
     }
     
-    namespace FlagContainer {
-    	class UCaptureFlagContainerBase
-    	class UCaptureFlagContainer_WorldFlag
-    	class UCaptureFlagContainer_GoalPoint
-    	class UCaptureFlagContainer_Player
-    }
     
     class UCaptureFlagContainerBase {
-    	<<Abstract>>
     	Items : TMap ~uint64|TWeakPtr~FCaptureFlagItem~~
     	Owner : TWeakObjectPtr~UObject~
     	+ Init(InOwner)
@@ -10112,7 +10101,6 @@ D-.->|Register_Finish|C</pre>
     
     ICaptureFlagContainerOwnerInterface..>UCaptureFlagContainerBase
     class ICaptureFlagContainerOwnerInterface{
-   		<<interface>>
     	CreateFlagContainer(InOwner)
     	DestroyFlagContainer(Container)
     }</pre>
