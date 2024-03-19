@@ -9505,6 +9505,7 @@ Deactivating-->*Loaded</pre>
 	UGameplayBuffBase ..> UGameplayBuffComponent
 	UGameplayBuffBase ..> FGameplayBuffParams
 	class UGameplayBuffBase {
+		<<Abstract>>
 		Owner : TWeakObjectPtr~UGameBuffComponent~
 		BuffID : int
 		BuffName : FString
@@ -10031,7 +10032,6 @@ D-.->|Register_Finish|C</pre>
     	- ClearAllItems(bCheckUnused)
     }
     
-    %% ----- FlagItem ------------------------
     namespace FlagItem {
         class FCaptureFlagItem
         class FCaptureFlagItemSyncData
@@ -10050,9 +10050,6 @@ D-.->|Register_Finish|C</pre>
     class FCaptureFlagItemSyncData {
     	+ UID / ItemID / Type / Health / MaxHealth / TransferReason
     }
-    
-    
-    %% ----- FlagContainer ------------------------
     
     namespace FlagContainer {
     	class UCaptureFlagContainerBase
@@ -10086,7 +10083,6 @@ D-.->|Register_Finish|C</pre>
     	
     }
     
-    %% ----- ContainerOwner ------------------------
     namespace ContainerOwner {
     	class UCaptureFlagManager
     	class UCaptureFlagComponent
