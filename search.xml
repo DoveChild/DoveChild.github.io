@@ -10146,7 +10146,6 @@ D-.->|Register_Finish|C</pre>
     
     UCFTransferPolicyBase..UCaptureFlagContainerBase
     class UCFTransferPolicyBase{
-   		<<Abstract>>
     	# OnInit()
     	# OnUninit()
     	# TransferItem(Item, TargetContainer)
