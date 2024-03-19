@@ -10031,7 +10031,10 @@ D-.->|Register_Finish|C</pre>
     	- ClearAllItems(bCheckUnused)
     }
     
-    
+    namespace FlagItem {
+        class FCaptureFlagItem
+        class FCaptureFlagItemSyncData
+    }
     
     FCaptureFlagItem..FCaptureFlagItemSyncData
     FCaptureFlagItem..UCaptureFlagContainerBase
@@ -10047,6 +10050,12 @@ D-.->|Register_Finish|C</pre>
     	+ UID / ItemID / Type / Health / MaxHealth / TransferReason
     }
     
+    namespace FlagContainer {
+    	class UCaptureFlagContainerBase
+    	class UCaptureFlagContainer_WorldFlag
+    	class UCaptureFlagContainer_GoalPoint
+    	class UCaptureFlagContainer_Player
+    }
     
     class UCaptureFlagContainerBase {
     	Items : TMap ~uint64|TWeakPtr~FCaptureFlagItem~~
@@ -10101,6 +10110,7 @@ D-.->|Register_Finish|C</pre>
     
     ICaptureFlagContainerOwnerInterface..>UCaptureFlagContainerBase
     class ICaptureFlagContainerOwnerInterface{
+   		<<interface>>
     	CreateFlagContainer(InOwner)
     	DestroyFlagContainer(Container)
     }</pre>
