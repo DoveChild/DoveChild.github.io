@@ -9505,6 +9505,7 @@ Deactivating-->*Loaded</pre>
 	UGameplayBuffBase ..> UGameplayBuffComponent
 	UGameplayBuffBase ..> FGameplayBuffParams
 	class UGameplayBuffBase {
+		<<Abstract>>
 		Owner : TWeakObjectPtr~UGameBuffComponent~
 		BuffID : int
 		BuffName : FString
