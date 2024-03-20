@@ -9794,7 +9794,12 @@ TeamSubSystemBase--OnSync-->OtherSystem...</pre>
     <url>/2024/03/20/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Gameplay/%5BUE%5D%E5%A4%BA%E6%97%97%E6%A8%A1%E5%BC%8F%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<h1>夺旗模式框架</h1>
 <h2 id="描述">描述</h2>
-<p>夺旗模式：</p>
+<p><strong>夺旗模式：</strong></p>
+<p>场景里会按照一定的规则刷新出不同类型的旗帜（不同类型的旗帜有不同的得分、血量、表现等）；</p>
+<p>玩家会被分成若干个队伍，抢夺刷新出来的旗帜，将旗帜带到自己队伍目标点进行销毁，则可以获得分数；</p>
+<p>玩家持有旗帜时，旗帜可能会掉落或被抢夺：被其它玩家撞击到则旗帜被抢夺到其它玩家身上；旗帜的血量归零则会掉落回场景；</p>
+<p>有正式赛与加时赛两种类型的比赛，首先会开启正式赛；对于正式赛，率先达到目标分的队伍获胜；如果平局则开启加时赛，否则进行结算；对于加时赛，率先得分的队伍获胜，如果平局则以两队平局进行结算；</p>
+<p><strong>要点总结：</strong></p>
 <blockquote>
 <ol>
 <li>旗帜实体：旗帜本身有自己的类型、得分、血量；</li>
@@ -9816,16 +9821,17 @@ R2[RaceProcess_2]
 M-->R0
 M-->R1
 M-->R2
-R0-.-R1
-R1-.-R2</pre>
+R0-.->R1
+R1-.->R2</pre>
 <p>比赛胜负规则：</p>
 <blockquote>
 <p>单场比赛结束时，判定是否有一方队伍得分更高：</p>
 <p>如果有，则全局结束；</p>
 <p>如果没有，尝试进入下一场比赛（如果有配置的话），若没有下一场则全局结束；</p>
 <ol>
-<li>Type = 正式赛：比赛结束条件：有一队达到目标分 / 倒计时结束</li>
-<li>Type = 加时赛：比赛结束条件：有一队得到分数 / 倒计时结束</li>
+<li>正式赛：比赛结束条件：有一队达到目标分 / 倒计时结束</li>
+<li>加时赛：比赛结束条件：有一队得到分数 / 倒计时结束</li>
+<li>其它类型比赛……</li>
 </ol>
 </blockquote>
 <h3 id="局内玩法">局内玩法</h3>
@@ -9843,8 +9849,8 @@ F0--PickUp--->P0--Drop-->F0
 P0--Reach--->G0
 P0<--Strike--->P1</pre>
 <blockquote>
-<p><code>PickUp</code>：<code>Player</code> 触碰到 <code>场景旗帜</code> ，玩家就可以拾取该旗帜；</p>
-<p><code>Drop</code> ：<code>Player</code> 持有的旗帜存在血量，其血量归零（可能是被其它玩家扣的），就会触发旗帜的掉落，在对应位置生成场景旗帜；</p>
+<p><code>PickUp</code>：<code>Player</code> 触碰到 <code>场景旗帜</code> ，就可以拾取该旗帜到自己身上；</p>
+<p><code>Drop</code> ：<code>Player</code> 持有的旗帜存在血量，其血量归零（可能是被其它 <code>Player</code> 攻击导致扣血），就会触发旗帜的掉落，在对应位置生成场景旗帜；</p>
 <p><code>Reach</code>：<code>Player</code> 将持有的旗帜护送到 <code>目标点</code>，获得分数，同时该旗帜会被销毁；</p>
 <p><code>Strike</code>：<code>Player</code> 撞击另一个 <code>Player</code>，可以抢夺对方的旗帜；</p>
 </blockquote>
@@ -9852,18 +9858,18 @@ P0<--Strike--->P1</pre>
 <p>首先，先给出基本的一些元素定义；</p>
 <blockquote>
 <p>游戏玩法的本质是由刷新点刷新出旗帜，旗帜在各个部分之间交互传递，旗帜本身定义为 <code>FlagItem</code>。</p>
-<p>旗帜在场景（不在玩家身上）里的表现为，存在对应的 <code>FlagSceneItem</code>。</p>
+<p>旗帜在场景（不在 <code>Player</code> 身上）里的表现为，存在对应的 <code>FlagSceneItem</code>。</p>
 <p>场景里存在若干个终点，定义该终点为 <code>GoalPointSceneItem</code></p>
 </blockquote>
 <p>这里说的 <strong>交互</strong> 的本质实际上是一个 <code>Flag</code> 的 <code>Instance</code> 在 <em><strong>各个部分</strong></em> 之间的 <strong>传递</strong> 。想一下所谓的 <em>各个部分</em>，到底是什么？</p>
 <p>本质可以抽象为一个个持有 <code>Flag</code> 的容器，将其定义为 <code>FlagContainer</code>。</p>
 <p>这里显然有三种 <code>Container</code>：</p>
 <blockquote>
-<p><code>Container_WorldFlag</code>：定义 <code>WorldFlag</code> 为 <strong>没有被玩家持有的旗帜</strong></p>
+<p><code>Container_WorldFlag</code>：定义 <code>WorldFlag</code> 为 <strong>没有被 <code>Player</code> 持有的旗帜</strong></p>
 <p><code>Container_GoalPoint</code>：定义 <code>GoalPoint</code> 为目标点</p>
-<p><code>Container_Player</code>：每个玩家持有一个 <code>Container</code>；</p>
+<p><code>Container_Player</code>：每个 <code>Player</code> 持有一个 <code>Container</code>；</p>
 </blockquote>
-<p>细想一下， <code>WorldFlag</code> 、<code>GoalPoint</code> 的具体业务逻辑和具体的某个 <code>Instance</code> 没有太大关系，只需要通过 <code>ID</code> 串联即可，所以对于 <code>WorldFlag</code>、<code>GoalPoint</code>，不需要真的在每一个 <code>Instance</code> 都创建对应 <code>Container</code>，只需要一个单局管理的唯一 <code>Manager</code> 用来代替管理即可。但显然对于玩家，每个 <code>Player</code> 都需要有自己的 <code>Container</code>。</p>
+<p>细想一下， <code>WorldFlag</code> 、<code>GoalPoint</code> 的具体业务逻辑和具体的某个 <code>Instance</code> 没有太大关系，只需要通过 <code>ID</code> 串联即可，所以对于 <code>WorldFlag</code>、<code>GoalPoint</code>，不需要真的在每一个 <code>Instance</code> 都创建对应 <code>Container</code>，只需要一个单局管理的唯一 <code>Manager</code> 用来代替管理即可。但显然对于每个 <code>Player</code> 都需要有自己的 <code>Container</code>。</p>
 <p>可以在单局内创建全局唯一的  <code>Container_WorldFlag</code> 、<code>Container_GoalPoint</code> 实例。</p>
 <pre class="mermaid">flowchart TD
 
@@ -9903,28 +9909,45 @@ P0<--Strike--->P1</pre>
 <p>对于 <code>Container</code>，有各自的 <code>Add(FlagItem)</code>、<code>Remove(FlagItem)</code>，一些基本逻辑：</p>
 <blockquote>
 <p><code>Container_WorldFlag</code>：</p>
-<blockquote>
+<ol>
+<li>
 <p><code>AddItem</code> ：从 <code>FlagItem</code> 上取出位置，将 <code>Item</code> 血量设置为满血，通过调用 <code>FlagSceneItemManager</code> 创建出 <code>FlagItem</code> 对应的 <code>FlagSceneItem</code>；</p>
-<p><code>RemoveItem</code>：调用 <code>FlagSceneItemManager</code> 删除对应的  <code>FlagItem</code>  对应的 <code>FlagSceneItem</code></p>
+</li>
+<li>
+<p><code>RemoveItem</code>：调用 <code>FlagSceneItemManager</code> 删除对应的  <code>FlagItem</code>  对应的 <code>FlagSceneItem</code>；</p>
+</li>
+</ol>
 </blockquote>
+<blockquote>
 <p><code>Container_GoalPoint</code>：</p>
-<blockquote>
-<p><code>AddItem</code>：判断是从哪个 <code>Container</code> 来的，给对应 <code>Player</code> 加分，并且 <code>RemoveItem</code></p>
-<p><code>RemoveItem</code> ：销毁对应的 <code>FlagItem</code></p>
+<ol>
+<li>
+<p><code>AddItem</code>：判断是从哪个 <code>Container</code> 来的，给对应 <code>Player</code> 加分，并且 <code>RemoveItem</code>；</p>
+</li>
+<li>
+<p><code>RemoveItem</code> ：销毁对应的 <code>FlagItem</code>；</p>
+</li>
+</ol>
 </blockquote>
+<blockquote>
 <p><code>Container_Player</code>：</p>
-<blockquote>
-<p><code>AddItem</code>：从 <code>FlagItem</code> 获得 <code>FlagSyncData</code> 同步给自己，并设置 <code>Player</code> 血量为 <code>Item</code> 的血量，以及若干其余逻辑；</p>
-<p><code>RemoveItem</code>：将 <code>Player</code> 血量设置给 <code>Item</code> 血量，清空同步信息，以及若干其余逻辑；</p>
-</blockquote>
+<ol>
+<li>
+<p><code>AddItem</code>：从 <code>FlagItem</code> 获得 <code>FlagSyncData</code> 同步给自己，并设置 <code>Player</code> 血量为 <code>Item</code> 的血量等逻辑；</p>
+</li>
+<li>
+<p><code>RemoveItem</code>：将 <code>Player</code> 血量设置给 <code>Item</code> 血量，清空同步信息等逻辑；</p>
+</li>
+</ol>
 </blockquote>
 <p>完整的业务拆分完毕，这下需要哪些系统显而易见：</p>
 <blockquote>
 <p><code>ProcessSystem</code>：负责管理单局流程，创建比赛与推动玩法进程；</p>
-<p><code>TeamSystem</code> ：负责玩家的组队，管理 <code>Memebr</code>、<code>Score</code> 等；</p>
+<p><code>TeamSystem</code> ：负责 <code>Player</code> 的组队，管理 <code>Memebr</code>、<code>Score</code> 等；</p>
 <p><code>FlagItemSystem</code>：负责管理所有 <code>FlagItem</code> 实例，提供 <code>Create</code>、<code>Destroy</code> 等方法，维护 <code>Item</code> 基本的生命周期；</p>
 <p><code>ContainerSystem</code>：负责提供基本的 <code>CreateContainer</code>、<code>DestoryContainer</code> 方法，对于具体的 <code>Container</code>，需要支持 <code>AddItem</code> 、<code>RemoveItem</code>、<code>GetItem</code> 等；</p>
 <p><code>TransferSystem</code>：负责管理所有的 <code>TransferPolicy</code> ，提供 <code>TransferItem</code> 方法；</p>
+<p><code>FlagSpawnerSystem</code>：旗帜的刷新点，负责 <code>WorldFlag</code> 的生成，生成 <code>FlagItem</code> 并 <code>Add</code> 到 <code>Container_WorldFlag</code>；</p>
 <p><code>SceneItemSystem</code> ：维护场景里 <code>SceneItem</code> 的生成，提供 <code>Create</code>、<code>Destroy</code> 对应的 <code>SceneItem</code> 的方法；对于某个具体的 <code>SceneItem</code>，需要实现基础的 <code>Overlap</code>、<code>Sync</code>；</p>
 </blockquote>
 <h2 id="具体实现">具体实现</h2>
@@ -9942,8 +9965,8 @@ R0-.->|2. Result_0|M
 M-->|3. Check_Result_0|R1
 R1-.->|4. Result_1|M
 M-->|5. Check_Result_1|F
-R0-.-R1
-R1-.-F</pre>
+R0-.->R1
+R1-.->F</pre>
 <p>但是这样循环流程需要在 <code>Main</code> 里面关注 <code>RaceProcess</code> 给出的 <code>Result</code> 事件，显然有点不够优雅。</p>
 <p>发现这里的主要由两部分组成：</p>
 <blockquote>
@@ -9976,7 +9999,7 @@ C-->|Send_Create|D
 D-.->|Register_Finish|C</pre>
 <h3 id="TeamSystem"><code>TeamSystem</code></h3>
 <p>参考 <a href="https://www.bearchild.top/2024/03/14/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Gameplay/%5BUE%5DTeamSystem%E6%A1%86%E6%9E%B6/">[UE] TeamSystem 框架</a></p>
-<p>负责玩家的组队，管理 <code>Memebr</code>、<code>Score</code> 等；</p>
+<p>支持玩家的 <code>加入</code>、<code>退出</code> 队伍，以及维护队伍的各种数据（比如 <code>Members</code>、<code>Score</code>），并维护数据，进行同步。</p>
 <h3 id="SceneItemSystem"><code>SceneItemSystem</code></h3>
 <pre class="mermaid">classDiagram
 
@@ -10132,7 +10155,7 @@ D-.->|Register_Finish|C</pre>
 <ol>
 <li><code>Container_WorldFlag</code>： 由 <code>CaptureFlagManager(GS)</code> 持有，一场子比赛持有一个；</li>
 <li><code>Container_GoalPoint</code>：由 <code>CaptureFlagManager(GS)</code> 持有，一场子比赛持有一个；</li>
-<li><code>Container_Player</code>：由 <code>CaptureFlagComponent(PS)</code> 持有，每个玩家持有一个；</li>
+<li><code>Container_Player</code>：由 <code>CaptureFlagComponent(PS)</code> 持有，每个 <code>Player</code> 持有一个；</li>
 </ol>
 </blockquote>
 <p>提供一个 <code>ICaptureFlagContainerOwnerInterface</code> 用于支持 <code>Create</code>、<code>Destroy</code> 对应的 <code>Container</code> 方法；</p>
