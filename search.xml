@@ -10222,13 +10222,21 @@ D-.->|Register_Finish|C</pre>
 <p><code>DS</code> 的 <code>port</code> 一般可以在启动命令中找到 <code>-port=17777</code>；</p>
 <p><code>Client</code> 的 <code>port</code> 可以在 <code>DS</code> 的 <code>Log</code> 中，快速查询到对应与指定 <code>Client</code> 连接的对应端口号：</p>
 <img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202404141745297.png" alt="image-20240414173856028" style="zoom: 50%;" />
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">// DS.log</span><br><span class="line">LogNet: NotifyAcceptedConnection: Name: TestMap, TimeStamp: 04/14/24 15:18:51, [UNetConnection] <span class="strong">**RemoteAddr**</span>: 127.0.0.1:<span class="strong">**58459**</span>, Name: IpConnection<span class="emphasis">_0, Driver: GameNetDriver NetDriver_</span>1, IsServer: YES, PC: NULL, Owner: NULL, UniqueId: INVALID</span><br><span class="line">LogNet: AddClientConnection: Added client connection: [UNetConnection] RemoteAddr: 127.0.0.1:58459, Name: IpConnection<span class="emphasis">_0, Driver: GameNetDriver NetDriver_</span>1, IsServer: YES, PC: NULL, Owner: NULL, UniqueId: INVALID</span><br></pre></td></tr></table></figure>
-<p>这里的 <strong>58459</strong> 也就是该 <code>Client</code> 的 <code>Connetcion</code> 对应的端口号。</p>
-<p>在 <code>Filtering</code> 中填入对应的设置即可：</p>
-<ol>
-<li>关闭上行包：<code>udp and udp.SrcPort == 58459</code> ，设置 <code>Drop = 100%</code></li>
-<li>关闭下行包：<code>udp and udp.DstPort == 58459</code>，设置 <code>Drop = 100%</code></li>
-</ol>
+<blockquote>
+<p>// DS.log</p>
+<p>LogNet: NotifyAcceptedConnection: Name: TestMap, TimeStamp: 04/14/24 00:00:00, [UNetConnection] <strong>RemoteAddr</strong>: 127.0.0.1:<strong>58459</strong>, Name: IpConnection_0, Driver: GameNetDriver NetDriver_1, IsServer: YES, PC: NULL, Owner: NULL, UniqueId: INVALID</p>
+<p>LogNet: AddClientConnection: Added client connection: [UNetConnection] RemoteAddr: 127.0.0.1:58459, Name: IpConnection_0, Driver: GameNetDriver NetDriver_1, IsServer: YES, PC: NULL, Owner: NULL, UniqueId: INVALID</p>
+</blockquote>
+<pre><code>
+
+
+这里的 **58459** 也就是该 `Client` 的 `Connetcion` 对应的端口号。
+
+在 `Filtering` 中填入对应的设置即可：
+
+1. 关闭上行包：`udp and udp.SrcPort == 58459` ，设置 `Drop = 100%`
+2. 关闭下行包：`udp and udp.DstPort == 58459`，设置 `Drop = 100%`
+</code></pre>
 ]]></content>
       <categories>
         <category>游戏开发</category>
