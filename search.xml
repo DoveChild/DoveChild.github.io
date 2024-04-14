@@ -8681,54 +8681,6 @@ d_0 &amp;= F(x+1,y-0.5)\\
       </tags>
   </entry>
   <entry>
-    <title>[UE]PushModel属性同步</title>
-    <url>/2022/04/10/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C/%5BUE%5DPushModel%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1>PushModel属性同步</h1>
-<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202204101622619.png" alt="image-20220410162250125"></p>
-<h2 id="优势">优势</h2>
-<p><code>PushModel</code> 是对 <code>Replicate</code> 的一个优化。</p>
-<p>对于属性的同步，原有的 <code>Replicated</code> 属性，在 <code>Replicate</code>  之前需要通过<code>反射</code>对一个 <code>Actor</code> 的所有属性进行 <code>diff</code>，对比所有的属性是否发生变化，变化的属性才进行同步。</p>
-<p>而用上了 <code>PushModel</code>，我们可以主动 <code>MARK_DIRTY</code>，在 <code>Set</code> 时主动将其设置为脏，相当于给该属性上了一个<code>Flag</code>，底层会自动通过这个<code>Flag</code> 来判断是否需要同步，省去了 <code>diff</code> 这个高消耗的操作。</p>
-<p>需要注意的是，对于一个 <code>Actor</code>，如果采用了 <code>PushModel</code>，则需要将所有需要同步的属性都挂上这个 <code>PushModel</code>，否则如果存在非<code>PushModel</code>的需要<code>Repilicated </code>的属性，可能会该功能不生效，退化到原来的情况。</p>
-<p>UE5 中还对 <code>PushModel</code> 做了更进一步的优化，添加了一些新的宏以及对更多基础组件的支持。</p>
-<h2 id="实践">实践</h2>
-<h3 id="设置依赖">设置依赖</h3>
-<p>首先，我们需要在 <code>Build.cs</code> 中添加 <code>NetCore</code> 模块的依赖。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">PublicDependcyModuleNames.<span class="built_in">AddRange</span>(<span class="keyword">new</span> string[] &#123;<span class="string">&quot;NetCore&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="设置属性">设置属性</h3>
-<p>我们对于一个需要同步的属性，得先加上 <code>Replicated</code> 标签；有必要的话，需要加上<code>RepilicatedUsing </code> 来设置属性为脏时执行的回调函数。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">UCLASS</span>()</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ATest</span> :</span> <span class="keyword">public</span> AActor</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">GENERATED_BODY</span>()</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">UPROPERTY</span>(Replicated, EditAnywhere, ReplicatedUsing = OnRep_Param)</span><br><span class="line">	<span class="keyword">float</span> Param;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UFUNCITON</span>()</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnRep_Param</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ATest::OnRep_Param</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="声明同步">声明同步</h3>
-<p>首先我们要先将这个 <code>Actor</code> 标记为需要同步，在构造函数中标记 <code>bReplicates = true</code>。</p>
-<p>接着我们需要实现 <code>GetLifetimeReplicatedProps</code>，在这个接口中添加宏标记同步的 Property。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ATest::GetLifetimeReplicatedProps</span><span class="params">(TArray&lt; FLifetimeProperty &gt;&amp; OutLifetimeProps)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Super::<span class="built_in">GetLifetimeReplicatedProps</span>(OutLifetimeProps);</span><br><span class="line">    </span><br><span class="line">	FDoRepLifetimeParams SharedParams;</span><br><span class="line">	SharedParams.bIsPushBased = <span class="literal">true</span>;</span><br><span class="line">    </span><br><span class="line">	<span class="built_in">DOREPLIFETIME_WITH_PARAMS_FAST</span>(ATest, Param, SharedParams);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>FDoRepLifetimeParams</code> 中设置了同步的条件，其中<code>bIsPushBased</code> 表明是否使用 <code>PushModel</code>。</p>
-<p>其中 <code>DOREPLIFETIME_WITH_PARAMS_FAST</code> 的宏实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">define <span class="title">DOREPLIFETIME_WITH_PARAMS_FAST</span><span class="params">(c,v,params)</span> \</span></span><br><span class="line"><span class="function"></span>&#123; \</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">bool</span> bIsValid_##c_#<span class="meta">#v = ValidateReplicatedClassInheritance(StaticClass(), c::StaticClass(), TEXT(#v)); \</span></span><br><span class="line"><span class="meta">	const TCHAR* DoRepPropertyName_##c_##v(TEXT(#v)); \</span></span><br><span class="line"><span class="meta">	const NetworkingPrivate::FRepPropertyDescriptor PropertyDescriptor_##c_##v(DoRepPropertyName_##c_##v, (int32)c::ENetFields_Private::v, 1); \</span></span><br><span class="line"><span class="meta">	RegisterReplicatedLifetimeProperty(PropertyDescriptor_##c_##v, OutLifetimeProps, params); \</span></span><br><span class="line"><span class="meta">&#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="修改属性">修改属性</h3>
-<p>最后，我们在修改属性的时候，可以使用 <code>MARK_PROPERTY_DIRTY_FROM_NAME</code> 来将属性设脏。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ATest::SetParam</span><span class="params">(<span class="keyword">const</span> <span class="keyword">float</span> NewParam)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">MARK_PROPERTY_DIRTY_FROM_NAME</span>(ATest, Param, <span class="keyword">this</span>);</span><br><span class="line">    Param = NewParam;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在，<code>Server</code> 只需要检测属性是否被 <code>MARK_DIRTY</code> 就可以知道是否需要同步。</p>
-<p>当然，除了 <code>MARK_PROPERTY_DIRTY_FROM_NAME</code> 以外，UE 还实现了一些作用类似的其它的宏：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY(Object, Property) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_STATIC_ARRAY_INDEX(Object, RepIndex, ArrayIndex) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_STATIC_ARRAY(Object, RepIndex, ArrayIndex) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_FROM_NAME(ClassName, PropertyName, Object) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_FROM_NAME_STATIC_ARRAY_INDEX(ClassName, PropertyName, ArrayIndex, Object) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_FROM_NAME_STATIC_ARRAY(ClassName, PropertyName, ArrayIndex, Object)</span></span><br></pre></td></tr></table></figure>
-<h3 id="改进">改进</h3>
-<p>当然，我们也可以不这么复杂，我们可以自己设置一个新的标签。</p>
-<p>对于打上这个标签的属性，让其在 <code>CodeGenerator</code> 中自动生成 <code>Setter</code> 与 <code>Getter</code>，然后通过 <code>Setter</code> 与 <code>Getter</code> 来进行修改与访问。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _T&gt; \</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetParam</span><span class="params">(_T&amp;&amp; NewParam)</span> \</span></span><br><span class="line"><span class="function"></span>&#123; \</span><br><span class="line">    <span class="built_in">MARK_PROPERTY_DIRTYFROM_NAME</span>(ATest, Param, <span class="keyword">this</span>); \</span><br><span class="line">    Param = Forward&lt;_T&gt;(NewParam); \</span><br><span class="line">&#125; \</span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">float</span>&amp; <span class="title">GetParam</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;<span class="keyword">return</span> Param;&#125; \</span><br><span class="line"><span class="function"><span class="keyword">float</span>&amp; <span class="title">GetParam_Mutable</span><span class="params">()</span> \</span></span><br><span class="line"><span class="function"></span>&#123; \</span><br><span class="line">   <span class="built_in">MARK_PROPERTY_DIRTYFROM_NAME</span>(ATest, Param, <span class="keyword">this</span>); \</span><br><span class="line">   <span class="keyword">return</span> Param;</span><br><span class="line">&#125; \</span><br></pre></td></tr></table></figure>
-<h2 id="参考">参考</h2>
-<p>Unreal Engine 4. New network model: PushModel：<a href="https://tech-en.netlify.app/articles/en539604/index.html">https://tech-en.netlify.app/articles/en539604/index.html</a></p>
-]]></content>
-      <categories>
-        <category>游戏开发</category>
-        <category>网络</category>
-      </categories>
-      <tags>
-        <tag>UE</tag>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[UE]读取与导出本地图片</title>
     <url>/2021/08/12/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%B7%A5%E5%85%B7%E6%B5%81/%5BUE%5D%E8%AF%BB%E5%8F%96%E4%B8%8E%E5%AF%BC%E5%87%BA%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</url>
     <content><![CDATA[<h1>读取与导出本地图片</h1>
@@ -10199,6 +10151,92 @@ D-.->|Register_Finish|C</pre>
       <tags>
         <tag>Gameplay</tag>
         <tag>UE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[UE]PushModel属性同步</title>
+    <url>/2022/04/10/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C/%5BUE%5DPushModel%E5%B1%9E%E6%80%A7%E5%90%8C%E6%AD%A5/</url>
+    <content><![CDATA[<h1>PushModel属性同步</h1>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202204101622619.png" alt="image-20220410162250125"></p>
+<h2 id="优势">优势</h2>
+<p><code>PushModel</code> 是对 <code>Replicate</code> 的一个优化。</p>
+<p>对于属性的同步，原有的 <code>Replicated</code> 属性，在 <code>Replicate</code>  之前需要通过<code>反射</code>对一个 <code>Actor</code> 的所有属性进行 <code>diff</code>，对比所有的属性是否发生变化，变化的属性才进行同步。</p>
+<p>而用上了 <code>PushModel</code>，我们可以主动 <code>MARK_DIRTY</code>，在 <code>Set</code> 时主动将其设置为脏，相当于给该属性上了一个<code>Flag</code>，底层会自动通过这个<code>Flag</code> 来判断是否需要同步，省去了 <code>diff</code> 这个高消耗的操作。</p>
+<p>需要注意的是，对于一个 <code>Actor</code>，如果采用了 <code>PushModel</code>，则需要将所有需要同步的属性都挂上这个 <code>PushModel</code>，否则如果存在非<code>PushModel</code>的需要<code>Repilicated </code>的属性，可能会该功能不生效，退化到原来的情况。</p>
+<p>UE5 中还对 <code>PushModel</code> 做了更进一步的优化，添加了一些新的宏以及对更多基础组件的支持。</p>
+<h2 id="实践">实践</h2>
+<h3 id="设置依赖">设置依赖</h3>
+<p>首先，我们需要在 <code>Build.cs</code> 中添加 <code>NetCore</code> 模块的依赖。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">PublicDependcyModuleNames.<span class="built_in">AddRange</span>(<span class="keyword">new</span> string[] &#123;<span class="string">&quot;NetCore&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="设置属性">设置属性</h3>
+<p>我们对于一个需要同步的属性，得先加上 <code>Replicated</code> 标签；有必要的话，需要加上<code>RepilicatedUsing </code> 来设置属性为脏时执行的回调函数。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">UCLASS</span>()</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ATest</span> :</span> <span class="keyword">public</span> AActor</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">GENERATED_BODY</span>()</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">UPROPERTY</span>(Replicated, EditAnywhere, ReplicatedUsing = OnRep_Param)</span><br><span class="line">	<span class="keyword">float</span> Param;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UFUNCITON</span>()</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnRep_Param</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ATest::OnRep_Param</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="声明同步">声明同步</h3>
+<p>首先我们要先将这个 <code>Actor</code> 标记为需要同步，在构造函数中标记 <code>bReplicates = true</code>。</p>
+<p>接着我们需要实现 <code>GetLifetimeReplicatedProps</code>，在这个接口中添加宏标记同步的 Property。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ATest::GetLifetimeReplicatedProps</span><span class="params">(TArray&lt; FLifetimeProperty &gt;&amp; OutLifetimeProps)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Super::<span class="built_in">GetLifetimeReplicatedProps</span>(OutLifetimeProps);</span><br><span class="line">    </span><br><span class="line">	FDoRepLifetimeParams SharedParams;</span><br><span class="line">	SharedParams.bIsPushBased = <span class="literal">true</span>;</span><br><span class="line">    </span><br><span class="line">	<span class="built_in">DOREPLIFETIME_WITH_PARAMS_FAST</span>(ATest, Param, SharedParams);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>FDoRepLifetimeParams</code> 中设置了同步的条件，其中<code>bIsPushBased</code> 表明是否使用 <code>PushModel</code>。</p>
+<p>其中 <code>DOREPLIFETIME_WITH_PARAMS_FAST</code> 的宏实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">define <span class="title">DOREPLIFETIME_WITH_PARAMS_FAST</span><span class="params">(c,v,params)</span> \</span></span><br><span class="line"><span class="function"></span>&#123; \</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">bool</span> bIsValid_##c_#<span class="meta">#v = ValidateReplicatedClassInheritance(StaticClass(), c::StaticClass(), TEXT(#v)); \</span></span><br><span class="line"><span class="meta">	const TCHAR* DoRepPropertyName_##c_##v(TEXT(#v)); \</span></span><br><span class="line"><span class="meta">	const NetworkingPrivate::FRepPropertyDescriptor PropertyDescriptor_##c_##v(DoRepPropertyName_##c_##v, (int32)c::ENetFields_Private::v, 1); \</span></span><br><span class="line"><span class="meta">	RegisterReplicatedLifetimeProperty(PropertyDescriptor_##c_##v, OutLifetimeProps, params); \</span></span><br><span class="line"><span class="meta">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改属性">修改属性</h3>
+<p>最后，我们在修改属性的时候，可以使用 <code>MARK_PROPERTY_DIRTY_FROM_NAME</code> 来将属性设脏。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ATest::SetParam</span><span class="params">(<span class="keyword">const</span> <span class="keyword">float</span> NewParam)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">MARK_PROPERTY_DIRTY_FROM_NAME</span>(ATest, Param, <span class="keyword">this</span>);</span><br><span class="line">    Param = NewParam;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在，<code>Server</code> 只需要检测属性是否被 <code>MARK_DIRTY</code> 就可以知道是否需要同步。</p>
+<p>当然，除了 <code>MARK_PROPERTY_DIRTY_FROM_NAME</code> 以外，UE 还实现了一些作用类似的其它的宏：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY(Object, Property) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_STATIC_ARRAY_INDEX(Object, RepIndex, ArrayIndex) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_STATIC_ARRAY(Object, RepIndex, ArrayIndex) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_FROM_NAME(ClassName, PropertyName, Object) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_FROM_NAME_STATIC_ARRAY_INDEX(ClassName, PropertyName, ArrayIndex, Object) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MARK_PROPERTY_DIRTY_FROM_NAME_STATIC_ARRAY(ClassName, PropertyName, ArrayIndex, Object)</span></span><br></pre></td></tr></table></figure>
+<h3 id="改进">改进</h3>
+<p>当然，我们也可以不这么复杂，我们可以自己设置一个新的标签。</p>
+<p>对于打上这个标签的属性，让其在 <code>CodeGenerator</code> 中自动生成 <code>Setter</code> 与 <code>Getter</code>，然后通过 <code>Setter</code> 与 <code>Getter</code> 来进行修改与访问。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _T&gt; \</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetParam</span><span class="params">(_T&amp;&amp; NewParam)</span> \</span></span><br><span class="line"><span class="function"></span>&#123; \</span><br><span class="line">    <span class="built_in">MARK_PROPERTY_DIRTYFROM_NAME</span>(ATest, Param, <span class="keyword">this</span>); \</span><br><span class="line">    Param = Forward&lt;_T&gt;(NewParam); \</span><br><span class="line">&#125; \</span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">float</span>&amp; <span class="title">GetParam</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;<span class="keyword">return</span> Param;&#125; \</span><br><span class="line"><span class="function"><span class="keyword">float</span>&amp; <span class="title">GetParam_Mutable</span><span class="params">()</span> \</span></span><br><span class="line"><span class="function"></span>&#123; \</span><br><span class="line">   <span class="built_in">MARK_PROPERTY_DIRTYFROM_NAME</span>(ATest, Param, <span class="keyword">this</span>); \</span><br><span class="line">   <span class="keyword">return</span> Param;</span><br><span class="line">&#125; \</span><br></pre></td></tr></table></figure>
+<h2 id="参考">参考</h2>
+<p>Unreal Engine 4. New network model: PushModel：<a href="https://tech-en.netlify.app/articles/en539604/index.html">https://tech-en.netlify.app/articles/en539604/index.html</a></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>UE</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[UE]弱网工具Clumsy的使用</title>
+    <url>/2024/04/14/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C/%5BUE%5D%E5%BC%B1%E7%BD%91%E5%B7%A5%E5%85%B7Clumsy%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1>弱网工具Clumsy的使用</h1>
+<p><strong>Clumsy</strong> 用于弱网测试时，进行本地弱网环境的模拟，基于 <a href="https://github.com/basil00/Divert">WinDivert</a> 实现，可以出模拟延迟、丢包等网络状态。</p>
+<h2 id="Downloads">Downloads</h2>
+<p>下载地址：<a href="https://github.com/jagt/clums">Clumsy</a>；官方文档：<a href="https://jagt.github.io/clumsy/cn/index.html">Clumsy Manual</a></p>
+<p>下载后的几个重点文件：</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202404141744461.png" alt="%~UYF6SWT2EC28Q%6Z4N_EM"></p>
+<p>打开 <strong>Clumsy.exe</strong> 可以看到以下内容：</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202404141744627.png" alt="image-20240414172540109" style="zoom:50%;" />
+<p>可以看出这里有几个重点的 <code>Function</code>，一般重点使用 <strong>Lag 延迟</strong>、<strong>Drop 丢包</strong>。</p>
+<p>在 <code>Filtering</code> 填入对应的 <code>Command</code> 后，设置 <code>Functions</code>，点击 <code>Start</code> 即可开始模拟。</p>
+<p>同时可以在 <code>Config.txt</code> 中，预设一些 <code>Presets</code> 方便下次使用。</p>
+<h2 id="UE-DS-中的使用">UE DS 中的使用</h2>
+<p>对于 <code>UE</code>的 <code>DS</code> 环境，首先为了具体到某一个 <code>Client</code> / <code>DS</code>，采用 <code>Filter Port</code> 的机制，对某个具体的端口号进行操作。</p>
+<p>用 <code>netstat -aon\Findstr 进程ID</code>，查询 <code>DS</code>/<code>Client</code> 进程，通过 <code>UDP</code> 进行链接。</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202404141745888.png" alt="image-20240414173745071" style="zoom:67%;" />
+<p><code>DS</code> 的 <code>port</code> 一般可以在启动命令中找到 <code>-port=17777</code>；</p>
+<p><code>Client</code> 的 <code>port</code> 可以在 <code>DS</code> 的 <code>Log</code> 中，快速查询到对应与指定 <code>Client</code> 连接的对应端口号：</p>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202404141745297.png" alt="image-20240414173856028" style="zoom: 50%;" />
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">// DS.log</span><br><span class="line">LogNet: NotifyAcceptedConnection: Name: TestMap, TimeStamp: 04/14/24 15:18:51, [UNetConnection] <span class="strong">**RemoteAddr**</span>: 127.0.0.1:<span class="strong">**58459**</span>, Name: IpConnection<span class="emphasis">_0, Driver: GameNetDriver NetDriver_</span>1, IsServer: YES, PC: NULL, Owner: NULL, UniqueId: INVALID</span><br><span class="line">LogNet: AddClientConnection: Added client connection: [UNetConnection] RemoteAddr: 127.0.0.1:58459, Name: IpConnection<span class="emphasis">_0, Driver: GameNetDriver NetDriver_</span>1, IsServer: YES, PC: NULL, Owner: NULL, UniqueId: INVALID</span><br></pre></td></tr></table></figure>
+<p>这里的 <strong>58459</strong> 也就是该 <code>Client</code> 的 <code>Connetcion</code> 对应的端口号。</p>
+<p>在 <code>Filtering</code> 中填入对应的设置即可：</p>
+<ol>
+<li>关闭上行包：<code>udp and udp.SrcPort == 58459</code> ，设置 <code>Drop = 100%</code></li>
+<li>关闭下行包：<code>udp and udp.DstPort == 58459</code>，设置 <code>Drop = 100%</code></li>
+</ol>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>UE</tag>
+        <tag>网络</tag>
       </tags>
   </entry>
 </search>
