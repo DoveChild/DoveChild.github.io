@@ -1063,8 +1063,8 @@ D-.->|Register_Finish|C</pre>
     	- DestroyItem(UID)
     }
     
-    UCFScecneItemBase-->UCFScecneItemSyncComponent
-    UCFScecneItemBase-->UCFScecneItemDisplayComponent
+    UCFScecneItemBase..>UCFScecneItemSyncComponent
+    UCFScecneItemBase..>UCFScecneItemDisplayComponent
     class UCFScecneItemBase {
     	SyncComponent : UCFScecneItemSyncComponent
     	OverlapDelegate
@@ -1076,7 +1076,14 @@ D-.->|Register_Finish|C</pre>
     }
     
     UCFScecneItem_WorldFlag--|>UCFScecneItemBase
-    UCFScecneItem_GoalPoint--|>UCFScecneItemBase</pre>
+    class UCFScecneItem_WorldFlag {
+    
+    }
+    
+    UCFScecneItem_GoalPoint--|>UCFScecneItemBase
+    class UCFScecneItem_GoalPoint{
+    
+    }</pre>
 <p>首先，需要 <code>UCFSceneItemManager</code> 负责管理所有的 <code>SceneItem</code>，同时通过 <code>UCFSceneItemUtils</code> 提供方法给外部调用。</p>
 <p>对于一个具体的 <code>SceneItem</code>，额外对其提供两个 <code>Component</code>，</p>
 <blockquote>
