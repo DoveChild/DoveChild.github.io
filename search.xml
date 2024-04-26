@@ -1063,8 +1063,8 @@ D-.->|Register_Finish|C</pre>
     	- DestroyItem(UID)
     }
     
-    UCFScecneItemBase--*UCFScecneItemSyncComponent
-    UCFScecneItemBase--*UCFScecneItemDisplayComponent
+    UCFScecneItemBase-->UCFScecneItemSyncComponent
+    UCFScecneItemBase-->UCFScecneItemDisplayComponent
     class UCFScecneItemBase {
     	SyncComponent : UCFScecneItemSyncComponent
     	OverlapDelegate
