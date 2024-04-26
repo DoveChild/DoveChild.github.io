@@ -474,9 +474,7 @@
     
     UReplicationGraphNode_ActorList <|-- UReplicationGraphNode_GridCell
     
-    UReplicationGraphNode_ActorList <|-- UReplicationGraphNode_AlwaysRelevant_ForConnection 
-    class UReplicationGraphNode_AlwaysRelevant_ForConnection{
-    }</pre>
+    UReplicationGraphNode_ActorList <|-- UReplicationGraphNode_AlwaysRelevant_ForConnection</pre>
 <ol>
 <li><code>GridSpatalization2D</code>：将世界划分为 <code>2D</code> 网格，按位置把 <code>Actor</code> 分到不同的 <code>GridCell</code> 中，按空间管理<code>Actor</code> 是否进行同步，每帧更新 <code>GridCell</code> 内的 <code>Actor</code>；</li>
 <li><code>GridCell</code>：<code>ReplicationActorList</code> 缓存着在该 <code>GridCell</code> 中的所有静态 <code>Actor</code>，<code>DynamicNodes</code> 里记录动态的 <code>Actor</code>，<code>DormancyNode</code> 里记录休眠的<code>Actor</code>；</li>
