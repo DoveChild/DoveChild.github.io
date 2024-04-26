@@ -268,12 +268,161 @@
       </tags>
   </entry>
   <entry>
+    <title>ACT浅思</title>
+    <url>/2024/04/24/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/3C/ACT%E6%B5%85%E6%80%9D/</url>
+    <content><![CDATA[<h1>ACT浅思</h1>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202404262219322.png" alt="image-20240426221904635"></p>
+<h2 id="ACT-表现">ACT 表现</h2>
+<h3 id="动作">动作</h3>
+<ol>
+<li>动作节奏：</li>
+</ol>
+<pre class="mermaid">flowchart LR
+前摇--->攻击判定--->后摇-->后摇-可打断</pre>
+<p>需要控制好每个阶段的时间分配，表现不同的节奏；</p>
+<blockquote>
+<p>较长的后摇可以方便玩家明确下一步操作（不攻击、打断后摇继续攻击），判定更明确；</p>
+<p>较短的后摇可以增加动作连续性连续，提升手感；</p>
+</blockquote>
+<ol start="2">
+<li>动画配合：</li>
+</ol>
+<p>动画曲线配合：从动画中提取曲线，配合曲线调整位移；比如移动，需要在脚落下的那一刻位移速度最大，其余阶段几乎不位移；</p>
+<p>攻击方、受击方动画、位移需要匹配；</p>
+<ol start="3">
+<li>受击表现：</li>
+</ol>
+<p>受击动作，可以有夸张的表现，具体在 硬直、击退、击飞 等；同时可以添加骨骼抖动强化受击反馈；</p>
+<ol start="4">
+<li>爽感优化</li>
+</ol>
+<p>顿帧：伤害越大顿帧越久，一般发生在 攻击方接触受击方、技能或连招开始与结束时；</p>
+<p>连招：较长的连招（意味着更大的风险）过后，可以添加夸张的收尾表演，释放压力；</p>
+<p>终结技：目标强僵直、残血时可以添加慢镜头终结技；</p>
+<h3 id="镜头">镜头</h3>
+<ol>
+<li>运镜逻辑：</li>
+</ol>
+<p>镜头内容：需要保证全程看清目标，更多以目标为核心；需要保证目标完整在镜头内（尤其是使用大位移技能时）；尽量避免主角与目标重叠；</p>
+<p>镜头构图：可以稍微错位，可以看清目标动作；</p>
+<ol start="2">
+<li>镜头效果：</li>
+</ol>
+<p>屏幕震动：普攻可以增加左右偏移、重击增加上下纵深偏移；</p>
+<p>子弹时间：在合适的时候增加子弹时间，可以表现出力量感；</p>
+<p>镜头模糊：径向模糊、动态模糊、空气扭曲等效果；可以表现出速度感；</p>
+<h3 id="UI">UI</h3>
+<ol>
+<li><code>HUD</code> 的缩放、偏移、光效；</li>
+<li>屏幕闪屏：在使用技能或击杀目标时，可以增加闪屏或者黑屏淡入淡出等效果；</li>
+<li>准心变化：颜色、大小、特殊形态（骷髅表示击杀、打叉表示命中或爆头）；</li>
+<li>跳字：分为普攻、暴击、恢复；主要调整：轨迹（抛物线、弹出、上浮）、缩放、透明度、重力、字体、颜色；比如暴击一般离散范围小、上浮位移大、爆发力可以更强；</li>
+<li>连击提示：与击打节奏契合；</li>
+<li>受击指向：被攻击的方向；</li>
+</ol>
+<h3 id="特殊效果">特殊效果</h3>
+<ol>
+<li>特效：</li>
+</ol>
+<blockquote>
+<ol>
+<li>普通特效：技能本身效果（武器发光等），保证和场景颜色差异大；</li>
+<li>粒子特效：与目标解除时出现 命中/防御/暴击 等粒子表现；场景破碎效果等；</li>
+<li>环境特效：对环境的氛围影响，场景灯光、场景变色；</li>
+<li>角色特效：角色自身的发光等表现；</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li>音效：在进行指定行为时，需要有特定音效反馈，比如冲击、发射、受击等；</li>
+<li>背景音乐：战斗和漫游需要有不同的音乐变化；</li>
+<li>物理震动：手柄、手机的震动反馈；</li>
+</ol>
+<h2 id="ACT-数值">ACT 数值</h2>
+<h3 id="攻击方">攻击方</h3>
+<ol>
+<li>
+<p>基本属性：攻击力、暴击率、属性加成；</p>
+</li>
+<li>
+<p>攻击范围：</p>
+<blockquote>
+<ol>
+<li>自身：关注攻击碰撞盒，方向、距离、范围等；</li>
+<li>抛射物：关注触发方式（时间、瞄准方式）、轨迹等；</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>攻击强度：</p>
+<blockquote>
+<ol>
+<li>进攻强度：与对方防御强度对比，决定对对方造成的伤害与效果；</li>
+<li>维持强度：保证攻击完整的能力，与敌方进攻强度对比，决定攻击是否会被对方攻击打断；</li>
+<li>命中效果：硬直时间（防御、命中），特殊表现（击飞、倒地）</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>攻击节奏：前摇、生效（判定时间、持续时间）、后摇</p>
+</li>
+<li>
+<p>攻击位移：水平位移、空中位移</p>
+</li>
+</ol>
+<h3 id="防守方">防守方</h3>
+<ol>
+<li>
+<p>基本属性：防御值、护甲、抗性、伤害减免；</p>
+</li>
+<li>
+<p>防守范围：</p>
+<blockquote>
+<ol>
+<li>受击判定：是否进行判定（硬直）、无敌帧</li>
+<li>受击范围：受击碰撞盒、防守碰撞盒</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>防守强度：</p>
+<blockquote>
+<ol>
+<li>格挡：格挡强度、格挡范围、移动距离</li>
+<li>闪避：移动距离、无敌时间、后摇硬直时间</li>
+<li>反击：允许反击的时间与状态、无敌时间、硬直时间</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>防守体力：</p>
+<blockquote>
+<ol>
+<li>体力上限：最大体力值，受到攻击、进行防守等行为会降低体力，体力为 0 会进入硬直</li>
+<li>体力恢复：脱战恢复体力</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<h2 id="参考">参考</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/360843202">拳打冥王脚踢地府——《黑帝斯》战斗设计分析</a></p>
+<p><a href="https://game.academy.163.com/course/careerArticle?course=324">最畅爽的打击感从何而来？</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/342697831">《战双帕弥什》的动作打击感是怎么做出来的</a></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>3C</category>
+      </categories>
+      <tags>
+        <tag>3C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[UE]弱网工具Clumsy的使用</title>
     <url>/2024/04/14/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C/%5BUE%5D%E5%BC%B1%E7%BD%91%E5%B7%A5%E5%85%B7Clumsy%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h1>弱网工具Clumsy的使用</h1>
 <p><strong>Clumsy</strong> 用于弱网测试时，进行本地弱网环境的模拟，基于 <a href="https://github.com/basil00/Divert">WinDivert</a> 实现，可以出模拟延迟、丢包等网络状态。</p>
 <h2 id="Downloads">Downloads</h2>
-<p>下载地址：<a href="https://github.com/jagt/clums">Clumsy</a>；官方文档：<a href="https://jagt.github.io/clumsy/cn/index.html">Clumsy Manual</a></p>
+<p>下载地址：<a href="https://github.com/jagt/clumsy">Clumsy</a>；官方文档：<a href="https://jagt.github.io/clumsy/cn/index.html">Clumsy Manual</a></p>
 <p>下载后的几个重点文件：</p>
 <p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202404141744461.png" alt="%~UYF6SWT2EC28Q%6Z4N_EM"></p>
 <p>打开 <strong>Clumsy.exe</strong> 可以看到以下内容：</p>
@@ -1685,6 +1834,379 @@ Deactivating-->*Loaded</pre>
       </categories>
       <tags>
         <tag>日志</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[UE]ReplicationGraph源码浅析</title>
+    <url>/2022/04/21/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C/%5BUE%5DReplicationGraph%E6%BA%90%E7%A0%81%E6%B5%85%E6%9E%90/</url>
+    <content><![CDATA[<h1>ReplicationGraph源码浅析</h1>
+<h2 id="简介">简介</h2>
+<p><code>UnrealEngine</code> 基本的网络同步在进行同步时需要对每个连接判断每个 <code>Actor</code> 是否需要同步，开销较大；</p>
+<p>可以通过实现 <code>Replication</code> ，实现一个不同的 <code>ReplicationDriver</code> 来优化性能；</p>
+<p><code>Replication</code> 将 <code>World</code> 分为多个区域 <code>Grid</code>，把 <code>Actor</code> 根据所在 <code>Grid</code> 进行分类编组，可以快速找出需要同步的 <code>Actor</code>，同时确定哪些区域需要进行同步复制。</p>
+<h2 id="数据结构">数据结构</h2>
+<pre class="mermaid">classDiagram
+    class UReplicationGraph</pre>
+<ol>
+<li><code>FGlobalActorReplicationInfo </code>：同步的 <code>Actor</code> 信息，包括</li>
+</ol>
+<blockquote>
+<p><code>Settings</code>：<code>FClassReplicationInfo</code>，每个 <code>Actor Class</code> 对应的同步配置，包括 <code>CullDistance</code>、<code>ReplicationPeriodFrame</code>、<code>PriorityScale</code> 等；</p>
+<p><code>Events</code>：<code>FGlobalActorReplicationEvents Events</code>，记录休眠状态的改变时，从休眠列表中添加或者移除；</p>
+<p><code>FConnectionReplicationActorInfo</code>：对于 <code>Connection</code> 同步的 <code>Actor</code> 信息；</p>
+</blockquote>
+<ol start="3">
+<li>
+<p><code>ReplicationGraphNode</code>：<code>GraphNode</code> 基类</p>
+</li>
+<li>
+<p><code>ReplicationGraphNode_ActorList</code>：记录同步的 <code>Actors</code>；在 <code>StreamingLevelCollection</code> （以 <code>SubLevelName</code> 为 <code>Key</code> 的 <code>List</code>）中记录 <code>SubLevel</code> 的 <code>Actor</code>，否则在 <code>ReplicationActorList</code> 中记录。</p>
+</li>
+<li>
+<p><code>GlobalGraphNodes</code>：维护 <code>GridSpatialization2D</code></p>
+</li>
+</ol>
+<h2 id="GraphNode">GraphNode</h2>
+<pre class="mermaid">classDiagram
+    class UReplicationGraphNode {
+        TArray[UReplicationGraphNode*] AllChildNodes
+        GatherActorListsForConnection()
+        RouteAddNetworkActorToNodes()
+        RouteRemoveNetworkActorToNodes()
+    }	
+
+    UReplicationGraphNode <|-- UReplicationGraphNode_ActorList 
+    class UReplicationGraphNode_ActorList {
+    	FActorRepListRefView ReplicationActorList
+    }
+        
+    UReplicationGraphNode <|-- UReplicationGraphNode_GridSpatialization2D
+    class UReplicationGraphNode_GridSpatialization2D {
+        TArray[TArray[UReplicationGraphNode_GridCell*]] Grid;
+    }
+    
+    UReplicationGraphNode <|-- UReplicationGraphNode_AlwaysRelevant
+    class UReplicationGraphNode_AlwaysRelevant{
+        TArray[UClass*]AlwaysRelevantClasses;
+    }
+    
+    UReplicationGraphNode <|-- UReplicationGraphNode_ActorListFrequencyBuckets 
+    
+    UReplicationGraphNode_ActorList <|-- UReplicationGraphNode_GridCell 
+    class UReplicationGraphNode_GridCell{
+    }
+    
+    UReplicationGraphNode_ActorList <|-- UReplicationGraphNode_AlwaysRelevant_ForConnection 
+    class UReplicationGraphNode_AlwaysRelevant_ForConnection{
+    }</pre>
+<ol>
+<li><code>GridSpatalization2D</code>：将世界划分为 <code>2D</code> 网格，按位置把 <code>Actor</code> 分到不同的 <code>GridCell</code> 中，按空间管理<code>Actor</code> 是否进行同步，每帧更新 <code>GridCell</code> 内的 <code>Actor</code>；</li>
+<li><code>GridCell</code>：<code>ReplicationActorList</code> 缓存着在该 <code>GridCell</code> 中的所有静态 <code>Actor</code>，<code>DynamicNodes</code> 里记录动态的 <code>Actor</code>，<code>DormancyNode</code> 里记录休眠的<code>Actor</code>；</li>
+<li><code>AlwaysRelevant </code>：处理总是发送 <code>Net Updates</code> 给 所有 <code>Connections</code> 的 <code>Actors</code>；</li>
+<li><code>AlwaysRelevant_ForConnection</code>：处理总是发送 <code>Net Updates</code> 给 特定 <code>Connection</code> 的 <code>Actors</code> ，一般是同步给 <code>PlayerController</code> 和 <code>ViewTarget</code>；</li>
+<li><code>ActorListFrequencyBuckets </code>：记录地图格子上的 动态 <code>Actor</code> ;</li>
+</ol>
+<h2 id="生命周期">生命周期</h2>
+<h3 id="Init">Init</h3>
+<pre class="mermaid">graph TD
+
+Start(UNetDriver::InitBase) --> A("UNetDriver::SetReplicationDriver")
+A --> B("UReplicationGraph::InitializeActorsInWorld")
+B --> | 将World中的同步对象添加到对应GraphNode | C("UReplicationGraph::InitializeForWorld")
+C --> D("UReplicationGraph::AddNetworkActor(AActor* Actor)") 
+
+A --> E(InitForNetDriver)
+E --> F(InitGlobalActorClassSettings)
+E --> G(InitGlobalGraphNodes)</pre>
+<p><code>InitGlobalActorClassSettings</code>：设置 <code>CulltDistance</code>、<code>ReplicationPeriodFrame</code>；注册 <code>Actor</code> 对应的 <code>ClassReplicationInfo</code> 到 <code>GlobalActorReplicationInfoMap</code>；</p>
+<p><code>InitGlobalGraphNodes</code>：创建 <code>GridSpatialization2D</code>、<code>AlwaysRelevant</code> 的 <code>GraphNode</code>；</p>
+<p><code>InitConnectionGraphNodes</code>：创建 <code>AlwaysRelevantForConnection</code> 的 <code>GraphNode</code>；</p>
+<p><code>RouteAddNetworkActorToNodes </code>：生成 <code>Actor</code> 时，添加 <code>NetworkActor</code>，分发 <code>Actor</code> 到 <code>GraphNode</code>；</p>
+<p><code>RouteRemoveNetworkActorToNodes </code>：销毁 <code>Actor</code> 时，删除 <code>NetworkActor</code>，通知<code>GraphNode</code> 移除 <code>Actor</code>；</p>
+<h3 id="Repliate">Repliate</h3>
+<pre class="mermaid">graph TB
+Start(ServerReplicateActors) --> A(PrepareForReplication)
+A --> B(GatherActorListsForConnection)
+B --> C(ReplicateActorListsForConnections_Default)
+C --> D[ReplicateSingleActor]</pre>
+<ol>
+<li>
+<p><code>PrepareForReplication</code> ： 调用 <code>GraphNode</code> 的 <code>PrepareForReplication</code>：</p>
+<p>对于 <code>GridSpatialization2D</code>，会遍历 <code>Actor</code>，更新其所在的 <code>Grid</code>；</p>
+<p>对于 <code>AlwaysRelevant</code>，记录需要同步给所有连接的 <code>Actor</code>；</p>
+</li>
+<li>
+<p><code>GatherActorListsForConnection</code> ： 遍历 <code>Connections</code> 收集 <code>ReplicationActorList</code></p>
+<p>针对每个 <code>Connection</code> 遍历 <code>GlobalGraphNodes</code> 和 <code>Connection</code> 的<code>ConnectionGraphNodes</code>，调用其 <code>GatherActorListsForConnection</code>，收集需要同步给这个<code>Connection</code> 的 <code>Actor</code>；</p>
+<p>对于 <code>GridSpatialization2D</code>，通过其 <code>GridCellNode</code> 根据 <code>Actor</code> 的<code>ViewLocation</code> 收集；</p>
+<p>收集的 <code>Actor</code> 默认加到 <code>GatheredReplicationListsForConnection</code> 里的 <code>EActorRepListTypeFlags.Default List</code>。</p>
+</li>
+<li>
+<p><code>ReplicateActorListsForConnections_Default</code>：进行 <code>Replicate</code> 的同步检测与排序</p>
+<p>对 <code>GatheredReplicationListsForConnection</code> 里的 <code>Actor</code>，进行检测；</p>
+<p>首先排除 <code>Dormancy</code>、不满足<code>ReplicateFrame</code> 的 <code>Actor</code>，然后根据优先级排序（<code>Distance</code>、<code>Starvation</code>、<code>逻辑判定</code>、<code>Owner &amp; ViewTarget</code>)，将结果缓存在 <code>PrioritizedReplicationList</code> 中；</p>
+</li>
+<li>
+<p><code>ReplicateSingleActor</code>：对排好序的 <code>PrioritizedReplicationList</code> 调用 <code>ReplicateSingleActor</code> 进行同步。</p>
+</li>
+</ol>
+<h2 id="参考">参考</h2>
+<p><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/replication-graph-in-unreal-engine">UE ReplicationGraph Document</a></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>UE</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[UE]Networking源码浅析</title>
+    <url>/2022/04/20/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C/%5BUE%5DNetworking%E6%BA%90%E7%A0%81%E6%B5%85%E6%9E%90/</url>
+    <content><![CDATA[<h1>Networking源码浅析</h1>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202404262212892.png" alt="image-20240426221216657"></p>
+<h2 id="定义">定义</h2>
+<p><code>Bunch</code>：表示一组相关的网络数据，包含 <code>RPC / 属性同步</code> 等信息，<code>UE</code> 中 <code>DS/Client</code> 通信的基本单位。</p>
+<p><code>Packet</code>：<code>UDP</code> 的基本传输单位，可以打包一个或多个 <code>Bunch</code>，在接受端进行解析。</p>
+<p><code>NetDriver</code>：管理网络通信，比如管理连接、处理数据包的发送和接收、处理网络事件。</p>
+<p><code>NetConnection</code>：表示一个网络连接，与一个 <code>NetDriver</code> 关联，并通过 <code>NetDriver</code> 进行实际的网络通信。</p>
+<p><code>Channel</code>：管理网络传输，进行数据分类，提供  <code>SendBunch</code>、<code>ReceivedRawBunch</code> 方法，由 <code>NetConnection</code> 管理，一个 <code>NetConnection</code> 可以包含多种 <code>Channel</code>。</p>
+<p><code>FObjectReplicator</code>：处理对象的网络同步，保存属性快照，进行状态改变发送、更新同步状态、接受与发送消息。</p>
+<p><code>ActorChannel</code>：关联特定的 <code>Actor</code> 负责其同步，包含多个 <code>FObjectReplicator</code> 用于复制其 <code>Actor</code>、<code>ActorComponent</code> 。</p>
+<p><code>FRepLayout</code>：管理复制的属性，定义底层数据内存布局，数据比较、序列化与反序列化等。</p>
+<h2 id="RPC">RPC</h2>
+<p><strong>Server RPC</strong></p>
+<table>
+<thead>
+<tr>
+<th>Calling Machine</th>
+<th>Owning Connection</th>
+<th>Executing Machine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server</td>
+<td>Client</td>
+<td>Server</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>Server</td>
+<td>Server</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>None</td>
+<td>Server</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Invoking Client</td>
+<td>Server</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Different Client</td>
+<td>Dropped</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Server</td>
+<td>Dropped</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>None</td>
+<td>Dropped</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Client RPC</strong></p>
+<table>
+<thead>
+<tr>
+<th>Calling Machine</th>
+<th>Owning Connection</th>
+<th>Executing Machine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server</td>
+<td>Owning Client</td>
+<td>Owning Client</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>Server</td>
+<td>Server</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>None</td>
+<td>Server</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Invoking Client</td>
+<td>Invoking Client</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Different Client</td>
+<td>Invoking Client</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Server</td>
+<td>Invoking Client</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>None</td>
+<td>Invoking Client</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NetMulticast RPC</strong></p>
+<table>
+<thead>
+<tr>
+<th>Calling Machine</th>
+<th>Owning Connection</th>
+<th>Executing Machine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server</td>
+<td>Client</td>
+<td>Server and all Clients the invoking actor is relevant for</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>Server</td>
+<td>Server and all Clients the invoking actor is relevant for</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>None</td>
+<td>Server and all Clients the invoking actor is relevant for</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Invoking Client</td>
+<td>Invoking Client</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Different Client</td>
+<td>Invoking Client</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Server</td>
+<td>Invoking Client</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>None</td>
+<td>Invoking Client</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Send RPC</strong></p>
+<pre class="mermaid">flowchart TB
+
+UObject::ProcessEvent
+-- FunctionCallspace::Remote --> AActor::CallRemoteFunction
+--> UNetDriver::ProcessRemoteFunction
+
+UNetDriver::ProcessRemoteFunction
+--> bIsServerMulticast([bIsServerMulticast])
+
+bIsServerMulticast
+--true-->UNetDriver::GetFunctionRepLayout
+--Actor IsNetRelevant || FUNC_NetReliable --> FRepLayout::BuildSharedSerializationForRPC
+--> UNetDriver::InternalProcessRemoteFunctionPrivate
+--> UNetDriver::ProcessRemoteFunctionForChannelPrivate
+
+bIsServerMulticast
+--false--> UReplicationGraph::ProcessRemoteFunction
+--> UNetDriver::ProcessRemoteFunctionForChannel
+--> UNetDriver::ProcessRemoteFunctionForChannelPrivate
+-- FRepLayout::SendPropertiesForRPC --> QueueBunch
+
+QueueBunch([!bReliable & NetMulticast])
+
+QueueBunch--true-->UChannel::SendBunch
+QueueBunch--false-->UActorChannel::QueueRemoteFunctionBunch</pre>
+<p><strong>Receive RPC</strong></p>
+<pre class="mermaid">flowchart TB
+
+UIpNetDriver::TickDispatch
+--> UNetConnection::ReceivedRawPacket
+--> UNetConnection::ReceivedPacket
+--> UNetConnection::DispatchPacket
+--> UChannel::ReceivedRawBunch
+--> UChannel::ReceivedNextBunch
+--> UChannel::ReceivedSequencedBunch
+--> UActorChannel::ReceivedBunch
+--> UActorChannel::ProcessBunch
+--> FObjectReplicator::ReceivedBunch
+-- FObjectReplicator::ReceivedRPC
+--> UObject::ProcessEvent</pre>
+<h2 id="属性同步">属性同步</h2>
+<p><strong>Replicate Diff</strong></p>
+<pre class="mermaid">flowchart TB
+
+UNetDriver::TickFlush
+--> UNetDriver::ServerReplicateActors
+--> UActorChannel::ReplicateActor
+--> FObjectReplicator::ReplicateProperties
+--> FNetSerializeCB::UpdateChangelistMgr
+--> FRepLayout::UpdateChangelistMgr
+--> FRepLayout::CompareProperties</pre>
+<p><strong>Replicate Send</strong></p>
+<pre class="mermaid">flowchart TB
+
+UNetDriver::TickFlush
+--> UNetDriver::ServerReplicateActors
+--> UActorChannel::ReplicateActor
+--> FObjectReplicator::ReplicateProperties
+--> FRepLayout::ReplicateProiperties
+--> FRepLayout::SendProperties
+--> FProperty::NetSerializeItem
+--> UChannel::SendBunch</pre>
+<p><strong>Replicate Receive</strong></p>
+<pre class="mermaid">flowchart TB
+
+UIpNetDriver::TickDispatch
+--> UNetConnection::ReceivedRawPacket
+--> UNetConnection::ReceivedPacket
+--> UNetConnection::DispatchPacket
+--> UChannel::ReceivedRawBunch
+--> UChannel::ReceivedNextBunch
+--> UChannel::ReceivedSequencedBunch
+--> UActorChannel::ReceivedBunch
+--> UActorChannel::ProcessBunch
+--> FObjectReplicator::ReceivedBunch
+--> FRepLayout::ReceiveProperties
+--> FRepLayout::ReceivePropertyHelper
+--> FProperty::NetSerializeItem
+--> FObjectReplicator::PostReceivedBunch
+--> FObjectReplicator::CallRepNotifies</pre>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>UE</tag>
+        <tag>网络</tag>
       </tags>
   </entry>
   <entry>
