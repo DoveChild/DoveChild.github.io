@@ -706,11 +706,11 @@ UObject::ProcessEvent
 --> UNetDriver::ProcessRemoteFunction
 
 UNetDriver::ProcessRemoteFunction
---> bIsServerMulticast([bIsServerMulticast])
+--> bIsServerMulticast(bIsServerMulticast)
 
 bIsServerMulticast
 --TRUE-->UNetDriver::GetFunctionRepLayout
---Actor IsNetRelevant OR FUNC_NetReliable --> FRepLayout::BuildSharedSerializationForRPC
+--Actor IsNetRelevant || FUNC_NetReliable --> FRepLayout::BuildSharedSerializationForRPC
 --> UNetDriver::InternalProcessRemoteFunctionPrivate
 --> UNetDriver::ProcessRemoteFunctionForChannelPrivate
 
@@ -720,7 +720,7 @@ bIsServerMulticast
 --> UNetDriver::ProcessRemoteFunctionForChannelPrivate
 -- FRepLayout::SendPropertiesForRPC --> QueueBunch
 
-QueueBunch([NOT bReliable AND NetMulticast])
+QueueBunch(!bReliable & NetMulticast)
 
 QueueBunch--TRUE-->UChannel::SendBunch
 QueueBunch--FALSE-->UActorChannel::QueueRemoteFunctionBunch</pre>
@@ -1292,7 +1292,7 @@ D-.->|Register_Finish|C</pre>
 <p>在维护各个业务时，经常需要将一个上层的 <code>Manager</code>，下面再拆出若干个子系统，需要一种快捷的方法快速扩展出一套 <code>SUbSystem</code> 系统。</p>
 <h2 id="基本结构">基本结构</h2>
 <pre class="mermaid">classDiagram
-	Manager..>FGameSubSystemCollection
+	Manager-->FGameSubSystemCollection
 	class Manager {
 	SubSystemCollections : FGameSubSystemCollection~USubSystemBase~
 	}
@@ -1302,7 +1302,7 @@ D-.->|Register_Finish|C</pre>
 	
 	}
 	
-	FGameSubSystemCollection--|>FGameSubSystemCollectionBase
+	FGameSubSystemCollectionBase<|--FGameSubSystemCollection
 	class FGameSubSystemCollectionBase {
         Outer : TWeakObjectPtr~UObject~
         SubSystemMap : TMap[UClass*,TStrongObjectPtr~UGameSubSystemBase~]
@@ -1316,9 +1316,9 @@ D-.->|Register_Finish|C</pre>
         AddSubSystemByClass(UClass* SubSystemClass)
         RemoveSubSystemByClass(UClass* SubSystemClass)
     }
+   
     
-    Manager..>UGameSubSystemBase
-    
+    FGameSubSystemCollectionBase..>UGameSubSystemBase
     class UGameSubSystemBase {
     	LastTickTime : float
     	
@@ -1334,7 +1334,7 @@ D-.->|Register_Finish|C</pre>
     	
     }
     
-    UGameSubSystem--|>UGameSubSystemBase
+    UGameSubSystemBase<|--UGameSubSystem
     class UGameSubSystem {
     	# OnInit()
     	# OnUnInit()
@@ -1414,7 +1414,7 @@ D-.->|Register_Finish|C</pre>
     
     
     UTeamMemberSystem..>UTeam
-    UTeamMemberSystem--|>UTeamSubSystemBase
+    UTeamSubSystemBase<|--UTeamMemberSystem
     class UTeamMemberSystem {
     	+JoinTeam(TeamID, PlayerUID)
     	+LeaveTeam(PlayerUID)
@@ -1615,7 +1615,7 @@ TeamSubSystemBase--OnSync-->OtherSystem...</pre>
 		#OnTick()
 	}
 		
-	UGameplayBuff_TimeDuration --|> UGameplayBuffBase
+	UGameplayBuffBase <|-- UGameplayBuff_TimeDuration
 	UGameplayBuff_TimeDuration ..> FGameplayCountDownData
 	class UGameplayBuff_TimeDuration {
 		# TimeDuration : float
