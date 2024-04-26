@@ -705,16 +705,18 @@ UObject::ProcessEvent
 -- FunctionCallspace::Remote --> AActor::CallRemoteFunction
 --> UNetDriver::ProcessRemoteFunction
 
-UNetDriver::ProcessRemoteFunction
---> bIsServerMulticast(bIsServerMulticast)
+ServerMulticast(bIsServerMulticast)
 
-bIsServerMulticast
+UNetDriver::ProcessRemoteFunction
+--> ServerMulticast
+
+ServerMulticast
 --TRUE-->UNetDriver::GetFunctionRepLayout
 --Actor IsNetRelevant || FUNC_NetReliable --> FRepLayout::BuildSharedSerializationForRPC
 --> UNetDriver::InternalProcessRemoteFunctionPrivate
 --> UNetDriver::ProcessRemoteFunctionForChannelPrivate
 
-bIsServerMulticast
+ServerMulticast
 --FALSE--> UReplicationGraph::ProcessRemoteFunction
 --> UNetDriver::ProcessRemoteFunctionForChannel
 --> UNetDriver::ProcessRemoteFunctionForChannelPrivate
