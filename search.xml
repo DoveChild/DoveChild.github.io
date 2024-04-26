@@ -709,21 +709,21 @@ UNetDriver::ProcessRemoteFunction
 --> bIsServerMulticast([bIsServerMulticast])
 
 bIsServerMulticast
---true-->UNetDriver::GetFunctionRepLayout
---Actor IsNetRelevant || FUNC_NetReliable --> FRepLayout::BuildSharedSerializationForRPC
+--TRUE-->UNetDriver::GetFunctionRepLayout
+--Actor IsNetRelevant OR FUNC_NetReliable --> FRepLayout::BuildSharedSerializationForRPC
 --> UNetDriver::InternalProcessRemoteFunctionPrivate
 --> UNetDriver::ProcessRemoteFunctionForChannelPrivate
 
 bIsServerMulticast
---false--> UReplicationGraph::ProcessRemoteFunction
+--FALSE--> UReplicationGraph::ProcessRemoteFunction
 --> UNetDriver::ProcessRemoteFunctionForChannel
 --> UNetDriver::ProcessRemoteFunctionForChannelPrivate
 -- FRepLayout::SendPropertiesForRPC --> QueueBunch
 
-QueueBunch([!bReliable & NetMulticast])
+QueueBunch([NOT bReliable AND NetMulticast])
 
-QueueBunch--true-->UChannel::SendBunch
-QueueBunch--false-->UActorChannel::QueueRemoteFunctionBunch</pre>
+QueueBunch--TRUE-->UChannel::SendBunch
+QueueBunch--FALSE-->UActorChannel::QueueRemoteFunctionBunch</pre>
 <p><strong>Receive RPC</strong></p>
 <pre class="mermaid">flowchart TB
 
