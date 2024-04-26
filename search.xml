@@ -1853,7 +1853,7 @@ Deactivating-->*Loaded</pre>
 <h2 id="Actions">Actions</h2>
 <p>对于一个 <code>GameFeature</code> ，在 <code>Register</code>、<code>Unregister</code>、<code>Load</code>、<code>Activate</code>、<code>Deactive</code> 等行为时（也可以自己添加）会调用到 <code>GameFeatureData</code> 上配置的 <code>Actions</code> 的对应回调：</p>
 <img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202402220044126.png" alt="image-20240221155727741" style="zoom: 40%;" />
-<img src="E:\Pictures\_data\image-20240221155957459.png" alt="image-20240221155957459" style="zoom:50%;" />
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202404270306956.png" alt="image-20240221155957459" style="zoom:50%;" />
 <p>可以自定义各种各样的 <code>Actions</code>：</p>
 <img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202402220044309.png" alt="image-20240221155442578" style="zoom: 67%;" />
 <p><code>GameFeatureAction</code> 中有一个关键 <code>UGameFeatureAction_AddComponents</code> ，其主要是将 <code>Component</code> 注册进对应的 <code>Actor</code>，应用到了另一个模块 <code>ModularGameplay</code>。</p>
