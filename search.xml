@@ -472,9 +472,7 @@
     
     UReplicationGraphNode <|-- UReplicationGraphNode_ActorListFrequencyBuckets 
     
-    UReplicationGraphNode_ActorList <|-- UReplicationGraphNode_GridCell 
-    class UReplicationGraphNode_GridCell{
-    }
+    UReplicationGraphNode_ActorList <|-- UReplicationGraphNode_GridCell
     
     UReplicationGraphNode_ActorList <|-- UReplicationGraphNode_AlwaysRelevant_ForConnection 
     class UReplicationGraphNode_AlwaysRelevant_ForConnection{
