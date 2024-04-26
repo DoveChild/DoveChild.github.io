@@ -1057,7 +1057,7 @@ D-.->|Register_Finish|C</pre>
     }
     
     UCFSceneItemManager..>UCFScecneItemBase
-    class UCFSceneItemManager{
+    class UCFSceneItemManager {
     	friend UCFSceneItemUtils
     	- CreateItem(Type, UID, Params)
     	- DestroyItem(UID)
@@ -1076,14 +1076,7 @@ D-.->|Register_Finish|C</pre>
     }
     
     UCFScecneItem_WorldFlag--|>UCFScecneItemBase
-    class UCFScecneItem_WorldFlag {
-    
-    }
-    
-    UCFScecneItem_GoalPoint--|>UCFScecneItemBase
-    class UCFScecneItem_GoalPoint{
-    
-    }</pre>
+    UCFScecneItem_GoalPoint--|>UCFScecneItemBase</pre>
 <p>首先，需要 <code>UCFSceneItemManager</code> 负责管理所有的 <code>SceneItem</code>，同时通过 <code>UCFSceneItemUtils</code> 提供方法给外部调用。</p>
 <p>对于一个具体的 <code>SceneItem</code>，额外对其提供两个 <code>Component</code>，</p>
 <blockquote>
@@ -1555,9 +1548,9 @@ TeamSubSystemBase--OnSync-->OtherSystem...</pre>
 <p>对于 <code>Buff</code>，需要一个 <code>BuffBase</code> 作为 <code>Buff</code> 的基类；</p>
 <pre class="mermaid">classDiagram
 
-	UGameplayBuffManager ..> FGameplayBuffSetting
-	UGameplayBuffManager ..> UGameplayBuffComponent
-	UGameplayBuffManager ..> FGameplayBuffParams
+	UGameplayBuffManager..>FGameplayBuffSetting
+	UGameplayBuffManager..>UGameplayBuffComponent
+	UGameplayBuffManager..>FGameplayBuffParams
     class UGameplayBuffManager {
         BuffSettings : TMap~int|FGameplayBuffSetting~
         +CommitBuff(Target, BuffID, Params)
@@ -1570,7 +1563,7 @@ TeamSubSystemBase--OnSync-->OtherSystem...</pre>
         -CreateBuff(Target, BuffID, Params)
     }
     
-    UGameplayBuffComponent ..> UGameplayBuffBase
+    UGameplayBuffComponent..>UGameplayBuffBase
     class UGameplayBuffComponent {
     	BuffGroup : TArray~UGameplayBuffBase*~
         BuffIDArray : int (For Sync)
@@ -1603,8 +1596,7 @@ TeamSubSystemBase--OnSync-->OtherSystem...</pre>
     	SpeedFactor
     }
 	
-	UGameplayBuffBase ..> UGameplayBuffComponent
-	UGameplayBuffBase ..> FGameplayBuffParams
+	UGameplayBuffBase..>FGameplayBuffParams
 	class UGameplayBuffBase {
 		Owner : TWeakObjectPtr~UGameBuffComponent~
 		BuffID : int
@@ -1623,8 +1615,8 @@ TeamSubSystemBase--OnSync-->OtherSystem...</pre>
 		#OnTick()
 	}
 		
-	UGameplayBuffBase <|-- UGameplayBuff_TimeDuration
-	UGameplayBuff_TimeDuration ..> FGameplayCountDownData
+	UGameplayBuffBase<|--UGameplayBuff_TimeDuration
+	UGameplayBuff_TimeDuration..>FGameplayCountDownData
 	class UGameplayBuff_TimeDuration {
 		# TimeDuration : float
 		# PassDuration : float
@@ -1648,7 +1640,7 @@ TeamSubSystemBase--OnSync-->OtherSystem...</pre>
 		# OnTimeStateChanged()
 	}
 		
-	UGameplayBuffUtils ..> UGameplayBuffManager
+	UGameplayBuffUtils..>UGameplayBuffManager
 	class UGameplayBuffUtils {
 	}</pre>
 <h2 id="BuffManager">BuffManager</h2>
