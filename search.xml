@@ -1111,36 +1111,49 @@ D-.->|Register_Finish|C</pre>
     UCFScecneItem_GoalPoint--|>UCFScecneItemBase</pre>
 <pre class="mermaid">classDiagram
 
-    UCFSceneItem..>UCFSceneItemManager
-    class UCFSceneItem {
+    A..>B
+    class A {
+    
+    }
+    B..*C
+    class B {
     
     }
     
-    UCFSceneItemManager..>UCFSI
-    class UCFSceneItemManager {
+    class C {
     
     }
     
-    UCFSI..>UCFScnent
-    UCFSI..>UCFSconent</pre>
+    C..>D
+    class D {
+    
+    }</pre>
 <pre class="mermaid">classDiagram
 
     A..>B
     class A {
     
     }
-    B..>C
+    B..*C
     class B {
-    cccdc
+    
     }
-    C..*E
-    C..*F</pre>
+    class C {
+    
+    }</pre>
 <pre class="mermaid">classDiagram
 
     A..>B
-    B..>C
-    C..*E
-    C..*F</pre>
+    class A {
+    
+    }
+    B..*C
+    class B {
+    	Value
+    }
+    class C {
+    
+    }</pre>
 <p>首先，需要 <code>UCFSceneItemManager</code> 负责管理所有的 <code>SceneItem</code>，同时通过 <code>UCFSceneItemUtils</code> 提供方法给外部调用。</p>
 <p>对于一个具体的 <code>SceneItem</code>，额外对其提供两个 <code>Component</code>，</p>
 <blockquote>
