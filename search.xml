@@ -1052,9 +1052,6 @@ D-.->|Register_Finish|C</pre>
 <pre class="mermaid">classDiagram
 
     UCFSceneItemUtils..>UCFSceneItemManager
-    class UCFSceneItemUtils {
-    
-    }
     
     UCFSceneItemManager..>UCFScecneItemBase
     class UCFSceneItemManager {
@@ -1145,14 +1142,14 @@ D-.->|Register_Finish|C</pre>
 
     A..>B
     class A {
-    
+    	a
     }
     B..*C
     class B {
     	Value
     }
     class C {
-    
+    	c
     }</pre>
 <p>首先，需要 <code>UCFSceneItemManager</code> 负责管理所有的 <code>SceneItem</code>，同时通过 <code>UCFSceneItemUtils</code> 提供方法给外部调用。</p>
 <p>对于一个具体的 <code>SceneItem</code>，额外对其提供两个 <code>Component</code>，</p>
@@ -1717,9 +1714,7 @@ TeamSubSystemBase--OnSync-->OtherSystem...</pre>
 		# OnTimeStateChanged()
 	}
 		
-	UGameplayBuffUtils..>UGameplayBuffManager
-	class UGameplayBuffUtils {
-	}</pre>
+	UGameplayBuffUtils..>UGameplayBuffManager</pre>
 <h2 id="BuffManager">BuffManager</h2>
 <ol>
 <li>
