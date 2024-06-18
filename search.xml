@@ -293,7 +293,7 @@ Input
 <p>对于 <code>InputProcessor</code>，进行按键的原始输入处理，调用 <code>InputKey</code> 将将数据传递到 <code>InputCollector</code>，继续后续的操作；</p>
 <ol>
 <li>通过监听引擎原始的按键数据 <code>APlayerController::IsInputKeyDown(const FKey Key)</code>；</li>
-<li>允许外部调用输入，执行 <code>InputKey</code>；（比如某个 <code>UI</code> 点击触发输入）；</li>
+<li>允许外部调用输入，执行 <code>InputKey</code> （比如某个 <code>UI</code> 点击触发输入）；</li>
 </ol>
 <p>特别地，在 <code>Tick</code> 中进行原始数据处理；</p>
 <p>由于一般按键输入支持 <code>Ctrl / Shit / Alt / Cmd</code> + <code>Key</code>，需要对这种情况适配，同时防止按键冲突：对于<code>KeySetting(KeyType - 具体按键配置 映射)</code> 额外维护 <code>bCtrl (需要与 ctrl 组合)</code>、<code>MustNoCtrl (需要不按下 Ctrl)</code>；</p>
@@ -421,8 +421,7 @@ FSlateApplication::ProcessMouseButtonDownEvent
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> FReply <span class="title">NativeOnTouchStarted</span><span class="params">(<span class="keyword">const</span> FGeometry&amp; InGeometry, <span class="keyword">const</span> FPointerEvent&amp; InGestureEvent)</span> <span class="keyword">override</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">virtual</span> FReply <span class="title">NativeOnTouchMoved</span><span class="params">(<span class="keyword">const</span> FGeometry&amp; InGeometry, <span class="keyword">const</span> FPointerEvent&amp; InGestureEvent)</span> <span class="keyword">override</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">virtual</span> FReply <span class="title">NativeOnTouchEnded</span><span class="params">(<span class="keyword">const</span> FGeometry&amp; InGeometry, <span class="keyword">const</span> FPointerEvent&amp; InGestureEvent)</span> <span class="keyword">override</span></span>;</span><br></pre></td></tr></table></figure>
 <p>可以看到这里有 <code>GestureEvent</code>，也可以获取对应主要信息：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">FVector2D ScreenSpacePosition;</span><br><span class="line">FVector2D LastScreenSpacePosition;</span><br><span class="line">FVector2D CursorDelta;</span><br><span class="line"><span class="keyword">const</span> TSet&lt;FKey&gt;* PressedButtons;</span><br><span class="line">FKey EffectingButton;</span><br><span class="line">uint32 PointerIndex;</span><br><span class="line">uint32 TouchpadIndex;</span><br><span class="line"><span class="keyword">float</span> Force;</span><br><span class="line"><span class="keyword">bool</span> bIsTouchEvent;</span><br><span class="line">EGestureEvent GestureType;</span><br><span class="line">FVector2D WheelOrGestureDelta;</span><br><span class="line"><span class="keyword">bool</span> bIsDirectionInvertedFromDevice;</span><br><span class="line"><span class="keyword">bool</span> bIsTouchForceChanged;</span><br><span class="line"><span class="keyword">bool</span> bIsTouchFirstMove;</span><br></pre></td></tr></table></figure>
-<p>实际上，可以将这里的 <code>GestureRecognizer</code> 移到统一维护的 <code>InputManager</code> 中，将相关信息提供给各个业务查询，方便自定义与扩展。</p>
-<p>比如增加 <code>Tag</code> 限定提供给外部设置，当且仅当 <code>Tag</code> 一致时，进行对应 <code>Gesture</code> 更新等；</p>
+<p>实际上，可以将这里的 <code>GestureRecognizer</code> 移到统一维护的 <code>InputManager</code> 中，将相关信息提供给各个业务查询，方便自定义与扩展：比如增加 <code>Tag</code> 限定提供给外部设置，当且仅当 <code>Tag</code> 一致时，进行对应 <code>Gesture</code> 更新等。</p>
 <h2 id="参考">参考</h2>
 <p><em><strong>UE 5.4 源码</strong></em></p>
 ]]></content>
