@@ -2558,6 +2558,38 @@ TeamSubSystemBase--OnSync-->OtherSystem...</pre>
       </tags>
   </entry>
   <entry>
+    <title>[前端开发]WordCloud</title>
+    <url>/2024/03/02/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%5B%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%5DWordCloud/</url>
+    <content><![CDATA[<h1>WordCloud</h1>
+<p>生成词云：</p>
+<ol>
+<li>WordCloud.xlsx：</li>
+</ol>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202407131735546.png" alt="image-20240713173203532" style="zoom:50%;" />
+<ol start="2">
+<li>TestMask.png：尽量选择黑白区分明显的图片</li>
+</ol>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202407131735810.png" alt="image-20240713173248239" style="zoom:33%;" />
+<ol start="3">
+<li>Color 样式：</li>
+</ol>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202407131735690.png" alt="image-20240713173330058" style="zoom:50%;" />
+<ol start="4">
+<li>生成效果：</li>
+</ol>
+<img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202407131735581.png" alt="image-20240713173427452" style="zoom:50%;" />
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> wordcloud <span class="keyword">import</span> WordCloud</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 解码 txt 文本</span></span><br><span class="line"><span class="comment"># txt = open(r&quot;C:\Users\TestText.txt&quot;, encoding= &quot;utf-8&quot;).read()</span></span><br><span class="line"><span class="comment"># txt = jieba.lcut(txt) #jieba分词为列表</span></span><br><span class="line"><span class="comment"># txt = &quot; &quot;.join(txt) #用空格分隔词语，转化为一个长字符串</span></span><br><span class="line"><span class="comment"># stop = [] #设置停止词，如果长度小于等于1，则设置为停止词，例如标点符号和单个字</span></span><br><span class="line"><span class="comment"># for i in txt:</span></span><br><span class="line"><span class="comment">#     if len(i) &lt;= 1:</span></span><br><span class="line"><span class="comment">#         stop.append(i)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 解码 Excel</span></span><br><span class="line">df = pd.read_excel(<span class="string">r&#x27;C:\Users\WordCloud.xlsx&#x27;</span>)</span><br><span class="line">words = df.iloc[:, <span class="number">0</span>].tolist()</span><br><span class="line">frequencies = df.iloc[:, <span class="number">1</span>].tolist()</span><br><span class="line">txt = <span class="built_in">dict</span>(<span class="built_in">zip</span>(words, frequencies))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(txt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载字体文件和词云形状图片</span></span><br><span class="line">font_path = <span class="string">r&quot;C:\Users\TestFont.ttf&quot;</span></span><br><span class="line">mask_image_path = <span class="string">r&quot;C:\Users\TestMask.png&quot;</span></span><br><span class="line">mask_image =Image.<span class="built_in">open</span>(mask_image_path).convert(<span class="string">&#x27;L&#x27;</span>)</span><br><span class="line">mask_array = np.array(mask_image)</span><br><span class="line"></span><br><span class="line">wordcloud = WordCloud(</span><br><span class="line">    width=<span class="number">800</span>,</span><br><span class="line">    height=<span class="number">400</span>,</span><br><span class="line">    background_color=<span class="string">&quot;black&quot;</span>,   <span class="comment"># 设置词云背景颜色为白色</span></span><br><span class="line">    font_path=font_path,        <span class="comment"># 设置词云中的字体样式</span></span><br><span class="line">    colormap=<span class="string">&#x27;Pastel1&#x27;</span>,         <span class="comment"># 设置词云颜色方案为viridis</span></span><br><span class="line">    max_words=<span class="number">1000</span>,             <span class="comment"># 词云中显示的最大词语数量</span></span><br><span class="line">    max_font_size=<span class="number">100</span>,          <span class="comment"># 设置词云中的最大词语字体大小为500</span></span><br><span class="line">    scale=<span class="number">10</span>,                   <span class="comment"># 控制词云图像的清晰度，值越大越清晰</span></span><br><span class="line">    mask=mask_array,            <span class="comment"># 设置词云的形状为mask</span></span><br><span class="line">    collocations=<span class="literal">False</span>,         <span class="comment"># 启用词语组合，使词云中的词语能够形成搭配</span></span><br><span class="line">    prefer_horizontal=<span class="number">0.7</span>       <span class="comment"># 控制词云中横排文字的比例，值越大横排文字越多</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据词频数据生成词云图并保存</span></span><br><span class="line"><span class="comment"># 1. 根据 txt 生成</span></span><br><span class="line"><span class="comment"># wordcloud.generate(txt)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 根据 txt-频率 生成</span></span><br><span class="line">wordcloud.generate_from_frequencies(txt)</span><br><span class="line">wordcloud.to_file(<span class="string">r&#x27;C:\Users\wordcloud.jpg&#x27;</span>)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>网站开发</category>
+        <category>前端开发</category>
+      </categories>
+      <tags>
+        <tag>网站开发</tag>
+        <tag>前端开发</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[UE]GameplayBuffSystem框架</title>
     <url>/2024/02/23/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Gameplay/%5BUE%5DGameplayBuffSystem%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<h1>GameplayBuffSystem框架</h1>
