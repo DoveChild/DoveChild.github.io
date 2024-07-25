@@ -1283,9 +1283,11 @@ Now-..->C</pre>
 <p>动画曲线配合：从动画中提取曲线，配合曲线调整位移；比如移动，需要在脚落下的那一刻位移速度最大，其余阶段几乎不位移；</p>
 <p>攻击方、受击方动画、位移需要匹配；</p>
 <ol start="3">
-<li>受击表现：</li>
+<li>动作设计：</li>
 </ol>
-<p>受击动作，可以有夸张的表现，具体在 硬直、击退、击飞 等；同时可以添加骨骼抖动强化受击反馈；</p>
+<p><code>Anticipation &amp; Follow Through</code>：预期、跟随；在确定性的时间做更多奖励性的动作演出，此时玩家会更加专注，比如支援突击等玩家主动触发的明确时刻；利用跟随增强动画流畅感和力量感，比如格挡时的强化慢镜头，利用一些跟随，同时提供反应时间；再比如局外人物展示界面，在结束阶段利用 衣物飘带、尾巴 等动力学变化强化演出效果；</p>
+<p><code>Slow In / Slow Out</code>：慢入、快速表演、慢出；同时可以增加蓄力抖动等加强压迫感；</p>
+<p><code>Exaggeration &amp; Strong Posing</code>：夸张和强烈的动作；比如跳跃使用后空翻，提升视觉效果；受击动作，也可以有夸张的表现，具体在 硬直、击退、击飞 等；同时可以添加骨骼抖动强化反馈；</p>
 <ol start="4">
 <li>爽感优化</li>
 </ol>
@@ -1319,7 +1321,7 @@ Now-..->C</pre>
 </ol>
 <blockquote>
 <ol>
-<li>普通特效：技能本身效果（武器发光等），保证和场景颜色差异大；</li>
+<li>普通特效：技能本身效果（武器发光等），保证和场景颜色差异够大；</li>
 <li>粒子特效：与目标解除时出现 命中/防御/暴击 等粒子表现；场景破碎效果等；</li>
 <li>环境特效：对环境的氛围影响，场景灯光、场景变色；</li>
 <li>角色特效：角色自身的发光等表现；</li>
@@ -1400,6 +1402,7 @@ Now-..->C</pre>
 <p><a href="https://zhuanlan.zhihu.com/p/360843202">拳打冥王脚踢地府——《黑帝斯》战斗设计分析</a></p>
 <p><a href="https://game.academy.163.com/course/careerArticle?course=324">最畅爽的打击感从何而来？</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/342697831">《战双帕弥什》的动作打击感是怎么做出来的</a></p>
+<p><a href="https://indienova.com/indie-game-development/gdc-dreamscaper-killer-combat-on-an-indie-budget/">《层层梦境》：小型独立团队如何打造杀手级战斗系统</a></p>
 ]]></content>
       <categories>
         <category>游戏开发</category>
