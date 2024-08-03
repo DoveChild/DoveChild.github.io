@@ -7,7 +7,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202406132004013.png">
 <meta property="article:published_time" content="2024-06-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-06-18T13:39:52.447Z">
+<meta property="article:modified_time" content="2024-08-02T14:30:53.327Z">
 <meta property="article:author" content="BearChild">
 <meta property="article:tag" content="UE">
 <meta property="article:tag" content="3C">
@@ -59,7 +59,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-06-18 21:39:52'
+  postUpdate: '2024-08-02 22:30:53'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -142,7 +142,7 @@
         }
       }
     })(window)</script><link rel="stylesheet" href="/decoration/background.css"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="BearChild's Blog" type="application/atom+xml">
-</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/%E6%BB%91%E7%A8%BD.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">204</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-gamepad"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202406132004013.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">BearChild's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-gamepad"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">[UE]CharacterMovement源码浅析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-06-09T16:00:00.000Z" title="Created 2024-06-10 00:00:00">2024-06-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-06-18T13:39:52.447Z" title="Updated 2024-06-18 21:39:52">2024-06-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/3C/">3C</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="[UE]CharacterMovement源码浅析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>CharacterMovement源码浅析</h1>
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/usage/%E6%BB%91%E7%A8%BD.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">204</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">73</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-gamepad"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202406132004013.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">BearChild's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-gamepad"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fab fa-youtube"></i><span> 番剧</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">[UE]CharacterMovement源码浅析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-06-09T16:00:00.000Z" title="Created 2024-06-10 00:00:00">2024-06-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-08-02T14:30:53.327Z" title="Updated 2024-08-02 22:30:53">2024-08-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/3C/">3C</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="[UE]CharacterMovement源码浅析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>CharacterMovement源码浅析</h1>
 <h2 id="Base">Base</h2>
 <pre class="mermaid">classDiagram
 
@@ -367,6 +367,15 @@ HandleImpact
 <p>TODO…</p>
 <h3 id="ReplicateMoveToServer">ReplicateMoveToServer</h3>
 <p>对于 <code>AutonomousProxy Character</code> 将移动同步到服务器，同时进行 <code>Client</code> 本地的预表现；</p>
+<p>主要维护三种 <code>Move</code> 数据：</p>
+<blockquote>
+<ol>
+<li><code>Old Move</code>：当前还未被 <code>DS</code> <code>ACK</code> 的 <code>Move</code> 数据中，最早的一次 <code>Move</code>；</li>
+<li><code>New Move</code>：本次执行（即 <code>Client</code> 进行 <code>Perform</code>）的 <code>Move</code>；</li>
+<li><code>Pending Move</code>：若某次 <code>New Move</code> 还未进行同步（等待并包），将其存储在 <code>Pending Move</code> 中，等待下次同步带上该数据；</li>
+</ol>
+</blockquote>
+<p>在 <code>CallServerMovePacked</code> 时，打包三种 <code>Move</code> 同步；</p>
 <p>首先需要了解：<code>FNetworkPredictionData</code>；</p>
 <h4 id="FNetworkPredictionData">FNetworkPredictionData</h4>
 <p><code>PredictionData_Client_Character</code> 维护 <code>Client</code> 的 <code>Move</code> 相关数据，同时用于合并、丢弃、比较、标记更新等操作；</p>
@@ -469,8 +478,11 @@ CallServerMovePacked
 -->ServerMovePacked_ServerReceive
 
 ServerMovePacked_ServerReceive
+-->ServerMove_HandleMoveData
+
+ServerMove_HandleMoveData
 -->SetCurrentNetworkMoveData
-ServerMovePacked_ServerReceive
+ServerMove_HandleMoveData
 -->ServerMove_PerformMovement
 
 ServerMove_PerformMovement
@@ -481,7 +493,17 @@ ServerMove_PerformMovement
 
 MoveAutonomous
 -->PerformMovement</pre>
-<p>通过 <code>CallServerMovedPacked (UnreliableRPC)</code> 将打包的 <code>SaveMoves</code> 数据发送到 <code>DS</code>，<code>DS</code> 根据 <code>Client</code> 发送到的数据进行 <code>MoveAutonomouss</code> 与 校验数据合法性 <code>CheckClientError</code>，如果数据差异过大，则 <code>ServerData-&gt;PendingAdjustment.bAckGoodMove = false</code>；</p>
+<p>通过 <code>CallServerMovedPacked (UnreliableRPC)</code> 将打包的 <code>SaveMoves</code> 数据发送到 <code>DS</code>，<code>DS</code> 根据 <code>Client</code> 发送到的数据应用 <code>Move</code> 数据，进行<code>SetCurrentNetworkMoveData</code>、<code>ServerMove_PerformMovent</code>，同时在 <code>ServerMove_PerformMovent</code> 中 <code>MoveAutonomous</code> （内部还是 <code>PerformMovement</code>）与 校验数据合法性 <code>CheckClientError</code>；如果数据差异过大，则 <code>ServerData-&gt;PendingAdjustment.bAckGoodMove = false</code>；</p>
+<p><code>Move</code> 数据变化后，通过 <code>Replicate</code> 将其复制到 <code>Client</code>，主要涉及的数据有：</p>
+<blockquote>
+<ol>
+<li><code>bReplicateMovement</code>：标记是否要进行 <code>Move</code> 的同步；</li>
+<li><code>ReplicatedMovement</code>：移动数据；</li>
+<li><code>ReplicatedBasedMovement</code>：<code>Base</code> 的移动数据；</li>
+<li><code>ReplicatedMovementMode</code>：移动模式（<code>Walk</code>、<code>Fall</code> 等）</li>
+<li>其它数据：<code>Transform</code>、<code>RootMotion</code> 等；</li>
+</ol>
+</blockquote>
 <pre class="mermaid">flowchart LR
 
 UNetDriver::TickFlush
@@ -512,7 +534,7 @@ ServerSendMoveResponse
 -->MoveResponsePacked_ServerSend
 -->ClientMoveResponsePacked
 -->|Client|MoveResponsePacked_ClientReceive</pre>
-<p>同步时候向 <code>Client</code> 进行 <code>SendClientAdjust</code>，通知 <code>Client</code> 每次 <code>NewMove</code> 的结果；</p>
+<p>同步时候，也向 <code>Client</code> 进行 <code>SendClientAdjust</code>，通知 <code>Client</code> 每次 <code>NewMove</code> 的结果；</p>
 <p>根据 <code>ShouldUsePackedMovemtnRPCs</code> 决定是否需要 <code>ServerSendMoveResponse</code>；</p>
 <pre class="mermaid">flowchart LR
 
@@ -549,6 +571,7 @@ ACharacter::PostNetReceiveLocationAndRotation
 -->SmoothCorrection
 ACharacter::PostNetReceiveLocationAndRotation
 -->SetbNetworkUpdateReceived_true</pre>
+<p>数据同步后，<code>Client</code> 通过 <code>OnRep_ReplicatedBasedMovement</code>、<code>OnRep_ReplicatedMovement</code> 将坐标设置给 <code>Actor</code>；</p>
 <pre class="mermaid">flowchart LR
 
 TickComponent
@@ -629,6 +652,8 @@ SmoothClientPosition
 其中 <code>LerpLimit = 1.15f</code>，也是允许多平滑的比例；</li>
 <li>得到 <code>LerpPercent</code> 后，更新 <code>MeshTranslationOffset</code>、<code>MeshRotationOffset</code>；</li>
 </ol>
+<p>特别地，如果不是通过 <code>DS</code> 模式来进行同步（比如自定义协议），可以打包 <code>FRepMovement</code> 数据，然后手动进行 <code>Replicate</code> 模拟：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CharacterActor-&gt;<span class="built_in">PreNetReceive</span>();</span><br><span class="line">CharacterActor-&gt;<span class="built_in">SetReplicatedMovementMode</span>();</span><br><span class="line">CharacterActor-&gt;<span class="built_in">PostNetReceive</span>();</span><br><span class="line"></span><br><span class="line">CharacterActor-&gt;<span class="built_in">SetReplicatedMovement</span>();</span><br><span class="line">CharacterActor-&gt;<span class="built_in">OnRep_ReplicatedMovement</span>();</span><br></pre></td></tr></table></figure>
 <h2 id="参考">参考</h2>
 <p><em><strong>UE 5.4 源码</strong></em></p>
 <p><em><strong>大体框架：</strong></em><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/114341957">UE4 移动的网络同步</a></p>

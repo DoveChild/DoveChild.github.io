@@ -805,6 +805,15 @@ HandleImpact
 <p>TODO…</p>
 <h3 id="ReplicateMoveToServer">ReplicateMoveToServer</h3>
 <p>对于 <code>AutonomousProxy Character</code> 将移动同步到服务器，同时进行 <code>Client</code> 本地的预表现；</p>
+<p>主要维护三种 <code>Move</code> 数据：</p>
+<blockquote>
+<ol>
+<li><code>Old Move</code>：当前还未被 <code>DS</code> <code>ACK</code> 的 <code>Move</code> 数据中，最早的一次 <code>Move</code>；</li>
+<li><code>New Move</code>：本次执行（即 <code>Client</code> 进行 <code>Perform</code>）的 <code>Move</code>；</li>
+<li><code>Pending Move</code>：若某次 <code>New Move</code> 还未进行同步（等待并包），将其存储在 <code>Pending Move</code> 中，等待下次同步带上该数据；</li>
+</ol>
+</blockquote>
+<p>在 <code>CallServerMovePacked</code> 时，打包三种 <code>Move</code> 同步；</p>
 <p>首先需要了解：<code>FNetworkPredictionData</code>；</p>
 <h4 id="FNetworkPredictionData">FNetworkPredictionData</h4>
 <p><code>PredictionData_Client_Character</code> 维护 <code>Client</code> 的 <code>Move</code> 相关数据，同时用于合并、丢弃、比较、标记更新等操作；</p>
@@ -907,8 +916,11 @@ CallServerMovePacked
 -->ServerMovePacked_ServerReceive
 
 ServerMovePacked_ServerReceive
+-->ServerMove_HandleMoveData
+
+ServerMove_HandleMoveData
 -->SetCurrentNetworkMoveData
-ServerMovePacked_ServerReceive
+ServerMove_HandleMoveData
 -->ServerMove_PerformMovement
 
 ServerMove_PerformMovement
@@ -919,7 +931,17 @@ ServerMove_PerformMovement
 
 MoveAutonomous
 -->PerformMovement</pre>
-<p>通过 <code>CallServerMovedPacked (UnreliableRPC)</code> 将打包的 <code>SaveMoves</code> 数据发送到 <code>DS</code>，<code>DS</code> 根据 <code>Client</code> 发送到的数据进行 <code>MoveAutonomouss</code> 与 校验数据合法性 <code>CheckClientError</code>，如果数据差异过大，则 <code>ServerData-&gt;PendingAdjustment.bAckGoodMove = false</code>；</p>
+<p>通过 <code>CallServerMovedPacked (UnreliableRPC)</code> 将打包的 <code>SaveMoves</code> 数据发送到 <code>DS</code>，<code>DS</code> 根据 <code>Client</code> 发送到的数据应用 <code>Move</code> 数据，进行<code>SetCurrentNetworkMoveData</code>、<code>ServerMove_PerformMovent</code>，同时在 <code>ServerMove_PerformMovent</code> 中 <code>MoveAutonomous</code> （内部还是 <code>PerformMovement</code>）与 校验数据合法性 <code>CheckClientError</code>；如果数据差异过大，则 <code>ServerData-&gt;PendingAdjustment.bAckGoodMove = false</code>；</p>
+<p><code>Move</code> 数据变化后，通过 <code>Replicate</code> 将其复制到 <code>Client</code>，主要涉及的数据有：</p>
+<blockquote>
+<ol>
+<li><code>bReplicateMovement</code>：标记是否要进行 <code>Move</code> 的同步；</li>
+<li><code>ReplicatedMovement</code>：移动数据；</li>
+<li><code>ReplicatedBasedMovement</code>：<code>Base</code> 的移动数据；</li>
+<li><code>ReplicatedMovementMode</code>：移动模式（<code>Walk</code>、<code>Fall</code> 等）</li>
+<li>其它数据：<code>Transform</code>、<code>RootMotion</code> 等；</li>
+</ol>
+</blockquote>
 <pre class="mermaid">flowchart LR
 
 UNetDriver::TickFlush
@@ -950,7 +972,7 @@ ServerSendMoveResponse
 -->MoveResponsePacked_ServerSend
 -->ClientMoveResponsePacked
 -->|Client|MoveResponsePacked_ClientReceive</pre>
-<p>同步时候向 <code>Client</code> 进行 <code>SendClientAdjust</code>，通知 <code>Client</code> 每次 <code>NewMove</code> 的结果；</p>
+<p>同步时候，也向 <code>Client</code> 进行 <code>SendClientAdjust</code>，通知 <code>Client</code> 每次 <code>NewMove</code> 的结果；</p>
 <p>根据 <code>ShouldUsePackedMovemtnRPCs</code> 决定是否需要 <code>ServerSendMoveResponse</code>；</p>
 <pre class="mermaid">flowchart LR
 
@@ -987,6 +1009,7 @@ ACharacter::PostNetReceiveLocationAndRotation
 -->SmoothCorrection
 ACharacter::PostNetReceiveLocationAndRotation
 -->SetbNetworkUpdateReceived_true</pre>
+<p>数据同步后，<code>Client</code> 通过 <code>OnRep_ReplicatedBasedMovement</code>、<code>OnRep_ReplicatedMovement</code> 将坐标设置给 <code>Actor</code>；</p>
 <pre class="mermaid">flowchart LR
 
 TickComponent
@@ -1067,6 +1090,8 @@ SmoothClientPosition
 其中 <code>LerpLimit = 1.15f</code>，也是允许多平滑的比例；</li>
 <li>得到 <code>LerpPercent</code> 后，更新 <code>MeshTranslationOffset</code>、<code>MeshRotationOffset</code>；</li>
 </ol>
+<p>特别地，如果不是通过 <code>DS</code> 模式来进行同步（比如自定义协议），可以打包 <code>FRepMovement</code> 数据，然后手动进行 <code>Replicate</code> 模拟：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">CharacterActor-&gt;<span class="built_in">PreNetReceive</span>();</span><br><span class="line">CharacterActor-&gt;<span class="built_in">SetReplicatedMovementMode</span>();</span><br><span class="line">CharacterActor-&gt;<span class="built_in">PostNetReceive</span>();</span><br><span class="line"></span><br><span class="line">CharacterActor-&gt;<span class="built_in">SetReplicatedMovement</span>();</span><br><span class="line">CharacterActor-&gt;<span class="built_in">OnRep_ReplicatedMovement</span>();</span><br></pre></td></tr></table></figure>
 <h2 id="参考">参考</h2>
 <p><em><strong>UE 5.4 源码</strong></em></p>
 <p><em><strong>大体框架：</strong></em><a href="https://zhuanlan.zhihu.com/p/114341957">UE4 移动的网络同步</a></p>
