@@ -275,6 +275,47 @@
       </tags>
   </entry>
   <entry>
+    <title>[UE]FModel资源解包流程</title>
+    <url>/2024/08/30/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Resource/%5BUE%5DFModel%E8%B5%84%E6%BA%90%E8%A7%A3%E5%8C%85%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<h1>FModel资源解包流程</h1>
+<p>基于 <code>FModel</code> 的资源解包方案</p>
+<h2 id="USMAP-生成">USMAP 生成</h2>
+<p>通过 <code>DLL</code> 注入工具 <a href="https://dllinjector.net/">DLL Injector</a> 将 <a href="https://github.com/TheNaeem/UnrealMappingsDumper/releases">UnrealMappingsDumper</a> 注入到对应的游戏进程中：</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190332145.png" alt="image-20240827190332145"></p>
+<p><code>Inject</code> 后，会弹框并生成对应的 <code>.usmap</code> 文件</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190448051.png" alt="image-20240827190448051"></p>
+<h2 id="AES-Key">AES Key</h2>
+<p>下载 <a href="https://cs.rin.ru/forum/viewtopic.php?f=10&amp;t=100672">AES_finder</a>，将 <code>AES_finder.exe</code> 放在对应游戏目录下并运行，得到 <code>key.txt</code>，其中的内容就是 <code>AES Key</code>，即 <code>Advanced Encryption Standard</code> 密钥；</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190519480.png" alt="image-20240827190519480"></p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827162259155.png" alt="image-20240827162259155"></p>
+<h2 id="FModel">FModel</h2>
+<p>下载 <a href="https://fmodel.app/">FModel</a>，将目录选定到需要解包的游戏目录，设置对应的 <code>UE Versions</code>：</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190654658.png" alt="image-20240827190654658"></p>
+<p>打开后，可能会弹出如下报错：</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827160424229.png" alt="image-20240827160424229"></p>
+<p>检查如下目录：<code>./FModel/Output/.data</code> ，发现存在未解压的压缩包，将其解压后 <code>Restart</code>：</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190745629.png" alt="image-20240827190745629"></p>
+<p>正常打开后设置对应的 <code>Mapping File</code> 为之前生成的 <code>.usmap</code>：</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190823448.png" alt="image-20240827190823448"></p>
+<p>然后会发现左侧已经识别到对应的 <code>.pak</code>，但是 <code>[WRN] Could not load virtual paths, plugin manifest may not exist</code>，此时设置之前对应的 <code>AES Key</code> 即可：</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827171717461.png" alt="image-20240827171717461"></p>
+<p>然后可以看到获得了对应的 <code>.pak</code>：</p>
+<p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827164400003.png" alt="image-20240827164400003"></p>
+<h2 id="参考">参考</h2>
+<p><a href="https://www.bilibili.com/video/BV1aQWnewEGR/">AES获取与UModel解包</a></p>
+<p><a href="https://www.bilibili.com/video/BV12NWGehE8Z/">FModel解包教程与资产检索</a></p>
+<p><a href="https://www.bilibili.com/read/cv37491469/">《黑神话：悟空》MOD制作：模型替换教程</a></p>
+]]></content>
+      <categories>
+        <category>游戏开发</category>
+        <category>Resource</category>
+      </categories>
+      <tags>
+        <tag>UE</tag>
+        <tag>Resource</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[UE]网络时钟对齐解决方案</title>
     <url>/2024/08/15/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C/%5BUE%5D%E7%BD%91%E7%BB%9C%E6%97%B6%E9%92%9F%E5%AF%B9%E9%BD%90%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
     <content><![CDATA[<h1>网络时钟对齐解决方案</h1>

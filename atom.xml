@@ -6,7 +6,7 @@
   <link href="https://www.bearchild.top/atom.xml" rel="self"/>
   
   <link href="https://www.bearchild.top/"/>
-  <updated>2024-08-15T14:21:18.515Z</updated>
+  <updated>2024-09-02T15:33:12.854Z</updated>
   <id>https://www.bearchild.top/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[UE]FModel资源解包流程</title>
+    <link href="https://www.bearchild.top/2024/08/30/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Resource/[UE]FModel%E8%B5%84%E6%BA%90%E8%A7%A3%E5%8C%85%E6%B5%81%E7%A8%8B/"/>
+    <id>https://www.bearchild.top/2024/08/30/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Resource/[UE]FModel%E8%B5%84%E6%BA%90%E8%A7%A3%E5%8C%85%E6%B5%81%E7%A8%8B/</id>
+    <published>2024-08-29T16:00:00.000Z</published>
+    <updated>2024-09-02T15:33:12.854Z</updated>
+    
+    <content type="html"><![CDATA[<h1>FModel资源解包流程</h1><p>基于 <code>FModel</code> 的资源解包方案</p><h2 id="USMAP-生成">USMAP 生成</h2><p>通过 <code>DLL</code> 注入工具 <a href="https://dllinjector.net/">DLL Injector</a> 将 <a href="https://github.com/TheNaeem/UnrealMappingsDumper/releases">UnrealMappingsDumper</a> 注入到对应的游戏进程中：</p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190332145.png" alt="image-20240827190332145"></p><p><code>Inject</code> 后，会弹框并生成对应的 <code>.usmap</code> 文件</p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190448051.png" alt="image-20240827190448051"></p><h2 id="AES-Key">AES Key</h2><p>下载 <a href="https://cs.rin.ru/forum/viewtopic.php?f=10&amp;t=100672">AES_finder</a>，将 <code>AES_finder.exe</code> 放在对应游戏目录下并运行，得到 <code>key.txt</code>，其中的内容就是 <code>AES Key</code>，即 <code>Advanced Encryption Standard</code> 密钥；</p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190519480.png" alt="image-20240827190519480"></p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827162259155.png" alt="image-20240827162259155"></p><h2 id="FModel">FModel</h2><p>下载 <a href="https://fmodel.app/">FModel</a>，将目录选定到需要解包的游戏目录，设置对应的 <code>UE Versions</code>：</p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190654658.png" alt="image-20240827190654658"></p><p>打开后，可能会弹出如下报错：</p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827160424229.png" alt="image-20240827160424229"></p><p>检查如下目录：<code>./FModel/Output/.data</code> ，发现存在未解压的压缩包，将其解压后 <code>Restart</code>：</p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190745629.png" alt="image-20240827190745629"></p><p>正常打开后设置对应的 <code>Mapping File</code> 为之前生成的 <code>.usmap</code>：</p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827190823448.png" alt="image-20240827190823448"></p><p>然后会发现左侧已经识别到对应的 <code>.pak</code>，但是 <code>[WRN] Could not load virtual paths, plugin manifest may not exist</code>，此时设置之前对应的 <code>AES Key</code> 即可：</p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827171717461.png" alt="image-20240827171717461"></p><p>然后可以看到获得了对应的 <code>.pak</code>：</p><p><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/image-20240827164400003.png" alt="image-20240827164400003"></p><h2 id="参考">参考</h2><p><a href="https://www.bilibili.com/video/BV1aQWnewEGR/">AES获取与UModel解包</a></p><p><a href="https://www.bilibili.com/video/BV12NWGehE8Z/">FModel解包教程与资产检索</a></p><p><a href="https://www.bilibili.com/read/cv37491469/">《黑神话：悟空》MOD制作：模型替换教程</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;FModel资源解包流程&lt;/h1&gt;
+&lt;p&gt;基于 &lt;code&gt;FModel&lt;/code&gt; 的资源解包方案&lt;/p&gt;
+&lt;h2 id=&quot;USMAP-生成&quot;&gt;USMAP 生成&lt;/h2&gt;
+&lt;p&gt;通过 &lt;code&gt;DLL&lt;/code&gt; 注入工具 &lt;a href=&quot;https://dll</summary>
+      
+    
+    
+    
+    <category term="游戏开发" scheme="https://www.bearchild.top/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"/>
+    
+    <category term="Resource" scheme="https://www.bearchild.top/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/Resource/"/>
+    
+    
+    <category term="UE" scheme="https://www.bearchild.top/tags/UE/"/>
+    
+    <category term="Resource" scheme="https://www.bearchild.top/tags/Resource/"/>
+    
+  </entry>
   
   <entry>
     <title>[UE]网络时钟对齐解决方案</title>
@@ -596,39 +627,6 @@ Input
     <category term="UE" scheme="https://www.bearchild.top/tags/UE/"/>
     
     <category term="网络" scheme="https://www.bearchild.top/tags/%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[前端开发]WordCloud</title>
-    <link href="https://www.bearchild.top/2024/03/02/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/[%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91]WordCloud/"/>
-    <id>https://www.bearchild.top/2024/03/02/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/[%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91]WordCloud/</id>
-    <published>2024-03-01T16:00:00.000Z</published>
-    <updated>2024-07-13T09:37:47.889Z</updated>
-    
-    <content type="html"><![CDATA[<h1>WordCloud</h1><p>生成词云：</p><ol><li>WordCloud.xlsx：</li></ol><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202407131735546.png" alt="image-20240713173203532" style="zoom:50%;" /><ol start="2"><li>TestMask.png：尽量选择黑白区分明显的图片</li></ol><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202407131735810.png" alt="image-20240713173248239" style="zoom:33%;" /><ol start="3"><li>Color 样式：</li></ol><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202407131735690.png" alt="image-20240713173330058" style="zoom:50%;" /><ol start="4"><li>生成效果：</li></ol><img src="https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.com/img/articles/202407131735581.png" alt="image-20240713173427452" style="zoom:50%;" /><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> wordcloud <span class="keyword">import</span> WordCloud</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 解码 txt 文本</span></span><br><span class="line"><span class="comment"># txt = open(r&quot;C:\Users\TestText.txt&quot;, encoding= &quot;utf-8&quot;).read()</span></span><br><span class="line"><span class="comment"># txt = jieba.lcut(txt) #jieba分词为列表</span></span><br><span class="line"><span class="comment"># txt = &quot; &quot;.join(txt) #用空格分隔词语，转化为一个长字符串</span></span><br><span class="line"><span class="comment"># stop = [] #设置停止词，如果长度小于等于1，则设置为停止词，例如标点符号和单个字</span></span><br><span class="line"><span class="comment"># for i in txt:</span></span><br><span class="line"><span class="comment">#     if len(i) &lt;= 1:</span></span><br><span class="line"><span class="comment">#         stop.append(i)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 解码 Excel</span></span><br><span class="line">df = pd.read_excel(<span class="string">r&#x27;C:\Users\WordCloud.xlsx&#x27;</span>)</span><br><span class="line">words = df.iloc[:, <span class="number">0</span>].tolist()</span><br><span class="line">frequencies = df.iloc[:, <span class="number">1</span>].tolist()</span><br><span class="line">txt = <span class="built_in">dict</span>(<span class="built_in">zip</span>(words, frequencies))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(txt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载字体文件和词云形状图片</span></span><br><span class="line">font_path = <span class="string">r&quot;C:\Users\TestFont.ttf&quot;</span></span><br><span class="line">mask_image_path = <span class="string">r&quot;C:\Users\TestMask.png&quot;</span></span><br><span class="line">mask_image =Image.<span class="built_in">open</span>(mask_image_path).convert(<span class="string">&#x27;L&#x27;</span>)</span><br><span class="line">mask_array = np.array(mask_image)</span><br><span class="line"></span><br><span class="line">wordcloud = WordCloud(</span><br><span class="line">    width=<span class="number">800</span>,</span><br><span class="line">    height=<span class="number">400</span>,</span><br><span class="line">    background_color=<span class="string">&quot;black&quot;</span>,   <span class="comment"># 设置词云背景颜色为白色</span></span><br><span class="line">    font_path=font_path,        <span class="comment"># 设置词云中的字体样式</span></span><br><span class="line">    colormap=<span class="string">&#x27;Pastel1&#x27;</span>,         <span class="comment"># 设置词云颜色方案为viridis</span></span><br><span class="line">    max_words=<span class="number">1000</span>,             <span class="comment"># 词云中显示的最大词语数量</span></span><br><span class="line">    max_font_size=<span class="number">100</span>,          <span class="comment"># 设置词云中的最大词语字体大小为500</span></span><br><span class="line">    scale=<span class="number">10</span>,                   <span class="comment"># 控制词云图像的清晰度，值越大越清晰</span></span><br><span class="line">    mask=mask_array,            <span class="comment"># 设置词云的形状为mask</span></span><br><span class="line">    collocations=<span class="literal">False</span>,         <span class="comment"># 启用词语组合，使词云中的词语能够形成搭配</span></span><br><span class="line">    prefer_horizontal=<span class="number">0.7</span>       <span class="comment"># 控制词云中横排文字的比例，值越大横排文字越多</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据词频数据生成词云图并保存</span></span><br><span class="line"><span class="comment"># 1. 根据 txt 生成</span></span><br><span class="line"><span class="comment"># wordcloud.generate(txt)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 根据 txt-频率 生成</span></span><br><span class="line">wordcloud.generate_from_frequencies(txt)</span><br><span class="line">wordcloud.to_file(<span class="string">r&#x27;C:\Users\wordcloud.jpg&#x27;</span>)</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;WordCloud&lt;/h1&gt;
-&lt;p&gt;生成词云：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;WordCloud.xlsx：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;img src=&quot;https://bearchildbucket-1300061763.cos.ap-guangzhou.myqcloud.c</summary>
-      
-    
-    
-    
-    <category term="网站开发" scheme="https://www.bearchild.top/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"/>
-    
-    <category term="前端开发" scheme="https://www.bearchild.top/categories/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="网站开发" scheme="https://www.bearchild.top/tags/%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91/"/>
-    
-    <category term="前端开发" scheme="https://www.bearchild.top/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
