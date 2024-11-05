@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/j
 })()</script><script>if (document.getElementsByClassName('mermaid').length) {
   if (window.mermaidJsLoad) mermaid.init()
   else {
-    getScript('https://cdn.bootcdn.net/ajax/libs/mermaid/10.9.0/mermaid.min.js').then(() => {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(() => {
       window.mermaidJsLoad = true
       mermaid.initialize({
         theme: 'default',
