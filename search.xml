@@ -311,8 +311,6 @@
 	
 	UGameplayRequestUtils --> UGameplayRequestManager
 	UGameplayRequestUtils --> UGameplayRequestComponent
-	class UGameplayRequestUtils {
-	}
 
     class UGameplayRequestManager {
         +CreateRequest()
@@ -327,7 +325,7 @@
         +AcceptRequest()
         +RejectRequest()
         +GetFilter()
-        -Requests : TArray<UGameplayRequestBase*>
+        -Requests : TArray~UGameplayRequestBase*~
         -Filters : FGameplaySubSystemCollection<UGameplayRequestFilterBase>
     }
     
